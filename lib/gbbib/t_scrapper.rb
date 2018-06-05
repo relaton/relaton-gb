@@ -1,9 +1,12 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 
 require 'open-uri'
 require 'nokogiri'
 require 'gbbib/scrapper'
 require 'gbbib/gb_bibliographic_item'
+require 'gbbib/hit_collection'
+require 'gbbib/hit'
 
 module Gbbib
   # Social standard scarpper.
@@ -11,6 +14,9 @@ module Gbbib
     extend Scrapper
 
     class << self
+      # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+      # @param text [String]
+      # @return [Gbbib::HitCollection]
       def scrape_page(text)
         search_html = OpenURI.open_uri(
           'http://www.ttbz.org.cn/Home/Standard?searchType=2&key=' +
@@ -18,14 +24,28 @@ module Gbbib
         )
         header = Nokogiri::HTML search_html
         xpath = '//table[contains(@class, "standard_list_table")]/tr/td/a'
-        path = header.at(xpath)[:href].sub(%r{\/$}, '')
-        src = "http://www.ttbz.org.cn#{path}"
+        t_xpath = '../preceding-sibling::td[3]'
+        hits = header.xpath(xpath).map do |h|
+          title = h.at(t_xpath).text.gsub(/â\u0080\u0094/, '-')
+          Hit.new pid: h[:href].sub(%r{\/$}, ''), title: title, scrapper: self
+        end
+        HitCollection.new hits
+      end
+      # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+
+      # @param pid [String] standard's page path
+      # @return [Gbbib::GbBibliographicItem]
+      def scrape_doc(pid)
+        src = "http://www.ttbz.org.cn#{pid}"
         doc = Nokogiri::HTML OpenURI.open_uri(src), nil, Encoding::UTF_8.to_s
         GbBibliographicItem.new scrapped_data(doc, src: src)
       end
 
       private
 
+      # rubocop:disable Metrics/MethodLength
+      # @param doc [Nokogiri::HTML::Document]
+      # @return [Hash]
       def scrapped_data(doc, src:)
         docid_xpt  = '//td[contains(.,"标准编号")]/following-sibling::td[1]'
         status_xpt = '//td[contains(.,"标准状态")]/following-sibling::td[1]/span'
@@ -33,15 +53,18 @@ module Gbbib
           committee: get_committee(doc),
           docid:     get_docid(doc, docid_xpt),
           titles:    get_titles(doc),
-          type:      'social_group-standard',
+          type:      'standard',
           docstatus: get_status(doc, status_xpt),
-          gbtype:    get_gbtype(doc),
+          gbtype:    gbtype,
           ccs:       get_ccs(doc),
           ics:       get_ics(doc),
           source:    [{ type: 'src', content: src }],
-          dates:     get_dates(doc)
+          dates:     get_dates(doc),
+          language:  ['zh'],
+          script:    ['Hans']
         }
       end
+      # rubocop:enable Metrics/MethodLength
 
       def get_committee(doc)
         {
@@ -63,23 +86,22 @@ module Gbbib
         titles
       end
 
-      def get_gbtype(doc)
-        ref = doc.xpath('//dt[text()="标准号"]/following-sibling::dd[1]').text
-        { scope: 'social_group', prefix: 'T', group_code: get_group_code(ref),
-          mandate: 'mandatory' }
+      def gbtype
+        { scope: 'social-group', prefix: 'T', mandate: 'mandatory' }
       end
 
-      def get_group_code(ref)
-        ref.match(%r{(?<=\/)[^\s]})
-      end
+      # def get_group_code(ref)
+      #   ref.match(%r{(?<=\/)[^\s]})
+      # end
 
       def get_ccs(doc)
-        [doc.xpath('//td[contains(.,"中国标准分类号")]/following-sibling::td[1]').text]
+        [doc.xpath('//td[contains(.,"中国标准分类号")]/following-sibling::td[1]')
+            .text.gsub(/[\r\n]/, '').strip.match(/^[^\s]+/).to_s]
       end
 
       def get_ics(doc)
-        ics = doc.xpath('//td[contains(.,"国际标准分类号")]/following-sibling::td[1]/span')
-                 .text.match(/^[^\s]+/).to_s
+        xpath = '//td[contains(.,"国际标准分类号")]/following-sibling::td[1]/span'
+        ics = doc.xpath(xpath).text.match(/^[^\s]+/).to_s
         field, group, subgroup = ics.split '.'
         [{ field: field, group: group.ljust(3, '0'), subgroup: subgroup }]
       end
@@ -87,7 +109,7 @@ module Gbbib
       def get_dates(doc)
         d = doc.xpath('//td[contains(.,"发布日期")]/following-sibling::td[1]/span')
                .text.match(/(?<y>\d{4})[^\d]+(?<m>\d{2})[^\d]+(?<d>\d{2})/)
-        [{ type: 'published', from: "#{d[:y]}-#{d[:m]}-#{d[:d]}" }]
+        [{ type: 'published', on: "#{d[:y]}-#{d[:m]}-#{d[:d]}" }]
       end
     end
   end

@@ -67,7 +67,7 @@ JB:
   prefix: JB_mechanical
   administration: 国家发改委
 QC:
-  prefix: QC_automobile
+  prefix: QC_automotile
   administration: 国家发改委
 MH:
   prefix: MH_civil_aviation

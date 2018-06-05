@@ -13,5 +13,11 @@ module Gbbib
       @type = type
       @name = name
     end
+
+    def to_xml(builder)
+      builder.gbcommittee(type: @type) do
+        builder.text @name
+      end
+    end
   end
 end

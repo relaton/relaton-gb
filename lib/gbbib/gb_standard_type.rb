@@ -18,5 +18,13 @@ module Gbbib
       @prefix  = prefix
       @mandate = mandate
     end
+
+    def to_xml(builder)
+      builder.gbtype do
+        builder.gbscope @scope
+        builder.gbprefix @prefix
+        builder.gbmandate @mandate
+      end
+    end
   end
 end

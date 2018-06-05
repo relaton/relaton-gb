@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 require 'iso_bib_item'
 require 'cnccs'
+require 'gbbib/gb_technical_committee'
+require 'gbbib/gb_standard_type'
 
 module Gbbib
   # GB bibliographic item class.
@@ -24,6 +28,31 @@ module Gbbib
 
     def initialize(**args)
       super
+      @committee = GbTechnicalCommittee.new args[:committee]
+      @ccs = args[:ccs].map { |c| Cnccs.fetch c }
+      @gbtype = GbStandardType.new args[:gbtype]
+      @type = args[:type]
+    end
+
+    # @param builder [Nokogiri::XML::Builder]
+    # @return [String]
+    def to_xml(builder = nil, **opts)
+      if builder
+        super(builder, opts) { |xml| render_gbxml(xml) }
+      else
+        Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |bldr|
+          super(bldr, opts) { |xml| render_gbxml(xml) }
+        end.doc.root.to_xml
+      end
+    end
+
+    private
+
+    # @param builder [Nokogiri::XML::Builder]
+    def render_gbxml(builder)
+      committee.to_xml builder
+      gbtype.to_xml builder
+      ccs.each { |c| builder.ccs c.description } if ccs.any?
     end
   end
 end
