@@ -1,16 +1,20 @@
-# Gdbib
+= Gdbib
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/gdbib`. To experiment with that code, run `bin/console` for an interactive prompt.
+GbBib is a Ruby gem that search and fetch Chinese GB standards.
+The standards scraped form:
 
-TODO: Delete this and the text above, and describe your gem
+* GB standards - http://www.std.gov.cn/gb/search
+* Social organization standards - http://www.ttbz.org.cn
+* Sector standards - http://www.std.gov.cn/hb
 
-## Installation
+== Installation
 
 Add this line to your application's Gemfile:
 
-```ruby
+[source,ruby]
+----
 gem 'gdbib'
-```
+----
 
 And then execute:
 
@@ -20,20 +24,87 @@ Or install it yourself as:
 
     $ gem install gdbib
 
-## Usage
+== Usage
 
-TODO: Write usage instructions here
+=== Search document
 
-## Development
+[source,ruby]
+----
+hit_collection = Gbbib::GbBibliography.search "GB/T 20223-2006"
+
+hit_collection.size
+=> 10
+hit_collection.first
+=> <Gbbib::Hit:0x007ffa85128770 @fullIdentifier="" @title="GB/T 20223-2006  棉短绒">
+hit_collection[1]
+=> <Gbbib::Hit:0x007ffa85128040 @fullIdentifier="" @title="GB/T 20223-2018  棉短绒">
+res.first.title
+=> "GB/T 20223-2006  棉短绒"
+----
+
+=== Scrape document form collection
+
+[source,ruby]
+----
+res.first.fetch
+=> <Gbbib::GbBibliographicItem:0x007fba1115f798>
+res.first.fetch.committee
+=> <Gbbib::GbTechnicalCommittee:0x007fba1114dd68 @name="中国纤维检验局", @type="technical">
+res.first.fetch.gbtype
+=> <Gbbib::GbStandardType:0x007fba11175fc0 @mandate="recommended", @prefix="GB_national", @scope="national">
+res.first.fetch.ccs
+=> [<Cnccs::Ccs:0x007fba1114d9d0
+  @code="B32",
+  @description="纤维作物与产品",
+  @description_full="农业、林业; 经济作物; 纤维作物与产品",
+  @fieldcode="B",
+  @groupcode="30/39",
+  @notes=[<Cnccs::Note:0x007fba1120d730 @ccs_code="", @text="棉、麻等">],
+  @subgroupcode="32">]
+res.first.fetch.title
+=> [<IsoBibItem::IsoLocalizedTitle:0x007fba111567b0 @language="zh", @script="Hans", @title_intro="棉短绒", @title_main="[ -- ]", @title_part=nil>,
+ <IsoBibItem::IsoLocalizedTitle:0x007fba11156558 @language="en", @script="Latn", @title_intro="Cotton linter", @title_main="[ -- ]", @title_part=nil>]
+res.first.fetch.dates
+=> [<IsoBibItem::BibliographicDate:0x007fba1115cc28 @on=2006-01-03 00:00:00 +0100, @type="published">]
+----
+
+=== Serialization
+
+[source,ruby]
+----
+hit_collection.first.fetch.to_xml
+=><bibitem type='standard' id='20223-2006'>
+  <title format='text/plain' language='zh' script='Hans'>棉短绒 -- [ -- ]</title>
+  <title format='text/plain' language='en' script='Latn'>Cotton linter -- [ -- ]</title>
+  <source type='src'>http://www.std.gov.cn/gb/search/gbDetailed?id=5DDA8BA00FC618DEE05397BE0A0A95A7</source>
+  <docidentifier>20223-2006</docidentifier>
+  <date type='published'>
+    <on>2006</on>
+  </date>
+  <language>zh</language>
+  <script>Hans</script>
+  <status>obsoleted</status>
+  <ics>Natural fibres</ics>
+  <gbcommittee type='technical'>中国纤维检验局</gbcommittee>
+  <gbtype>
+    <gbscope>national</gbscope>
+    <gbprefix>GB_national</gbprefix>
+    <gbmandate>recommended</gbmandate>
+  </gbtype>
+  <ccs>纤维作物与产品</ccs>
+</bibitem>
+----
+
+== Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
-## Contributing
+== Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/gdbib.
 
-## License
+== License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).

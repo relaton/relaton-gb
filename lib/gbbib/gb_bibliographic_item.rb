@@ -46,6 +46,18 @@ module Gbbib
       end
     end
 
+    # @return [String]
+    def inspect
+      "<#{self.class}:#{format('%#.14x', object_id << 1)}>"
+      # "@fullIdentifier=\"#{@fetch&.shortref}\" "\
+      # "@title=\"#{title}\">"
+    end
+
+    # @return [String]
+    def to_s
+      inspect
+    end
+
     private
 
     # @param builder [Nokogiri::XML::Builder]
