@@ -8,12 +8,18 @@
   <language>zh</language>
   <script>Hans</script>
   <status>activated</status>
-  <ics>Industrial trucks</ics>
+  <ics>
+    <code>53.060</code>
+    <text>Industrial trucks</text>
+  </ics>
   <gbcommittee type="technical">国家发改委</gbcommittee>
   <gbtype>
     <gbscope>sector</gbscope>
     <gbprefix>JB_mechanical</gbprefix>
     <gbmandate>recommended</gbmandate>
   </gbtype>
-  <ccs>仓储设备、装卸机械</ccs>
+  <ccs>
+    <code>J83</code>
+    <text>仓储设备、装卸机械</text>
+  </ccs>
 </bibitem>

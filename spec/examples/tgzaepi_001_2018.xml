@@ -9,12 +9,18 @@
   <language>zh</language>
   <script>Hans</script>
   <status>activated</status>
-  <ics>Environment and environmental protection in general</ics>
+  <ics>
+    <code>13.020.01</code>
+    <text>Environment and environmental protection in general</text>
+  </ics>
   <gbcommittee type="technical">广州环境保护产业协会</gbcommittee>
   <gbtype>
     <gbscope>social-group</gbscope>
     <gbprefix>T</gbprefix>
     <gbmandate>mandatory</gbmandate>
   </gbtype>
-  <ccs>炊事机具、基础标准与通用方法</ccs>
+  <ccs>
+    <code>Y68</code>
+    <text>炊事机具、基础标准与通用方法</text>
+  </ccs>
 </bibitem>

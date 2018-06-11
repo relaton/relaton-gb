@@ -64,7 +64,13 @@ module Gbbib
     def render_gbxml(builder)
       committee.to_xml builder
       gbtype.to_xml builder
-      ccs.each { |c| builder.ccs c.description } if ccs.any?
+      return unless ccs.any?
+      ccs.each do |c|
+        builder.ccs do
+          builder.code c.code
+          builder.text_ c.description
+        end
+      end
     end
   end
 end

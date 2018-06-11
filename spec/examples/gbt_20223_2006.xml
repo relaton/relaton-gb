@@ -9,12 +9,18 @@
   <language>zh</language>
   <script>Hans</script>
   <status>obsoleted</status>
-  <ics>Natural fibres</ics>
+  <ics>
+    <code>59.060.10</code>
+    <text>Natural fibres</text>
+  </ics>
   <gbcommittee type="technical">中国纤维检验局</gbcommittee>
   <gbtype>
     <gbscope>national</gbscope>
     <gbprefix>GB_national</gbprefix>
     <gbmandate>recommended</gbmandate>
   </gbtype>
-  <ccs>纤维作物与产品</ccs>
+  <ccs>
+    <code>B32</code>
+    <text>纤维作物与产品</text>
+  </ccs>
 </bibitem>
