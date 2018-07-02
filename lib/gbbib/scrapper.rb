@@ -22,7 +22,7 @@ module Gbbib
         gbtype:    get_gbtype(doc),
         ccs:       get_ccs(doc),
         ics:       get_ics(doc),
-        source:    [{ type: 'src', content: src }],
+        link:    [{ type: 'src', content: src }],
         dates:     get_dates(doc),
         language:  ['zh'],
         script:    ['Hans']

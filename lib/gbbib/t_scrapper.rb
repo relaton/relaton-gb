@@ -58,7 +58,7 @@ module Gbbib
           gbtype:    gbtype,
           ccs:       get_ccs(doc),
           ics:       get_ics(doc),
-          source:    [{ type: 'src', content: src }],
+          link:    [{ type: 'src', content: src }],
           dates:     get_dates(doc),
           language:  ['zh'],
           script:    ['Hans']
