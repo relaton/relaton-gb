@@ -21,25 +21,25 @@ module Gbbib
       @hit_pages = hit_pages
     end
 
-    # @return [Isobib::HitCollection]
-    # def fetch
-    #   workers = WorkersPool.new 4
-    #   workers.worker(&:fetch)
-    #   each do |hit|
-    #     workers << hit
-    #   end
-    #   workers.end
-    #   workers.result
-    #   @fetched = true
-    #   self
-    # end
+    # @return [GbBib::HitCollection]
+    def fetch
+      workers = WorkersPool.new 4
+      workers.worker(&:fetch)
+      each do |hit|
+        workers << hit
+      end
+      workers.end
+      workers.result
+      @fetched = true
+      self
+    end
 
-    # def to_s
-    #   inspect
-    # end
-    #
-    # def inspect
-    # "<#{self.class}:#{format('%#.14x', object_id << 1)} @fetched=#{@fetched}>"
-    # end
+    def to_s
+      inspect
+    end
+    
+    def inspect
+      "<#{self.class}:#{format('%#.14x', object_id << 1)} @fetched=#{@fetched}>"
+    end
   end
 end

@@ -43,6 +43,8 @@ module Gbbib
       "@title=\"#{title}\">"
     end
 
+    # @param builder [Nokogiri::XML::Builder]
+    # @param opts [Hash]
     # @return [String]
     def to_xml(builder = nil, opts = {})
       if builder

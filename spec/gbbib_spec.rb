@@ -10,8 +10,7 @@ RSpec.describe Gbbib do
   end
 
   it 'fetch national standard' do
-    open_uri_stub 'GB/T 20223-2006', 'http://www.std.gov.cn/search/stdPage?q='
-    open_uri_stub '5DDA8BA00FC618DEE05397BE0A0A95A7', 'http://www.std.gov.cn/gb/search/gbDetailed?id='
+    open_uri_stub count: 2
     hits = Gbbib::GbBibliography.search 'GB/T 20223-2006'
     expect(hits).to be_instance_of Gbbib::HitCollection
     expect(hits.first).to be_instance_of Gbbib::Hit
@@ -22,9 +21,8 @@ RSpec.describe Gbbib do
   end
 
   it 'fetch sector standard' do
-    net_http_stub 'JB/T 13368-2018', 'http://www.std.gov.cn/hb/search/hbPage?searchText=',
-                  'json'
-    net_http_stub '6BC3AD94A1728ABCE05397BE0A0A5667', 'http://www.std.gov.cn/hb/search/stdHBDetailed?id='
+    net_http_stub 'json'
+    net_http_stub
     hits = Gbbib::GbBibliography.search 'JB/T 13368-2018'
     expect(hits).to be_instance_of Gbbib::HitCollection
     expect(hits.first).to be_instance_of Gbbib::Hit
@@ -35,8 +33,7 @@ RSpec.describe Gbbib do
   end
 
   it 'fetch social standard' do
-    open_uri_stub 'T/GZAEPI 001-2018', 'http://www.ttbz.org.cn/Home/Standard?searchType=2&key='
-    open_uri_stub '22746', 'http://www.ttbz.org.cn/StandardManage/Detail/'
+    open_uri_stub count: 2
     hits = Gbbib::GbBibliography.search 'T/GZAEPI 001-2018'
     expect(hits).to be_instance_of Gbbib::HitCollection
     expect(hits.first).to be_instance_of Gbbib::Hit
@@ -46,23 +43,62 @@ RSpec.describe Gbbib do
     expect(hits.first.fetch.to_xml).to be_equivalent_to File.read file_path
   end
 
-  # rubocop:disable Metrics/AbcSize
-  def open_uri_stub(ref, url, ext = 'html')
-    expect(OpenURI).to receive(:open_uri).and_wrap_original do |m, *args|
-      fetch_data(ref, ext) do
-        expect(args[0]).to eq url + CGI.escape(ref.tr('-', [8212].pack('U')))
-        m.call(args[0]).read
-      end
+  describe 'gbbib get' do
+    # let(:hits) { Gbbib::GbBibliography.search('19115') }
+
+    it "gets a code" do
+      open_uri_stub count: 3
+      results = Gbbib::GbBibliography.get('GB/T 5606.1', nil, {})
+      expect(results).to include %(<bibitem type="standard" id="GB/T5606-1">)
+      expect(results).to include %(<on>2004</on>)
+      expect(results).to include %(<docidentifier>GB/T 5606-1</docidentifier>)
+      expect(results).not_to include %(<docidentifier>GB/T 5606</docidentifier>)
+    end
+
+    it "gets an all-parts code" do
+      open_uri_stub count: 3
+      results = Gbbib::GbBibliography.get('GB/T 5606', nil, {all_parts: true})
+      expect(results).to include %(<bibitem type="standard" id="GB/T5606">)
+      expect(results).to include %(<docidentifier>GB/T 5606-1</docidentifier>)
+      expect(results).to include %(<docidentifier>GB/T 5606: All Parts</docidentifier>)
+    end
+
+    it "gets a code and year successfully" do
+      open_uri_stub count: 3
+      results = Gbbib::GbBibliography.get('GB/T 20223', "2006", {})
+      expect(results).to include %(<on>2006</on>)
+      expect(results).not_to include %(<docidentifier>GB/T 20223.1</docidentifier>)
+      expect(results).to include %(<docidentifier>GB/T 20223</docidentifier>)
+    end
+
+    it "gets a code and year unsuccessfully" do
+      open_uri_stub count: 3
+      results = Gbbib::GbBibliography.get('GB/T 20223', "2014", {})
+      expect(results).to be nil
+    end
+
+    it "gets a frozen reference for IEV" do
+      results = Gbbib::GbBibliography.get('IEV', nil, {})
+      expect(results).to include %(<bibitem type="international-standard" id="IEV">)
     end
   end
 
-  def net_http_stub(ref, url, ext = 'html')
+  private
+
+  # rubocop:disable Metrics/AbcSize
+  def open_uri_stub(ext = 'html', count: 1)
+    expect(OpenURI).to receive(:open_uri).and_wrap_original do |m, *args|
+      ref = args[0].match(/(?<==)[^=]+$|(?<=\/)\d+$/).to_s
+      expect(args[0]).to be_instance_of String
+      fetch_data(ref, ext) { m.call(args[0]).read }
+    end.exactly(count).times
+  end
+
+  def net_http_stub(ext = 'html')
     expect(Net::HTTP).to receive(:get).and_wrap_original do |m, *args|
-      fetch_data(ref, ext) do
-        expect(args[0]).to be_instance_of URI::HTTP
-        expect(args[0].to_s).to eq URI(url + ref).to_s
-        m.call args[0]
-      end.read
+      ref = args[0].to_s.match(/(?<==)[^=]+$|(?<=\/)\d+$/).to_s
+      expect(args[0]).to be_instance_of URI::HTTP
+      fetch_data(ref, ext) { m.call args[0] }.read
     end
   end
   # rubocop:enable Metrics/AbcSize
@@ -73,7 +109,8 @@ RSpec.describe Gbbib do
   end
 
   def fetch_data(ref, ext)
-    file = file_path ref, ext
+    decoded_ref = URI.decode_www_form_component(ref).tr([8212].pack('U'), '-')
+    file = file_path decoded_ref, ext
     File.write file, yield unless File.exist? file
     File.open file
   end

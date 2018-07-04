@@ -14,18 +14,19 @@ module Gbbib
     # @return [Hash]
     def scrapped_data(doc, src:)
       {
-        committee: get_committee(doc),
-        docid:     get_docid(doc),
-        titles:    get_titles(doc),
-        type:      get_type(doc),
-        docstatus: get_status(doc),
-        gbtype:    get_gbtype(doc),
-        ccs:       get_ccs(doc),
-        ics:       get_ics(doc),
-        link:    [{ type: 'src', content: src }],
-        dates:     get_dates(doc),
-        language:  ['zh'],
-        script:    ['Hans']
+        committee:    get_committee(doc),
+        docid:        get_docid(doc),
+        titles:       get_titles(doc),
+        contributors: get_contributors(doc),
+        type:         get_type(doc),
+        docstatus:    get_status(doc),
+        gbtype:       get_gbtype(doc),
+        ccs:          get_ccs(doc),
+        ics:          get_ics(doc),
+        link:       [{ type: 'src', content: src }],
+        dates:        get_dates(doc),
+        language:     ['zh'],
+        script:       ['Hans']
       }
     end
     # rubocop:enable Metrics/MethodLength
@@ -35,10 +36,16 @@ module Gbbib
     #   * :project_number [String]
     #   * :part_number [String]
     def get_docid(doc, xpt = '//dt[text()="标准号"]/following-sibling::dd[1]')
-      item_ref = doc.xpath(xpt)
-                    .text.match(/(?<=\s)(\d+)-?((?<=-)\d+|)/)
+      item_ref = doc.xpath(xpt).text.match(/(?<=\s)(\d+)\.?((?<=\.)\d+|)/)
       { project_number: item_ref[1], part_number: item_ref[2] }
     end
+
+    def get_contributors(doc, xpt = '//dt[text()="标准号"]/following-sibling::dd[1]')
+      name = doc.xpath(xpt).text.match(/^[^\s]+/).to_s
+      entity = IsoBibItem::Organization.new name: name, abbreviation: name
+      [{ entity: entity, roles: ['publisher'] }]
+    end
+    
 
     # @param doc [Nokogiri::HTML::Document]
     # @return [Array<Hash>]
