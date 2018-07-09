@@ -124,7 +124,7 @@ module Gbbib
       scope = doc.at('.s-status.label-info').text
       if scope == '国家标准'
         'national'
-      elsif scope.match?(/^行业标准/)
+      elsif scope =~ /^行业标准/
         'sector'
       end
     end

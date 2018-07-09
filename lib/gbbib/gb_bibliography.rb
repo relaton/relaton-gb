@@ -11,17 +11,17 @@ module Gbbib
       # @param text [Strin] code of standard for search
       # @return [Gbbib::HitCollection]
       def search(text)
-        if text.match?(/^(GB|GJ|GS)/)
+        if text =~ /^(GB|GJ|GS)/
           # Scrape national standards.
           require 'gbbib/gb_scrapper'
           GbScrapper.scrape_page text
-        elsif text.match?(/^ZB/)
+        elsif text =~ /^ZB/
           # Scrape proffesional.
-        elsif text.match?(/^DB/)
+        elsif text =~ /^DB/
           # Scrape local standard.
-        elsif text.match? %r{^Q\/}
+        elsif text =~ %r{^Q\/}
           # Enterprise standard
-        elsif text.match? %r{^T\/[^\s]{3,6}\s}
+        elsif text =~ %r{^T\/[^\s]{3,6}\s}
           # Scrape social standard.
           require 'gbbib/t_scrapper'
           TScrapper.scrape_page text
@@ -38,7 +38,7 @@ module Gbbib
       # @param opts [Hash] options; restricted to :all_parts if all-parts reference is required
       # @return [String] Relaton XML serialisation of reference
       def get(code, year, opts)
-        return iev.to_xml if code.casecmp? 'IEV'
+        return iev.to_xml if code.casecmp('IEV') == 0
         code += '.1' if opts[:all_parts]
         ret = get1(code, year, opts)
         return nil if ret.nil?
@@ -55,7 +55,7 @@ module Gbbib
           "The code must be exactly like it is on the website."
         warn "(There was no match for #{year}, though there were matches "\
           "found for #{missed_years.join(', ')}.)" unless missed_years.empty?
-        if /\d-\d/.match? code
+        if /\d-\d/ =~ code
           warn "The provided document part may not exist, or the document "\
             "may no longer be published in parts."
         else
@@ -67,7 +67,7 @@ module Gbbib
       end
 
       def get1(code, year, opts)
-        return iev if code.casecmp? "IEV"
+        return iev if code.casecmp("IEV") == 0
         result = search_filter(code) or return nil
         ret = results_filter(result, year)
         return ret[:ret] if ret[:ret]
@@ -81,7 +81,7 @@ module Gbbib
         result = search(code)
         ret = result.select do |hit|
           hit.title && hit.title.match(docidrx).to_s == code # &&
-            # !corrigrx.match?(hit.title)
+            # !corrigrx =~ hit.title
         end
         return ret unless ret.empty?
         []
