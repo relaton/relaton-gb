@@ -1,9 +1,9 @@
 PATH
   remote: .
   specs:
-    gbbib (0.1.4)
-      cnccs
-      iso-bib-item
+    gbbib (0.1.5)
+      cnccs (~> 0.1.1)
+      iso-bib-item (~> 0.1.10)
 
 GEM
   remote: https://rubygems.org/
@@ -17,14 +17,14 @@ GEM
     equivalent-xml (0.6.0)
       nokogiri (>= 1.4.3)
     iso-bib-item (0.1.10)
-      duplicate
+      duplicate (~> 1.1.1)
       isoics (~> 0.1.6)
       nokogiri
     isoics (0.1.6)
     json (2.1.0)
     method_source (0.9.0)
     mini_portile2 (2.3.0)
-    nokogiri (1.8.3)
+    nokogiri (1.8.4)
       mini_portile2 (~> 2.3.0)
     pry (0.11.3)
       coderay (~> 1.1.0)

@@ -30,7 +30,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'simplecov'
   spec.add_development_dependency "equivalent-xml", "~> 0.6"
 
-  spec.add_dependency 'cnccs'
-  spec.add_dependency 'iso-bib-item'
-  # spec.add_dependency 'nokogiri'
+  spec.add_dependency 'cnccs', "~> 0.1.1"
+  spec.add_dependency 'iso-bib-item', "~> 0.1.10"
 end
