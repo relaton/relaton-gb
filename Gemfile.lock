@@ -3,6 +3,7 @@ PATH
   specs:
     gbbib (0.1.5)
       cnccs (~> 0.1.1)
+      duplicate (~> 1.1.1)
       iso-bib-item (~> 0.1.10)
 
 GEM
