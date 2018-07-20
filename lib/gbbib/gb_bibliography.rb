@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'gbbib/gb_bibliographic_item'
 require 'gbbib/workers_pool'
 
 # GB bib module.
@@ -44,7 +45,7 @@ module Gbbib
         return nil if ret.nil?
         ret.to_most_recent_reference unless year
         ret.to_all_parts if opts[:all_parts]
-        ret.to_xml
+        ret
       end
 
       private

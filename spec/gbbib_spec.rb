@@ -48,7 +48,7 @@ RSpec.describe Gbbib do
 
     it "gets a code" do
       open_uri_stub count: 3
-      results = Gbbib::GbBibliography.get('GB/T 5606.1', nil, {})
+      results = Gbbib::GbBibliography.get('GB/T 5606.1', nil, {}).to_xml
       expect(results).to include %(<bibitem type="standard" id="GB/T5606-1">)
       expect(results).to include %(<on>2004</on>)
       expect(results).to include %(<docidentifier>GB/T 5606-1</docidentifier>)
@@ -57,7 +57,7 @@ RSpec.describe Gbbib do
 
     it "gets an all-parts code" do
       open_uri_stub count: 3
-      results = Gbbib::GbBibliography.get('GB/T 5606', nil, {all_parts: true})
+      results = Gbbib::GbBibliography.get('GB/T 5606', nil, {all_parts: true}).to_xml
       expect(results).to include %(<bibitem type="standard" id="GB/T5606">)
       expect(results).to include %(<docidentifier>GB/T 5606-1</docidentifier>)
       expect(results).to include %(<docidentifier>GB/T 5606: All Parts</docidentifier>)
@@ -65,7 +65,7 @@ RSpec.describe Gbbib do
 
     it "gets a code and year successfully" do
       open_uri_stub count: 3
-      results = Gbbib::GbBibliography.get('GB/T 20223', "2006", {})
+      results = Gbbib::GbBibliography.get('GB/T 20223', "2006", {}).to_xml
       expect(results).to include %(<on>2006</on>)
       expect(results).not_to include %(<docidentifier>GB/T 20223.1</docidentifier>)
       expect(results).to include %(<docidentifier>GB/T 20223</docidentifier>)

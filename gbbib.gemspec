@@ -31,5 +31,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "equivalent-xml", "~> 0.6"
 
   spec.add_dependency 'cnccs', "~> 0.1.1"
-  spec.add_dependency 'iso-bib-item', "~> 0.1.10"
+  spec.add_dependency 'iso-bib-item', "~> 0.2"
 end

@@ -3,7 +3,7 @@ PATH
   specs:
     gbbib (0.1.5)
       cnccs (~> 0.1.1)
-      iso-bib-item (~> 0.1.10)
+      iso-bib-item (~> 0.2)
 
 GEM
   remote: https://rubygems.org/
@@ -15,7 +15,7 @@ GEM
     docile (1.3.1)
     equivalent-xml (0.6.0)
       nokogiri (>= 1.4.3)
-    iso-bib-item (0.1.11)
+    iso-bib-item (0.2.1)
       isoics (~> 0.1.6)
       nokogiri (~> 1.8.4)
       ruby_deep_clone (~> 0.8.0)
