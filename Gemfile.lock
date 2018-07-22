@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    gbbib (0.1.5)
+    gbbib (0.2.0)
       cnccs (~> 0.1.1)
       iso-bib-item (~> 0.2)
 
