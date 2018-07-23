@@ -76,11 +76,6 @@ RSpec.describe Gbbib do
       results = Gbbib::GbBibliography.get('GB/T 20223', "2014", {})
       expect(results).to be nil
     end
-
-    it "gets a frozen reference for IEV" do
-      results = Gbbib::GbBibliography.get('IEV', nil, {})
-      expect(results).to include %(<bibitem type="international-standard" id="IEV">)
-    end
   end
 
   private

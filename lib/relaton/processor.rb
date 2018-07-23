@@ -6,7 +6,8 @@ module Relaton
 
       def initialize
         @short = :gbbib
-        @prefix = %r{^(GB|GJ|GS)|^ZB|^DB|^Q\/|^T\/[^\s]{3,6}\s}
+        #@prefix = %r{^(GB|GJ|GS)|^ZB|^DB|^Q\/|^T\/[^\s]{3,6}\s}
+        @prefix = %r{^GB Standard }
       end
 
       def get(code, date, opts)
