@@ -103,7 +103,7 @@ module Gbbib
     # @param doc [Nokogiri::HTML::Document]
     # @return [Array<String>]
     def get_ccs(doc)
-      [doc.xpath('//dt[text()="中国标准分类号"]/following-sibling::dd[1]').text]
+      [doc&.xpath('//dt[text()="中国标准分类号"]/following-sibling::dd[1]')&.text]
     end
 
     # @param doc [Nokogiri::HTML::Document]
@@ -113,6 +113,7 @@ module Gbbib
     #   * :subgroup [String]
     def get_ics(doc)
       ics = doc.xpath('//dt[(.="国际标准分类号")]/following-sibling::dd[1]/span')
+      ics.nil? && return []
       field, group, subgroup = ics.text.split '.'
       [{ field: field, group: group.ljust(3, '0'), subgroup: subgroup }]
     end
