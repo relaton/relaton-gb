@@ -54,12 +54,11 @@ module Gbbib
     #   * :language [String]
     #   * :script [String]
     def get_titles(doc)
-      titles = [{ title_intro: doc.css('div.page-header h4').text,
-                  title_main: '', language: 'zh', script: 'Hans' }]
-      title_intro = doc.css('div.page-header h5').text
-      unless title_intro.empty?
-        titles << { title_intro: title_intro, title_main: '', language: 'en',
-                    script: 'Latn' }
+      titles = [{ title_main: doc.css('div.page-header h4').text, title_intro: nil,
+                  language: 'zh', script: 'Hans' }]
+      title_main = doc.css('div.page-header h5').text
+      unless title_main.empty?
+        titles << { title_main: title_main, title_intro: nil, language: 'en', script: 'Latn' }
       end
       titles
     end

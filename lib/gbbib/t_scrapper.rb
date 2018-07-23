@@ -75,12 +75,12 @@ module Gbbib
 
       def get_titles(doc)
         xpath  = '//td[contains(.,"中文标题")]/following-sibling::td[1]'
-        titles = [{ title_intro: doc.xpath(xpath).text,
-                    title_main: '', language: 'zh', script: 'Hans' }]
+        titles = [{ title_main: doc.xpath(xpath).text,
+                    title_intro: nil, language: 'zh', script: 'Hans' }]
         xpath = '//td[contains(.,"英文标题")]/following-sibling::td[1]'
-        title_intro = doc.xpath(xpath).text
-        unless title_intro.empty?
-          titles << { title_intro: title_intro, title_main: '', language: 'en',
+        title_main = doc.xpath(xpath).text
+        unless title_main.empty?
+          titles << { title_main: title_main, title_intro: nil, language: 'en',
                       script: 'Latn' }
         end
         titles
