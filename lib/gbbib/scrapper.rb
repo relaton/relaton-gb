@@ -1,7 +1,8 @@
 # encoding: UTF-8
 # frozen_string_literal: true
 
-require 'yaml'
+require "yaml"
+require "gb_agencies"
 
 module Gbbib
   # Common scrapping methods.
@@ -37,12 +38,20 @@ module Gbbib
     #   * :part_number [String]
     def get_docid(doc, xpt = '//dt[text()="标准号"]/following-sibling::dd[1]')
       item_ref = doc.xpath(xpt).text.match(/(?<=\s)(\d+)\.?((?<=\.)\d+|)/)
-      { project_number: item_ref[1], part_number: item_ref[2] }
+      prefix = doc.xpath(xpt).text.match(/^[^\s]+/).to_s
+      { project_number: item_ref[1], part_number: item_ref[2], prefix: prefix }
     end
 
     def get_contributors(doc, xpt = '//dt[text()="标准号"]/following-sibling::dd[1]')
+      gb_en = GbAgencies::Agencies.new("en", {}, "")
+      gb_zh = GbAgencies::Agencies.new("zh", {}, "")
       name = doc.xpath(xpt).text.match(/^[^\s]+/).to_s
-      entity = IsoBibItem::Organization.new name: name, abbreviation: name
+      name.sub!(%r{/[TZ]$}, "") unless name.match?(/^GB/)
+      gbtype = get_gbtype(doc)
+      entity = IsoBibItem::Organization.new name: [
+        {language: "en", content: gb_en.standard_agency1(gbtype[:scope], name, gbtype[:mandate]) },
+        {language: "zh", content: gb_zh.standard_agency1(gbtype[:scope], name, gbtype[:mandate]) },
+      ]
       [{ entity: entity, roles: ['publisher'] }]
     end
     
@@ -113,7 +122,7 @@ module Gbbib
     #   * :subgroup [String]
     def get_ics(doc)
       ics = doc.xpath('//dt[(.="国际标准分类号")]/following-sibling::dd[1]/span')
-      ics.nil? && return []
+      ics.empty? and return []
       field, group, subgroup = ics.text.split '.'
       [{ field: field, group: group.ljust(3, '0'), subgroup: subgroup }]
     end

@@ -32,4 +32,5 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'cnccs', "~> 0.1.1"
   spec.add_dependency 'iso-bib-item', "~> 0.2"
+  spec.add_dependency 'gb-agencies', "~> 0.0.1"
 end

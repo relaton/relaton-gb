@@ -58,6 +58,15 @@ module Gbbib
       inspect
     end
 
+    def id(attribute, delim = '')
+      return nil if attribute && !@id_attribute
+      idstr = "#{@docidentifier.prefix}#{delim}#{@docidentifier.project_number}"
+      if @docidentifier.part_number&.size&.positive?
+        idstr = idstr + "-#{@docidentifier.part_number}"
+      end
+      idstr.strip
+    end
+
     private
 
     # @param builder [Nokogiri::XML::Builder]
