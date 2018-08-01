@@ -46,7 +46,7 @@ module Gbbib
       gb_en = GbAgencies::Agencies.new("en", {}, "")
       gb_zh = GbAgencies::Agencies.new("zh", {}, "")
       name = doc.xpath(xpt).text.match(/^[^\s]+/).to_s
-      name.sub!(%r{/[TZ]$}, "") unless name.match?(/^GB/)
+      name.sub!(%r{/[TZ]$}, "") unless name.match(/^GB/)
       gbtype = get_gbtype(doc)
       entity = IsoBibItem::Organization.new name: [
         {language: "en", content: gb_en.standard_agency1(gbtype[:scope], name, gbtype[:mandate]) },
