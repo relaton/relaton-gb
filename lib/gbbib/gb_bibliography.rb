@@ -39,7 +39,6 @@ module Gbbib
       # @param opts [Hash] options; restricted to :all_parts if all-parts reference is required
       # @return [String] Relaton XML serialisation of reference
       def get(code, year, opts)
-        return iev.to_xml if code.casecmp('IEV') == 0
         code += '.1' if opts[:all_parts]
         ret = get1(code, year, opts)
         return nil if ret.nil?
@@ -68,7 +67,6 @@ module Gbbib
       end
 
       def get1(code, year, opts)
-        return iev if code.casecmp("IEV") == 0
         result = search_filter(code) or return nil
         ret = results_filter(result, year)
         return ret[:ret] if ret[:ret]
@@ -114,42 +112,6 @@ module Gbbib
         s.each_with_index { |hit, i| workers << { i: i, hit: hit } }
         workers.end
         workers.result.sort { |x, y| x[:i] <=> y[:i] }.map { |x| x[:hit] }
-      end
-
-      def iev
-        Nokogiri::XML.fragment(<<~"END")
-          <bibitem type="international-standard" id="IEV">
-            <title format="text/plain" language="en" script="Latn">Electropedia: The World's Online Electrotechnical Vocabulary</title>
-            <source type="src">http://www.electropedia.org</source>
-            <docidentifier>IEV</docidentifier>
-            <date type="published"> <on>#{Date.today.year}</on> </date>
-            <contributor>
-              <role type="publisher"/>
-              <organization>
-                <name>International Electrotechnical Commission</name>
-                <abbreviation>IEC</abbreviation>
-                <uri>www.iec.ch</uri>
-              </organization>
-            </contributor>
-            <language>en</language> <language>fr</language>
-            <script>Latn</script>
-            <copyright>
-              <from>#{Date.today.year}</from>
-              <owner>
-                <organization>
-                <name>International Electrotechnical Commission</name>
-                <abbreviation>IEC</abbreviation>
-                <uri>www.iec.ch</uri>
-                </organization>
-              </owner>
-            </copyright>
-            <relation type="updates">
-              <bibitem>
-                <formattedref>IEC 60050</formattedref>
-              </bibitem>
-            </relation>
-          </bibitem>
-        END
       end
     end
   end
