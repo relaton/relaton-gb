@@ -67,7 +67,7 @@ RSpec.describe Gbbib do
       open_uri_stub count: 3
       results = Gbbib::GbBibliography.get('GB/T 20223', "2006", {}).to_xml
       expect(results).to include %(<on>2006</on>)
-      expect(results).not_to include %(<docidentifier>GB/T 20223.1</docidentifier>)
+      expect(results).not_to include %(<docidentifier>GB/T 20223-1</docidentifier>)
       expect(results).to include %(<docidentifier>GB/T 20223</docidentifier>)
     end
 

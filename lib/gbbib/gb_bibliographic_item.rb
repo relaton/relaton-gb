@@ -58,11 +58,12 @@ module Gbbib
       inspect
     end
 
-    def id(attribute, delim = '')
+    def makeid(id, attribute, delim = '')
       return nil if attribute && !@id_attribute
-      idstr = "#{@docidentifier.prefix}#{delim}#{@docidentifier.project_number}"
-      if @docidentifier.part_number&.size&.positive?
-        idstr = idstr + "-#{@docidentifier.part_number}"
+      id = @docidentifier.reject { |i| i.type == "DOI" }[0] unless id
+      idstr = id.project_number.to_s
+      if id.part_number&.size&.positive?
+        idstr = idstr + "-#{id.part_number}"
       end
       idstr.strip
     end
