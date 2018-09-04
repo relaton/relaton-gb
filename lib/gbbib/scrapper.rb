@@ -37,9 +37,12 @@ module Gbbib
     #   * :project_number [String]
     #   * :part_number [String]
     def get_docid(doc, xpt = '//dt[text()="标准号"]/following-sibling::dd[1]')
-      item_ref = doc.xpath(xpt).text.match(/^([^–—.-]*\d+)\.?((?<=\.)\d+|)/)
+      item_ref = doc.xpath(xpt) or
+        return { project_number: "?", part_number: "?", prefix: nil, id: "?" }
+      m = item_ref.text.match(/^([^–—.-]*\d+)\.?((?<=\.)\d+|)/)
       #prefix = doc.xpath(xpt).text.match(/^[^\s]+/).to_s
-      { project_number: item_ref[1], part_number: item_ref[2], prefix: nil }
+      { project_number: m[1], part_number: m[2], prefix: nil,
+        id: item_ref.text, type: "Chinese Standard" }
     end
 
     def get_contributors(doc, xpt = '//dt[text()="标准号"]/following-sibling::dd[1]')
@@ -54,7 +57,7 @@ module Gbbib
       ]
       [{ entity: entity, roles: ['publisher'] }]
     end
-    
+
 
     # @param doc [Nokogiri::HTML::Document]
     # @return [Array<Hash>]
