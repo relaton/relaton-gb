@@ -8,6 +8,7 @@ module Relaton
         @short = :gbbib
         @prefix = "CN"
         @defaultprefix = %r{^GB }
+        @idtype = "Chinese Standard"
       end
 
       def get(code, date, opts)
