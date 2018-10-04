@@ -4,6 +4,7 @@ require 'iso_bib_item'
 require 'cnccs'
 require 'gbbib/gb_technical_committee'
 require 'gbbib/gb_standard_type'
+require 'gbbib/xml_parser'
 
 module Gbbib
   # GB bibliographic item class.

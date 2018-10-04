@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "relaton/processor"
 
 module Relaton
@@ -13,6 +15,10 @@ module Relaton
 
       def get(code, date, opts)
         ::Gbbib::GbBibliography.get(code, date, opts)
+      end
+
+      def from_xml(xml)
+        ::Gbbib::XMLParser.from_xml xml
       end
     end
   end

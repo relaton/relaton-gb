@@ -76,6 +76,13 @@ RSpec.describe Gbbib do
       results = Gbbib::GbBibliography.get('GB/T 20223', "2014", {})
       expect(results).to be nil
     end
+
+    it 'create GbBibliographicItem from XML' do
+      xml = File.read 'spec/examples/gbt_20223_2006.xml'
+      item = Gbbib::XMLParser.from_xml xml
+      expect(item).to be_instance_of Gbbib::GbBibliographicItem
+      expect(item.to_xml).to be_equivalent_to xml
+    end
   end
 
   private
