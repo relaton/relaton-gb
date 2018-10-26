@@ -17,7 +17,7 @@ RSpec.describe Gbbib do
     expect(hits.first.fetch).to be_instance_of Gbbib::GbBibliographicItem
     file_path = 'spec/examples/gbt_20223_2006.xml'
     File.write file_path, hits.first.fetch.to_xml unless File.exist? file_path
-    expect(hits.first.fetch.to_xml).to be_equivalent_to File.read file_path
+    expect(hits.first.fetch.to_xml).to be_equivalent_to File.read(file_path).sub(%r{<fetched>[^<]+</fetched>}, "<fetched>#{Date.today}</fetched>")
   end
 
   it 'fetch sector standard' do
@@ -29,7 +29,7 @@ RSpec.describe Gbbib do
     expect(hits.first.fetch).to be_instance_of Gbbib::GbBibliographicItem
     file_path = 'spec/examples/jbt_13368_2018.xml'
     File.write file_path, hits.first.fetch.to_xml unless File.exist? file_path
-    expect(hits.first.fetch.to_xml).to be_equivalent_to File.read file_path
+    expect(hits.first.fetch.to_xml).to be_equivalent_to File.read(file_path).sub(%r{<fetched>[^<]+</fetched>}, "<fetched>#{Date.today}</fetched>")
   end
 
   it 'fetch social standard' do
@@ -40,7 +40,7 @@ RSpec.describe Gbbib do
     expect(hits.first.fetch).to be_instance_of Gbbib::GbBibliographicItem
     file_path = 'spec/examples/tgzaepi_001_2018.xml'
     File.write file_path, hits.first.fetch.to_xml unless File.exist? file_path
-    expect(hits.first.fetch.to_xml).to be_equivalent_to File.read file_path
+    expect(hits.first.fetch.to_xml).to be_equivalent_to File.read(file_path).sub(%r{<fetched>[^<]+</fetched>}, "<fetched>#{Date.today}</fetched>")
   end
 
   describe 'gbbib get' do
@@ -81,7 +81,7 @@ RSpec.describe Gbbib do
       xml = File.read 'spec/examples/gbt_20223_2006.xml'
       item = Gbbib::XMLParser.from_xml xml
       expect(item).to be_instance_of Gbbib::GbBibliographicItem
-      expect(item.to_xml).to be_equivalent_to xml
+      expect(item.to_xml).to be_equivalent_to xml.sub(%r{<fetched>[^<]+</fetched>}, "<fetched>#{Date.today}</fetched>")
     end
   end
 
