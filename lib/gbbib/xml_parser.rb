@@ -35,7 +35,7 @@ module Gbbib
       end
 
       def fetch_committee(doc)
-        committee = doc.at '/bibitem/gbcommittee' || return nil
+        committee = doc.at '/bibitem/gbcommittee' or return nil
         { type: committee[:type], name: committee.text }
       end
 
