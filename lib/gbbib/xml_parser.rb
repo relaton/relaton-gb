@@ -35,7 +35,7 @@ module Gbbib
       end
 
       def fetch_committee(doc)
-        committee = doc.at '/bibitem/gbcommittee'
+        committee = doc.at '/bibitem/gbcommittee' || return nil
         { type: committee[:type], name: committee.text }
       end
 
@@ -46,9 +46,9 @@ module Gbbib
       def fetch_gbtype(doc)
         gbtype = doc.at '/bibitem/gbtype'
         {
-          scope: gbtype.at('gbscope').text,
-          prefix: gbtype.at('gbprefix').text,
-          mandate: gbtype.at('gbmandate').text
+          scope: gbtype&.at('gbscope')&.text,
+          prefix: gbtype&.at('gbprefix')&.text,
+          mandate: gbtype&.at('gbmandate')&.text
         }
       end
     end
