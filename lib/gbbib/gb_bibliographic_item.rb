@@ -29,7 +29,7 @@ module Gbbib
 
     def initialize(**args)
       super
-      @committee = GbTechnicalCommittee.new args[:committee]
+      args[:committee] and @committee = GbTechnicalCommittee.new(args[:committee])
       @ccs = args[:ccs].map { |c| Cnccs.fetch c }
       @gbtype = GbStandardType.new args[:gbtype]
       @type = args[:type]
@@ -73,7 +73,7 @@ module Gbbib
 
     # @param builder [Nokogiri::XML::Builder]
     def render_gbxml(builder)
-      committee.to_xml builder
+      committee.to_xml builder if committee
       gbtype.to_xml builder
       return unless ccs.any?
       ccs.each do |c|
