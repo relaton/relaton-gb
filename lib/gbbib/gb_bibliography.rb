@@ -51,7 +51,7 @@ module Gbbib
 
       def fetch_ref_err(code, year, missed_years)
         id = year ? "#{code}:#{year}" : code
-        warn "WARNING: no match found on the ISO website for #{id}. "\
+        warn "WARNING: no match found on the GB website for #{id}. "\
           "The code must be exactly like it is on the website."
         warn "(There was no match for #{year}, though there were matches "\
           "found for #{missed_years.join(', ')}.)" unless missed_years.empty?
