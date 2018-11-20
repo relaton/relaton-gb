@@ -69,7 +69,6 @@ module Gbbib
 
       def get1(code, year, opts)
         # search must include year whenever available
-        require "byebug"; byebug
         searchcode = code + (year.nil? ? "" : "-#{year}")
         result = search_filter(searchcode) or return nil
         ret = results_filter(result, year)
