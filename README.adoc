@@ -12,6 +12,10 @@ The standards scraped form:
 * Social organization standards - http://www.ttbz.org.cn
 * Sector standards - http://www.std.gov.cn/hb
 
+NOTE: Unlike the ISO website, the GB websites require the year of publication to be included in the search.
+So a standard will not be found successfully through this gem unless the year is included in its document
+identifier: for example, not `CN(GB/T 1.1)`, but `CN(GB/T 1.1-2009)`.
+
 == Installation
 
 Add this line to your application's Gemfile:
