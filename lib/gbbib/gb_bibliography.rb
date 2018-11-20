@@ -40,6 +40,7 @@ module Gbbib
       # @return [String] Relaton XML serialisation of reference
       def get(code, year, opts)
         code += '.1' if opts[:all_parts]
+        code, year = code.split(/-/, 2) if /-/.match(code)
         ret = get1(code, year, opts)
         return nil if ret.nil?
         ret.to_most_recent_reference unless year
@@ -67,14 +68,18 @@ module Gbbib
       end
 
       def get1(code, year, opts)
-        result = search_filter(code) or return nil
+        # search must include year whenever available
+        require "byebug"; byebug
+        searchcode = code + (year.nil? ? "" : "-#{year}")
+        result = search_filter(searchcode) or return nil
         ret = results_filter(result, year)
         return ret[:ret] if ret[:ret]
         fetch_ref_err(code, year, ret[:years])
       end
 
       def search_filter(code)
-        docidrx = %r{^[^\s]+\s[\d\.]+}
+        # search filter needs to incorporate year
+        docidrx = %r{^[^\s]+\s[\d\.-]+}
         # corrigrx = %r{^[^\s]+\s[\d\.]+-[0-9]+/}
         warn "fetching #{code}..."
         result = search(code)
