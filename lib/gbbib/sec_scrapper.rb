@@ -19,11 +19,15 @@ module Gbbib
       # @return [Gbbib::HitCollection]
       def scrape_page(text)
         uri = URI "http://www.std.gov.cn/hb/search/hbPage?searchText=#{text}"
-        res = JSON.parse Net::HTTP.get(uri)
-        hits = res['rows'].map do |r|
-          Hit.new pid: r['id'], title: r['STD_CODE'], scrapper: self
+        begin
+          res = JSON.parse Net::HTTP.get(uri)
+          hits = res['rows'].map do |r|
+            Hit.new pid: r['id'], title: r['STD_CODE'], scrapper: self
+          end
+          HitCollection.new hits
+        rescue
+          warn "Cannot access #{uri}"
         end
-        HitCollection.new hits
       end
 
       # @param pid [String] standard's page id
@@ -31,8 +35,12 @@ module Gbbib
       def scrape_doc(pid)
         src = "http://www.std.gov.cn/hb/search/stdHBDetailed?id=#{pid}"
         page_uri = URI src
-        doc = Nokogiri::HTML Net::HTTP.get(page_uri)
-        GbBibliographicItem.new scrapped_data(doc, src: src)
+        begin
+          doc = Nokogiri::HTML Net::HTTP.get(page_uri)
+          GbBibliographicItem.new scrapped_data(doc, src: src)
+        rescue
+          warn "Cannot access #{src}"
+        end
       end
 
       private
