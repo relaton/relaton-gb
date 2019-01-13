@@ -1,7 +1,7 @@
 = Gbbib
 
 image:https://img.shields.io/gem/v/gbbib.svg["Gem Version", link="https://rubygems.org/gems/gbbib"]
-image:https://img.shields.io/travis/riboseinc/gbbib/master.svg["Build Status", link="https://travis-ci.org/riboseinc/gbbib"]
+image:https://img.shields.io/travis/riboseinc/gbbib/master.svg["Build Status", link="https://travis-ci.com/riboseinc/gbbib"]
 image:https://codeclimate.com/github/riboseinc/gbbib/badges/gpa.svg["Code Climate", link="https://codeclimate.com/github/riboseinc/gbbib"]
 
 
