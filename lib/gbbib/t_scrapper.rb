@@ -18,18 +18,22 @@ module Gbbib
       # @param text [String]
       # @return [Gbbib::HitCollection]
       def scrape_page(text)
-        search_html = OpenURI.open_uri(
-          'http://www.ttbz.org.cn/Home/Standard?searchType=2&key=' +
-          CGI.escape(text.tr('-', [8212].pack('U')))
-        )
-        header = Nokogiri::HTML search_html
-        xpath = '//table[contains(@class, "standard_list_table")]/tr/td/a'
-        t_xpath = '../preceding-sibling::td[3]'
-        hits = header.xpath(xpath).map do |h|
-          title = h.at(t_xpath).text.gsub(/â\u0080\u0094/, '-')
-          Hit.new pid: h[:href].sub(%r{\/$}, ''), title: title, scrapper: self
+        begin
+          search_html = OpenURI.open_uri(
+            'http://www.ttbz.org.cn/Home/Standard?searchType=2&key=' +
+            CGI.escape(text.tr('-', [8212].pack('U')))
+          )
+          header = Nokogiri::HTML search_html
+          xpath = '//table[contains(@class, "standard_list_table")]/tr/td/a'
+          t_xpath = '../preceding-sibling::td[3]'
+          hits = header.xpath(xpath).map do |h|
+            title = h.at(t_xpath).text.gsub(/â\u0080\u0094/, '-')
+            Hit.new pid: h[:href].sub(%r{\/$}, ''), title: title, scrapper: self
+          end
+          HitCollection.new hits
+        rescue
+          warn "Cannot connect to #{http://www.ttbz.org.cn/Home/Standard}"
         end
-        HitCollection.new hits
       end
       # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
@@ -37,8 +41,12 @@ module Gbbib
       # @return [Gbbib::GbBibliographicItem]
       def scrape_doc(pid)
         src = "http://www.ttbz.org.cn#{pid}"
-        doc = Nokogiri::HTML OpenURI.open_uri(src), nil, Encoding::UTF_8.to_s
-        GbBibliographicItem.new scrapped_data(doc, src: src)
+        begin
+          doc = Nokogiri::HTML OpenURI.open_uri(src), nil, Encoding::UTF_8.to_s
+          GbBibliographicItem.new scrapped_data(doc, src: src)
+        rescue
+          warn "Cannot connect to #{src}"
+        end
       end
 
       private
@@ -96,7 +104,7 @@ module Gbbib
 
       def get_ccs(doc)
         [doc.xpath('//td[contains(.,"中国标准分类号")]/following-sibling::td[1]')
-            .text.gsub(/[\r\n]/, '').strip.match(/^[^\s]+/).to_s]
+          .text.gsub(/[\r\n]/, '').strip.match(/^[^\s]+/).to_s]
       end
 
       def get_ics(doc)
@@ -108,7 +116,7 @@ module Gbbib
 
       def get_dates(doc)
         d = doc.xpath('//td[contains(.,"发布日期")]/following-sibling::td[1]/span')
-               .text.match(/(?<y>\d{4})[^\d]+(?<m>\d{2})[^\d]+(?<d>\d{2})/)
+          .text.match(/(?<y>\d{4})[^\d]+(?<m>\d{2})[^\d]+(?<d>\d{2})/)
         [{ type: 'published', on: "#{d[:y]}-#{d[:m]}-#{d[:d]}" }]
       end
     end
