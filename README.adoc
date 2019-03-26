@@ -2,6 +2,7 @@
 
 image:https://img.shields.io/gem/v/gbbib.svg["Gem Version", link="https://rubygems.org/gems/gbbib"]
 image:https://img.shields.io/travis/metanorma/gbbib/master.svg["Build Status", link="https://travis-ci.com/metanorma/gbbib"]
+image:https://ci.appveyor.com/api/projects/status/7sgnnqlf38jwf4ds?svg=true["Appveyor Build Status", link="https://ci.appveyor.com/project/ribose/gbbib"]
 image:https://codeclimate.com/github/metanorma/gbbib/badges/gpa.svg["Code Climate", link="https://codeclimate.com/github/metanorma/gbbib"]
 
 
