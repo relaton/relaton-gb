@@ -92,7 +92,7 @@ RSpec.describe Gbbib do
     expect(OpenURI).to receive(:open_uri).and_wrap_original do |m, *args|
       ref = args[0].match(/(?<==)[^=]+$|(?<=\/)\d+$/).to_s
       expect(args[0]).to be_instance_of String
-      fetch_data(ref, ext) { m.call(args[0]).read }
+      fetch_data(ref, ext) { m.call(*args).read }
     end.exactly(count).times
   end
 
@@ -100,7 +100,7 @@ RSpec.describe Gbbib do
     expect(Net::HTTP).to receive(:get).and_wrap_original do |m, *args|
       ref = args[0].to_s.match(/(?<==)[^=]+$|(?<=\/)\d+$/).to_s
       expect(args[0]).to be_instance_of URI::HTTP
-      fetch_data(ref, ext) { m.call args[0] }.read
+      fetch_data(ref, ext) { m.call *args }.read
     end
   end
   # rubocop:enable Metrics/AbcSize
@@ -113,7 +113,7 @@ RSpec.describe Gbbib do
   def fetch_data(ref, ext)
     decoded_ref = URI.decode_www_form_component(ref).tr([8212].pack('U'), '-')
     file = file_path decoded_ref, ext
-    File.write file, yield unless File.exist? file
+    File.write file, yield, encoding: 'utf-8' unless File.exist? file
     File.open file
   end
 end
