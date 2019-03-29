@@ -17,7 +17,7 @@ RSpec.describe Gbbib do
     expect(hits.first.fetch).to be_instance_of Gbbib::GbBibliographicItem
     file_path = 'spec/examples/gbt_20223_2006.xml'
     File.write file_path, hits.first.fetch.to_xml unless File.exist? file_path
-    expect(hits.first.fetch.to_xml).to be_equivalent_to File.read(file_path).sub(%r{<fetched>[^<]+</fetched>}, "<fetched>#{Date.today}</fetched>")
+    expect(hits.first.fetch.to_xml).to be_equivalent_to File.open(file_path, "r:UTF-8", &:read).sub(%r{<fetched>[^<]+</fetched>}, "<fetched>#{Date.today}</fetched>")
   end
 
   it 'fetch sector standard' do
@@ -29,7 +29,7 @@ RSpec.describe Gbbib do
     expect(hits.first.fetch).to be_instance_of Gbbib::GbBibliographicItem
     file_path = 'spec/examples/jbt_13368_2018.xml'
     File.write file_path, hits.first.fetch.to_xml unless File.exist? file_path
-    expect(hits.first.fetch.to_xml).to be_equivalent_to File.read(file_path).sub(%r{<fetched>[^<]+</fetched>}, "<fetched>#{Date.today}</fetched>")
+    expect(hits.first.fetch.to_xml).to be_equivalent_to File.open(file_path, "r:UTF-8", &:read).sub(%r{<fetched>[^<]+</fetched>}, "<fetched>#{Date.today}</fetched>")
   end
 
   it 'fetch social standard' do
@@ -40,7 +40,7 @@ RSpec.describe Gbbib do
     expect(hits.first.fetch).to be_instance_of Gbbib::GbBibliographicItem
     file_path = 'spec/examples/tgzaepi_001_2018.xml'
     File.write file_path, hits.first.fetch.to_xml unless File.exist? file_path
-    expect(hits.first.fetch.to_xml).to be_equivalent_to File.read(file_path).sub(%r{<fetched>[^<]+</fetched>}, "<fetched>#{Date.today}</fetched>")
+    expect(hits.first.fetch.to_xml).to be_equivalent_to File.open(file_path, "r:UTF-8", &:read).sub(%r{<fetched>[^<]+</fetched>}, "<fetched>#{Date.today}</fetched>")
   end
 
   describe 'gbbib get' do
@@ -78,7 +78,7 @@ RSpec.describe Gbbib do
     end
 
     it 'create GbBibliographicItem from XML' do
-      xml = File.read 'spec/examples/gbt_20223_2006.xml'
+      xml = File.open 'spec/examples/gbt_20223_2006.xml', 'r:UTF-8', &:read
       item = Gbbib::XMLParser.from_xml xml
       expect(item).to be_instance_of Gbbib::GbBibliographicItem
       expect(item.to_xml).to be_equivalent_to xml.sub(%r{<fetched>[^<]+</fetched>}, "<fetched>#{Date.today}</fetched>")
@@ -114,6 +114,6 @@ RSpec.describe Gbbib do
     decoded_ref = URI.decode_www_form_component(ref).tr([8212].pack('U'), '-')
     file = file_path decoded_ref, ext
     File.write file, yield, encoding: 'utf-8' unless File.exist? file
-    File.open file
+    File.open file, "r:UTF-8"
   end
 end
