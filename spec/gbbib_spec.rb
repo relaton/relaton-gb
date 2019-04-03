@@ -77,6 +77,12 @@ RSpec.describe Gbbib do
       expect(results).to be nil
     end
 
+    it "gets a referece with a year in a code" do
+      open_uri_stub count: 2
+      result = Gbbib::GbBibliography.get("GB/T 20223-2006").to_xml
+      expect(result).to include %(<on>2006</on>)
+    end
+
     it 'create GbBibliographicItem from XML' do
       xml = File.open 'spec/examples/gbt_20223_2006.xml', 'r:UTF-8', &:read
       item = Gbbib::XMLParser.from_xml xml
