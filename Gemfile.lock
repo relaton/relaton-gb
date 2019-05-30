@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    gbbib (0.4.3)
+    gbbib (0.4.4)
       cnccs (~> 0.1.1)
       gb-agencies (~> 0.0.1)
       iso-bib-item (~> 0.4.2)
@@ -17,7 +17,7 @@ GEM
     equivalent-xml (0.6.0)
       nokogiri (>= 1.4.3)
     gb-agencies (0.0.5)
-    iso-bib-item (0.4.4)
+    iso-bib-item (0.4.5)
       isoics (~> 0.1.6)
       nokogiri (~> 1.8.4)
       ruby_deep_clone (~> 0.8.0)
@@ -40,7 +40,7 @@ GEM
       rspec-mocks (~> 3.8.0)
     rspec-core (3.8.0)
       rspec-support (~> 3.8.0)
-    rspec-expectations (3.8.2)
+    rspec-expectations (3.8.3)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.8.0)
     rspec-mocks (3.8.0)
