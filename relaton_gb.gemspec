@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "relaton_gb/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "relaton_gb"
+  spec.name          = "relaton-gb"
   spec.version       = RelatonGb::VERSION
   spec.authors       = ["Ribose Inc."]
   spec.email         = ["pen.source@ribose.com"]

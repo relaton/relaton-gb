@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    relaton_gb (0.1.0)
+    relaton-gb (0.1.0)
       cnccs (~> 0.1.1)
       gb-agencies (~> 0.0.1)
       relaton-iso-bib (~> 0.1.0)
@@ -75,7 +75,7 @@ DEPENDENCIES
   equivalent-xml (~> 0.6)
   pry-byebug
   rake (~> 10.0)
-  relaton_gb!
+  relaton-gb!
   rspec (~> 3.0)
   ruby-debug-ide
   simplecov
