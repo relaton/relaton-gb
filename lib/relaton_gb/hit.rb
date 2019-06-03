@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Gbbib
+module RelatonGb
   # Hit.
   class Hit
     # @return [Isobib::HitCollection]
@@ -12,7 +12,7 @@ module Gbbib
     # @return [String]
     attr_reader :title
 
-    # @return [Gbbib::GbScrapper, Gbbib::SecScraper, Gbbib::TScrapper]
+    # @return [RelatonGb::GbScrapper, RelatonGb::SecScraper, RelatonGb::TScrapper]
     attr_reader :scrapper
 
     # @param hit [Hash]
@@ -46,15 +46,15 @@ module Gbbib
     # @param builder [Nokogiri::XML::Builder]
     # @param opts [Hash]
     # @return [String]
-    def to_xml(builder = nil, opts = {})
-      if builder
-        fetch.to_xml builder, opts
-      else
-        builder = Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
-          fetch.to_xml xml, opts
-        end
-        builder.doc.root.to_xml
-      end
-    end
+    # def to_xml(builder = nil, opts = {})
+    #   if builder
+    #     fetch.to_xml builder, opts
+    #   else
+    #     builder = Nokogiri::XML::Builder.new(encoding: "UTF-8") do |xml|
+    #       fetch.to_xml xml, opts
+    #     end
+    #     builder.doc.root.to_xml
+    #   end
+    # end
   end
 end

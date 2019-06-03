@@ -1,20 +1,22 @@
 # frozen_string_literal: true
 
-require 'gbbib/gb_bibliographic_item'
-require 'gbbib/workers_pool'
+require "relaton_gb/gb_bibliographic_item"
+require "relaton_gb/gb_standard_type"
+require "relaton_gb/hit_collection"
+require "relaton_gb/hit"
 
 # GB bib module.
-module Gbbib
+module RelatonGb
   # GB entry point class.
   class GbBibliography
     class << self
       # rubocop:disable Metrics/MethodLength
       # @param text [Strin] code of standard for search
-      # @return [Gbbib::HitCollection]
+      # @return [RelatonGb::HitCollection]
       def search(text)
         if text =~ /^(GB|GJ|GS)/
           # Scrape national standards.
-          require 'gbbib/gb_scrapper'
+          require "relaton_gb/gb_scrapper"
           GbScrapper.scrape_page text
         elsif text =~ /^ZB/
           # Scrape proffesional.
@@ -24,11 +26,11 @@ module Gbbib
           # Enterprise standard
         elsif text =~ %r{^T\/[^\s]{3,6}\s}
           # Scrape social standard.
-          require 'gbbib/t_scrapper'
+          require "relaton_gb/t_scrapper"
           TScrapper.scrape_page text
         else
           # Scrape sector standard.
-          require 'gbbib/sec_scrapper'
+          require "relaton_gb/sec_scrapper"
           SecScrapper.scrape_page text
         end
       end
@@ -47,10 +49,11 @@ module Gbbib
           end
         end
 
-        code += '.1' if opts[:all_parts]
-        code, year = code.split(/-/, 2) if /-/.match(code)
+        code += ".1" if opts[:all_parts]
+        code, year = code.split(/-/, 2) if /-/ =~ code
         ret = get1(code, year, opts)
         return nil if ret.nil?
+
         ret.to_most_recent_reference unless year
         ret.to_all_parts if opts[:all_parts]
         ret
@@ -75,12 +78,13 @@ module Gbbib
         nil
       end
 
-      def get1(code, year, opts)
+      def get1(code, year, _opts)
         # search must include year whenever available
         searchcode = code + (year.nil? ? "" : "-#{year}")
-        result = search_filter(searchcode) or return nil
+        result = search_filter(searchcode) || return
         ret = results_filter(result, year)
         return ret[:ret] if ret[:ret]
+
         fetch_ref_err(code, year, ret[:years])
       end
 
@@ -95,6 +99,7 @@ module Gbbib
             # !corrigrx =~ hit.title
         end
         return ret unless ret.empty?
+
         []
       end
 
@@ -109,8 +114,10 @@ module Gbbib
         result.each_slice(3) do |s| # ISO website only allows 3 connections
           fetch_pages(s, 3).each_with_index do |r, i|
             return { ret: r } if !year
+
             r.dates.select { |d| d.type == "published" }.each do |d|
               return { ret: r } if year.to_i == d.on.year
+
               missed_years << d.on.year
             end
           end
@@ -119,7 +126,7 @@ module Gbbib
       end
 
       def fetch_pages(s, n)
-        workers = WorkersPool.new n
+        workers = RelatonBib::WorkersPool.new n
         workers.worker { |w| { i: w[:i], hit: w[:hit].fetch } }
         s.each_with_index { |hit, i| workers << { i: i, hit: hit } }
         workers.end

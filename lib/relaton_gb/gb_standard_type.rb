@@ -1,4 +1,4 @@
-module Gbbib
+module RelatonGb
   # GB standard type.
   class GbStandardType
     # @return [String]

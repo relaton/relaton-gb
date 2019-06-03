@@ -1,12 +1,12 @@
-= Gbbib
+= RelatonGb
 
-image:https://img.shields.io/gem/v/gbbib.svg["Gem Version", link="https://rubygems.org/gems/gbbib"]
-image:https://img.shields.io/travis/metanorma/gbbib/master.svg["Build Status", link="https://travis-ci.com/metanorma/gbbib"]
-image:https://ci.appveyor.com/api/projects/status/7sgnnqlf38jwf4ds?svg=true["Appveyor Build Status", link="https://ci.appveyor.com/project/ribose/gbbib"]
-image:https://codeclimate.com/github/metanorma/gbbib/badges/gpa.svg["Code Climate", link="https://codeclimate.com/github/metanorma/gbbib"]
+image:https://img.shields.io/gem/v/relaton-gb.svg["Gem Version", link="https://rubygems.org/gems/relaton-gb"]
+image:https://img.shields.io/travis/metanorma/relaton-gb/master.svg["Build Status", link="https://travis-ci.com/metanorma/relaton-gb"]
+image:https://ci.appveyor.com/api/projects/status/7sgnnqlf38jwf4ds?svg=true["Appveyor Build Status", link="https://ci.appveyor.com/project/ribose/relaton-gb"]
+image:https://codeclimate.com/github/metanorma/relaton-gb/badges/gpa.svg["Code Climate", link="https://codeclimate.com/github/metanorma/relaton-gb"]
 
 
-GbBib is a Ruby gem that search and fetch Chinese GB standards.
+RelatonGb is a Ruby gem that search and fetch Chinese GB standards.
 The standards scraped form:
 
 * GB standards - http://www.std.gov.cn/gb/search
@@ -23,7 +23,7 @@ Add this line to your application's Gemfile:
 
 [source,ruby]
 ----
-gem 'gdbib'
+gem 'relaton-gb'
 ----
 
 And then execute:
@@ -32,7 +32,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install gdbib
+    $ gem install relaton-gb
 
 == Usage
 
@@ -40,15 +40,30 @@ Or install it yourself as:
 
 [source,ruby]
 ----
-hit_collection = Gbbib::GbBibliography.search "GB/T 20223-2006"
+require 'relaton_gb'
+
+hit_collection = RelatonGb::GbBibliography.search "GB/T 20223-2006"
+=> [<RelatonGb::Hit:0x007f97572b7348 @fullIdentifier="" @title="GB/T 20223-2006  棉短绒">,
+ <RelatonGb::Hit:0x007f97572b7208 @fullIdentifier="" @title="20010320-T-424  棉短绒">,
+ <RelatonGb::Hit:0x007f97572b70c8 @fullIdentifier="" @title="GB/T 20223-2018  棉短绒">,
+ <RelatonGb::Hit:0x007f97572b6fb0 @fullIdentifier="" @title="NB/T 20223-2013  核电厂安全重要机械设备维修指南">,
+ <RelatonGb::Hit:0x007f97572b6e98 @fullIdentifier="" @title="20130458-T-424  棉短绒">,
+ <RelatonGb::Hit:0x007f97572b6d80 @fullIdentifier="" @title="GB 12995-2006  机动轮椅车">,
+ <RelatonGb::Hit:0x007f97572b6c68 @fullIdentifier="" @title="GB 14866-2006  个人用眼护具技术要求">,
+ <RelatonGb::Hit:0x007f97572b6b28 @fullIdentifier="" @title="GB/T 20788-2006  饲草揉碎机">,
+ <RelatonGb::Hit:0x007f97572b6a10 @fullIdentifier="" @title="GB/T 20707-2006  可可脂">,
+ <RelatonGb::Hit:0x007f97572b68f8 @fullIdentifier="" @title="GB/T 20706-2006  可可粉">]
 
 hit_collection.size
 => 10
+
 hit_collection.first
-=> <Gbbib::Hit:0x007ffa85128770 @fullIdentifier="" @title="GB/T 20223-2006  棉短绒">
+=> <RelatonGb::Hit:0x007f97572b7348 @fullIdentifier="" @title="GB/T 20223-2006  棉短绒">
+
 hit_collection[1]
-=> <Gbbib::Hit:0x007ffa85128040 @fullIdentifier="" @title="GB/T 20223-2018  棉短绒">
-res.first.title
+=> <RelatonGb::Hit:0x007f97572b7208 @fullIdentifier="" @title="20010320-T-424  棉短绒">
+
+hit_collection.first.title
 => "GB/T 20223-2006  棉短绒"
 ----
 
@@ -56,26 +71,41 @@ res.first.title
 
 [source,ruby]
 ----
-res.first.fetch
-=> <Gbbib::GbBibliographicItem:0x007fba1115f798>
-res.first.fetch.committee
-=> <Gbbib::GbTechnicalCommittee:0x007fba1114dd68 @name="中国纤维检验局", @type="technical">
-res.first.fetch.gbtype
-=> <Gbbib::GbStandardType:0x007fba11175fc0 @mandate="recommended", @prefix="GB_national", @scope="national">
-res.first.fetch.ccs
-=> [<Cnccs::Ccs:0x007fba1114d9d0
+hit_collection.first.fetch
+=> <RelatonGb::GbBibliographicItem:0x007f975a0219c8>
+
+hit_collection.first.fetch.committee
+=> #<RelatonGb::GbTechnicalCommittee:0x007f975713c450 @name="中国纤维检验局", @type="technical">
+
+hit_collection.first.fetch.gbtype
+=> #<RelatonGb::GbStandardType:0x007f9758087018 @mandate="recommended", @prefix="GB_national", @scope="national">
+
+hit_collection.first.fetch.ccs
+=> [#<Cnccs::Ccs:0x007f975713c090
   @code="B32",
   @description="纤维作物与产品",
   @description_full="农业、林业; 经济作物; 纤维作物与产品",
   @fieldcode="B",
   @groupcode="30/39",
-  @notes=[<Cnccs::Note:0x007fba1120d730 @ccs_code="", @text="棉、麻等">],
+  @notes=[#<Cnccs::Note:0x007f975716edb0 @ccs_code="", @text="棉、麻等">],
   @subgroupcode="32">]
-res.first.fetch.title
-=> [<IsoBibItem::IsoLocalizedTitle:0x007fba111567b0 @language="zh", @script="Hans", @title_intro="棉短绒", @title_main="[ -- ]", @title_part=nil>,
- <IsoBibItem::IsoLocalizedTitle:0x007fba11156558 @language="en", @script="Latn", @title_intro="Cotton linter", @title_main="[ -- ]", @title_part=nil>]
-res.first.fetch.dates
-=> [<IsoBibItem::BibliographicDate:0x007fba1115cc28 @on=2006-01-03 00:00:00 +0100, @type="published">]
+
+hit_collection.first.fetch.title
+=> [#<RelatonIsoBib::TypedTitleString:0x007f975714cfa8
+  @title=#<RelatonBib::FormattedString:0x007f975714cb20 @content="棉短绒", @format="text/plain", @language=["zh"], @script=["Hans"]>,
+  @type="title-main">,
+ #<RelatonIsoBib::TypedTitleString:0x007f975714c580
+  @title=#<RelatonBib::FormattedString:0x007f9757147f08 @content="棉短绒", @format="text/plain", @language=["zh"], @script=["Hans"]>,
+  @type="main">,
+ #<RelatonIsoBib::TypedTitleString:0x007f97571477d8
+  @title=#<RelatonBib::FormattedString:0x007f9757146ec8 @content="Cotton linter", @format="text/plain", @language=["en"], @script=["Latn"]>,
+  @type="title-main">,
+ #<RelatonIsoBib::TypedTitleString:0x007f97571465e0
+  @title=#<RelatonBib::FormattedString:0x007f9757146158 @content="Cotton linter", @format="text/plain", @language=["en"], @script=["Latn"]>,
+  @type="main">]
+
+hit_collection.first.fetch.dates
+=> [#<RelatonBib::BibliographicDate:0x007f975a0207d0 @from=nil, @on=2006-03-10 00:00:00 +0100, @to=nil, @type="published">]
 ----
 
 === Serialization
@@ -83,26 +113,78 @@ res.first.fetch.dates
 [source,ruby]
 ----
 hit_collection.first.fetch.to_xml
-=><bibitem type='standard' id='20223-2006'>
-  <title format='text/plain' language='zh' script='Hans'>棉短绒 -- [ -- ]</title>
-  <title format='text/plain' language='en' script='Latn'>Cotton linter -- [ -- ]</title>
-  <link type='src'>http://www.std.gov.cn/gb/search/gbDetailed?id=5DDA8BA00FC618DEE05397BE0A0A95A7</link>
-  <docidentifier>20223-2006</docidentifier>
-  <date type='published'>
+=>"<bibitem id="GB/T20223-2006" type="international-standard">
+  <title type="title-main" format="text/plain" language="zh" script="Hans">棉短绒</title>
+  <title type="main" format="text/plain" language="zh" script="Hans">棉短绒</title>
+  <title type="title-main" format="text/plain" language="en" script="Latn">Cotton linter</title>
+  <title type="main" format="text/plain" language="en" script="Latn">Cotton linter</title>
+  <uri type="src">http://www.std.gov.cn/gb/search/gbDetailed?id=71F772D778ADD3A7E05397BE0A0AB82A</uri>
+  <docidentifier type="Chinese Standard">GB/T 20223-2006</docidentifier>
+  <date type="published">
     <on>2006</on>
   </date>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name language="en">General Administration of Quality Supervision, Inspection and Quarantine; Standardization Administration of China</name>
+      <name language="zh">中华人民共和国国家质量监督检验检疫总局 中国国家标准化管理委员会</name>
+    </organization>
+  </contributor>
   <language>zh</language>
   <script>Hans</script>
-  <status>obsoleted</status>
-  <ics>Natural fibres</ics>
-  <gbcommittee type='technical'>中国纤维检验局</gbcommittee>
-  <gbtype>
-    <gbscope>national</gbscope>
-    <gbprefix>GB_national</gbprefix>
-    <gbmandate>recommended</gbmandate>
-  </gbtype>
-  <ccs>纤维作物与产品</ccs>
-</bibitem>
+  <status>
+    <stage>obsoleted</stage>
+  </status>
+</bibitem>"
+----
+With `bibdata: true` option XML output wrapped with `bibdata` element and `ext` element added.
+[source,ruby]
+----
+hit_collection.first.fetch.to_xml bibdata: true
+=>"<bibdata type="international-standard">
+  <title type="title-main" format="text/plain" language="zh" script="Hans">棉短绒</title>
+  <title type="main" format="text/plain" language="zh" script="Hans">棉短绒</title>
+  <title type="title-main" format="text/plain" language="en" script="Latn">Cotton linter</title>
+  <title type="main" format="text/plain" language="en" script="Latn">Cotton linter</title>
+  <uri type="src">http://www.std.gov.cn/gb/search/gbDetailed?id=71F772D778ADD3A7E05397BE0A0AB82A</uri>
+  <docidentifier type="Chinese Standard">GB/T 20223-2006</docidentifier>
+  <date type="published">
+    <on>2006</on>
+  </date>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name language="en">General Administration of Quality Supervision, Inspection and Quarantine; Standardization Administration of China</name>
+      <name language="zh">中华人民共和国国家质量监督检验检疫总局 中国国家标准化管理委员会</name>
+    </organization>
+  </contributor>
+  <language>zh</language>
+  <script>Hans</script>
+  <status>
+    <stage>obsoleted</stage>
+  </status>
+  <ext>
+    <doctype>international-standard</doctype>
+    <gbcommittee type="technical">中国纤维检验局</gbcommittee>
+    <ics>
+      <code>59.060.10</code>
+      <text>Natural fibres</text>
+    </ics>
+    <structuredidentifier type="Chinese Standard">
+      <project-number>GB/T 20223</project-number>
+    </structuredidentifier>
+    <gbtype>
+      <gbscope>national</gbscope>
+      <gbprefix>GB_national</gbprefix>
+      <gbmandate>recommended</gbmandate>
+    </gbtype>
+    <ccs>
+      <code>B32</code>
+      <text>纤维作物与产品</text>
+    </ccs>
+    <gbplannumber>GB/T 20223</gbplannumber>
+  </ext>
+</bibdata>"
 ----
 
 == Development

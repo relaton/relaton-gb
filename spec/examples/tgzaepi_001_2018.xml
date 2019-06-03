@@ -1,7 +1,8 @@
-<bibitem type="standard" id="T/GZAEPI001">
-  <fetched>2018-10-25</fetched>
-  <title format="text/plain" language="zh" script="Hans">环保型家用吸油烟机</title>
-  <title format="text/plain" language="en" script="Latn">Environmental protection type household range hood</title>
+<bibdata type="international-standard">
+  <title type="title-main" format="text/plain" language="zh" script="Hans">环保型家用吸油烟机</title>
+  <title type="main" format="text/plain" language="zh" script="Hans">环保型家用吸油烟机</title>
+  <title type="title-main" format="text/plain" language="en" script="Latn">Environmental protection type household range hood</title>
+  <title type="main" format="text/plain" language="en" script="Latn">Environmental protection type household range hood</title>
   <uri type="src">http://www.ttbz.org.cn/StandardManage/Detail/22746</uri>
   <docidentifier type="Chinese Standard">T/GZAEPI 001—2018</docidentifier>
   <date type="published">
@@ -9,19 +10,28 @@
   </date>
   <language>zh</language>
   <script>Hans</script>
-  <status>activated</status>
-  <ics>
-    <code>13.020.01</code>
-    <text>Environment and environmental protection in general</text>
-  </ics>
-  <gbcommittee type="technical">广州环境保护产业协会</gbcommittee>
-  <gbtype>
-    <gbscope>social-group</gbscope>
-    <gbprefix>T</gbprefix>
-    <gbmandate>mandatory</gbmandate>
-  </gbtype>
-  <ccs>
-    <code>Y68</code>
-    <text>炊事机具、基础标准与通用方法</text>
-  </ccs>
-</bibitem>
+  <status>
+    <stage>activated</stage>
+  </status>
+  <ext>
+    <doctype>international-standard</doctype>
+    <gbcommittee type="technical">广州环境保护产业协会</gbcommittee>
+    <ics>
+      <code>13.020.01</code>
+      <text>Environment and environmental protection in general</text>
+    </ics>
+    <structuredidentifier type="Chinese Standard">
+      <project-number>?</project-number>
+    </structuredidentifier>
+    <gbtype>
+      <gbscope>social-group</gbscope>
+      <gbprefix>T</gbprefix>
+      <gbmandate>mandatory</gbmandate>
+    </gbtype>
+    <ccs>
+      <code>Y68</code>
+      <text>炊事机具、基础标准与通用方法</text>
+    </ccs>
+    <gbplannumber>?</gbplannumber>
+  </ext>
+</bibdata>

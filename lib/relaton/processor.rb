@@ -3,22 +3,22 @@
 require "relaton/processor"
 
 module Relaton
-  module Gbbib
+  module RelatonGb
     class Processor < Relaton::Processor
 
       def initialize
-        @short = :gbbib
+        @short = :relaton_gb
         @prefix = "CN"
         @defaultprefix = %r{^GB }
         @idtype = "Chinese Standard"
       end
 
       def get(code, date, opts)
-        ::Gbbib::GbBibliography.get(code, date, opts)
+        ::RelatonGb::GbBibliography.get(code, date, opts)
       end
 
       def from_xml(xml)
-        ::Gbbib::XMLParser.from_xml xml
+        ::RelatonGb::XMLParser.from_xml xml
       end
     end
   end

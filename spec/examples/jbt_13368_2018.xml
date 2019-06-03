@@ -1,6 +1,6 @@
-<bibitem type="standard" id="JB/T13368">
-  <fetched>2018-10-25</fetched>
-  <title format="text/plain" language="zh" script="Hans">叉车属具 软包夹</title>
+<bibdata type="international-standard">
+  <title type="title-main" format="text/plain" language="zh" script="Hans">叉车属具 软包夹</title>
+  <title type="main" format="text/plain" language="zh" script="Hans">叉车属具 软包夹</title>
   <uri type="src">http://www.std.gov.cn/hb/search/stdHBDetailed?id=6BC3AD94A1728ABCE05397BE0A0A5667</uri>
   <docidentifier type="Chinese Standard">JB/T 13368-2018</docidentifier>
   <date type="published">
@@ -15,19 +15,28 @@
   </contributor>
   <language>zh</language>
   <script>Hans</script>
-  <status>activated</status>
-  <ics>
-    <code>53.060</code>
-    <text>Industrial trucks</text>
-  </ics>
-  <gbcommittee type="technical">国家发改委</gbcommittee>
-  <gbtype>
-    <gbscope>sector</gbscope>
-    <gbprefix>JB_mechanical</gbprefix>
-    <gbmandate>recommended</gbmandate>
-  </gbtype>
-  <ccs>
-    <code>J83</code>
-    <text>仓储设备、装卸机械</text>
-  </ccs>
-</bibitem>
+  <status>
+    <stage>activated</stage>
+  </status>
+  <ext>
+    <doctype>international-standard</doctype>
+    <gbcommittee type="technical">国家发改委</gbcommittee>
+    <ics>
+      <code>53.060</code>
+      <text>Industrial trucks</text>
+    </ics>
+    <structuredidentifier type="Chinese Standard">
+      <project-number>JB/T 13368</project-number>
+    </structuredidentifier>
+    <gbtype>
+      <gbscope>sector</gbscope>
+      <gbprefix>JB_mechanical</gbprefix>
+      <gbmandate>recommended</gbmandate>
+    </gbtype>
+    <ccs>
+      <code>J83</code>
+      <text>仓储设备、装卸机械</text>
+    </ccs>
+    <gbplannumber>JB/T 13368</gbplannumber>
+  </ext>
+</bibdata>

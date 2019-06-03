@@ -1,4 +1,4 @@
-module Gbbib
+module RelatonGb
   # GB technical committee.
   class GbTechnicalCommittee
     # @return [String]
