@@ -33,7 +33,7 @@ module RelatonGb
       @ccs = args[:ccs].map { |c| Cnccs.fetch c }
       @gbtype = GbStandardType.new args[:gbtype]
       @type = args[:type]
-      @gbplannumber = args[:gbplannumber] || structuredidentifier.project_number
+      @gbplannumber = args[:gbplannumber] || structuredidentifier&.project_number
     end
 
     # @param builder [Nokogiri::XML::Builder]

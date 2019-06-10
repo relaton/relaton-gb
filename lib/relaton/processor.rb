@@ -5,7 +5,6 @@ require "relaton/processor"
 module Relaton
   module RelatonGb
     class Processor < Relaton::Processor
-
       def initialize
         @short = :relaton_gb
         @prefix = "CN"
