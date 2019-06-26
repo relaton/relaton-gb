@@ -31,7 +31,7 @@ module RelatonGb
         end
         HitCollection.new hits
       rescue OpenURI::HTTPError, SocketError
-        warn "Cannot access http://www.ttbz.org.cn/Home/Standard"
+        raise RelatonBib::RequestError, "Cannot access http://www.ttbz.org.cn/Home/Standard"
       end
       # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
@@ -42,7 +42,7 @@ module RelatonGb
         doc = Nokogiri::HTML OpenURI.open_uri(src), nil, Encoding::UTF_8.to_s
         GbBibliographicItem.new scrapped_data(doc, src: src)
       rescue OpenURI::HTTPError, SocketError
-        warn "Cannot access #{src}"
+        raise RelatonBib::RequestError, "Cannot access #{src}"
       end
 
       private

@@ -24,7 +24,7 @@ module RelatonGb
         end
         HitCollection.new hits
       rescue OpenURI::HTTPError, SocketError
-        warn "Cannot access http://www.std.gov.cn/search/stdPage"
+        raise RelatonBib::RequestError, "Cannot access http://www.std.gov.cn/search/stdPage"
       end
 
       # @param pid [Strin] standard's page id
@@ -34,7 +34,7 @@ module RelatonGb
         doc = Nokogiri::HTML OpenURI.open_uri(src)
         GbBibliographicItem.new scrapped_data(doc, src: src)
       rescue OpenURI::HTTPError, SocketError
-        warn "Cannot access http://www.std.gov.cn/gb/search/gbDetailed"
+        raise RelatonBib::RequestError, "Cannot access #{src}"
       end
 
       # @param doc [Nokogiri::HTML]

@@ -6,12 +6,12 @@ RSpec.describe RelatonGb::TScrapper do
 
     it "scrape page" do
       expect { RelatonGb::TScrapper.scrape_page("code") }.
-        to output(/Cannot access/).to_stderr
+        to raise_error RelatonBib::RequestError
     end
 
     it "scrape doc" do
       expect { RelatonGb::TScrapper.scrape_doc("pid") }.
-        to output(/Cannot access/).to_stderr
+        to raise_error RelatonBib::RequestError
     end
   end
 end

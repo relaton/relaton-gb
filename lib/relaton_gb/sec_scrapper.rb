@@ -24,9 +24,9 @@ module RelatonGb
           Hit.new pid: r["id"], title: r["STD_CODE"], scrapper: self
         end
         HitCollection.new hits
-      rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
+      rescue SocketError, Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
              Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError
-        warn "Cannot access #{uri}"
+        raise RelatonBib::RequestError, "Cannot access #{uri}"
       end
 
       # @param pid [String] standard's page id
@@ -36,9 +36,9 @@ module RelatonGb
         page_uri = URI src
         doc = Nokogiri::HTML Net::HTTP.get(page_uri)
         GbBibliographicItem.new scrapped_data(doc, src: src)
-      rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
+      rescue SocketError, Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
              Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError
-        warn "Cannot access #{src}"
+        raise RelatonBib::RequestError, "Cannot access #{src}"
       end
 
       private
