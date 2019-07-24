@@ -115,7 +115,7 @@ module RelatonGb
           fetch_pages(s, 3).each_with_index do |r, i|
             return { ret: r } if !year
 
-            r.dates.select { |d| d.type == "published" }.each do |d|
+            r.date.select { |d| d.type == "published" }.each do |d|
               return { ret: r } if year.to_i == d.on.year
 
               missed_years << d.on.year

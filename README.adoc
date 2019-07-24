@@ -104,7 +104,7 @@ hit_collection.first.fetch.title
   @title=#<RelatonBib::FormattedString:0x007f9757146158 @content="Cotton linter", @format="text/plain", @language=["en"], @script=["Latn"]>,
   @type="main">]
 
-hit_collection.first.fetch.dates
+hit_collection.first.fetch.date
 => [#<RelatonBib::BibliographicDate:0x007f975a0207d0 @from=nil, @on=2006-03-10 00:00:00 +0100, @to=nil, @type="published">]
 ----
 

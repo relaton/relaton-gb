@@ -17,15 +17,15 @@ module RelatonGb
       {
         committee: get_committee(doc),
         docid: get_docid(doc),
-        titles: get_titles(doc),
-        contributors: get_contributors(doc),
+        title: get_titles(doc),
+        contributor: get_contributors(doc),
         type: get_type(doc),
         docstatus: get_status(doc),
         gbtype: get_gbtype(doc),
         ccs: get_ccs(doc),
         ics: get_ics(doc),
         link: [{ type: "src", content: src }],
-        dates: get_dates(doc),
+        date: get_dates(doc),
         language: ["zh"],
         script: ["Hans"],
         structuredidentifier: fetch_structuredidentifier(doc),
@@ -73,7 +73,7 @@ module RelatonGb
         { language: "en", content: gb_en.standard_agency1(gbtype[:scope], name, gbtype[:mandate]) },
         { language: "zh", content: gb_zh.standard_agency1(gbtype[:scope], name, gbtype[:mandate]) },
       ]
-      [{ entity: entity, roles: ["publisher"] }]
+      [{ entity: entity, role: ["publisher"] }]
     end
 
     # @param doc [Nokogiri::HTML::Document]
