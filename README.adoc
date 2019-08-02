@@ -108,6 +108,21 @@ hit_collection.first.fetch.date
 => [#<RelatonBib::BibliographicDate:0x007f975a0207d0 @from=nil, @on=2006-03-10 00:00:00 +0100, @to=nil, @type="published">]
 ----
 
+=== Create bibliographic item form YAML
+[source,ruby]
+----
+hash = YAML.load_file 'spec/examples/gb_bib_item.yml'
+=> {"id"=>"JB/T13368",
+...
+
+bib_hash = RelatonGb::HashConverter.hash_to_bib hash
+=> {:id=>"JB/T13368",
+...
+
+RelatonGb::GbBibliographicItem.new bib_hash
+=> <RelatonGb::GbBibliographicItem:0x007fc680802700>
+----
+
 === Serialization
 
 [source,ruby]

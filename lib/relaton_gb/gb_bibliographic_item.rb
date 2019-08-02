@@ -5,6 +5,7 @@ require "cnccs"
 require "relaton_gb/gb_technical_committee"
 require "relaton_gb/gb_standard_type"
 require "relaton_gb/xml_parser"
+require "relaton_gb/hash_converter"
 
 module RelatonGb
   # GB bibliographic item class.
@@ -30,7 +31,7 @@ module RelatonGb
     def initialize(**args)
       super
       args[:committee] && @committee = GbTechnicalCommittee.new(args[:committee])
-      @ccs = args[:ccs].map { |c| Cnccs.fetch c }
+      @ccs = args[:ccs].map { |c| c.is_a?(Cnccs::Ccs) ? c : Cnccs.fetch(c) }
       @gbtype = GbStandardType.new args[:gbtype]
       @type = args[:type]
       @gbplannumber = args[:gbplannumber] || structuredidentifier&.project_number

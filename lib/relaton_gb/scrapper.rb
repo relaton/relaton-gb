@@ -73,7 +73,7 @@ module RelatonGb
         { language: "en", content: gb_en.standard_agency1(gbtype[:scope], name, gbtype[:mandate]) },
         { language: "zh", content: gb_zh.standard_agency1(gbtype[:scope], name, gbtype[:mandate]) },
       ]
-      [{ entity: entity, role: ["publisher"] }]
+      [{ entity: entity, role: [type: "publisher"] }]
     end
 
     # @param doc [Nokogiri::HTML::Document]

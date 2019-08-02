@@ -1,0 +1,48 @@
+<bibdata type="standard">
+  <fetched>2019-07-31</fetched>
+  <title type="title-main" format="text/plain" language="en" script="Latn">叉车属具 软包夹</title>
+  <title type="main" format="text/plain" language="en" script="Latn">叉车属具 软包夹</title>
+  <title type="title-main" format="text/plain" language="en" script="Latn">Forklift attachment</title>
+  <title type="main" format="text/plain" language="en" script="Latn">Forklift attachment</title>
+  <uri type="src">http://www.std.gov.cn/hb/search/stdHBDetailed?id=6BC3AD94A1728ABCE05397BE0A0A5667</uri>
+  <docidentifier type="JB">T13368</docidentifier>
+  <docnumber>13368</docnumber>
+  <date type="published">
+    <on>2009</on>
+  </date>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name language="en">State Economic and Trade Commission</name>
+      <name language="zh">国家发改委</name>
+    </organization>
+  </contributor>
+  <language>zh</language>
+  <language>en</language>
+  <script>Hans</script>
+  <script>Latn</script>
+  <status>
+    <stage>activated</stage>
+  </status>
+  <ext>
+    <doctype>standard</doctype>
+    <gbcommittee type="technical">国家发改委</gbcommittee>
+    <ics>
+      <code>53.060</code>
+      <text>Industrial trucks</text>
+    </ics>
+    <structuredidentifier type="Chinese Standard">
+      <project-number>JB/T 13368</project-number>
+    </structuredidentifier>
+    <gbtype>
+      <gbscope>sector</gbscope>
+      <gbprefix>JB_mechanical</gbprefix>
+      <gbmandate>recommended</gbmandate>
+    </gbtype>
+    <ccs>
+      <code>J83</code>
+      <text>仓储设备、装卸机械</text>
+    </ccs>
+    <gbplannumber>JB/T 13368</gbplannumber>
+  </ext>
+</bibdata>
