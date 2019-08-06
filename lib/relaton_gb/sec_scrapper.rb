@@ -25,7 +25,8 @@ module RelatonGb
         end
         HitCollection.new hits
       rescue SocketError, Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
-             Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError
+             Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,
+             OpenSSL::SSL::SSLError
         raise RelatonBib::RequestError, "Cannot access #{uri}"
       end
 
@@ -37,7 +38,8 @@ module RelatonGb
         doc = Nokogiri::HTML Net::HTTP.get(page_uri)
         GbBibliographicItem.new scrapped_data(doc, src: src)
       rescue SocketError, Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
-             Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError
+             Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,
+             OpenSSL::SSL::SSLError
         raise RelatonBib::RequestError, "Cannot access #{src}"
       end
 

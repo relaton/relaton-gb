@@ -23,7 +23,7 @@ module RelatonGb
           Hit.new pid: h[:pid], title: h.text, scrapper: self
         end
         HitCollection.new hits
-      rescue OpenURI::HTTPError, SocketError
+      rescue OpenURI::HTTPError, SocketError, OpenSSL::SSL::SSLError
         raise RelatonBib::RequestError, "Cannot access http://www.std.gov.cn/search/stdPage"
       end
 
@@ -33,7 +33,7 @@ module RelatonGb
         src = "http://www.std.gov.cn/gb/search/gbDetailed?id=" + pid
         doc = Nokogiri::HTML OpenURI.open_uri(src)
         GbBibliographicItem.new scrapped_data(doc, src: src)
-      rescue OpenURI::HTTPError, SocketError
+      rescue OpenURI::HTTPError, SocketError, OpenSSL::SSL::SSLError
         raise RelatonBib::RequestError, "Cannot access #{src}"
       end
 
