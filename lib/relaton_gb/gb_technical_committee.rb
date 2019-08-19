@@ -19,5 +19,10 @@ module RelatonGb
         builder.text @name
       end
     end
+
+    # @return [Hash]
+    def to_hash
+      { "type" => type, "name" => name }
+    end
   end
 end

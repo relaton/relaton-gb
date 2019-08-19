@@ -26,5 +26,10 @@ module RelatonGb
         builder.gbmandate @mandate
       end
     end
+
+    # @return [Hash]
+    def to_hash
+      { "scope" => scope, "prefix" => prefix, "mandate" => mandate }
+    end
   end
 end

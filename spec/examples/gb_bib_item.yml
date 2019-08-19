@@ -1,7 +1,9 @@
 id: JB/T13368
 
 title:
-  - 叉车属具 软包夹
+  - content: 叉车属具 软包夹
+    language: zh
+    script: Hans
   - content: Forklift attachment
     language: en
     script: Latn
@@ -9,8 +11,8 @@ title:
 type: standard
 
 docid:
-  - id: T13368
-    type: JB
+  id: T13368
+  type: JB
 
 docnumber: "13368"
 
@@ -26,29 +28,28 @@ docstatus:
   stage: activated
 
 date:
-  - type: published
-    value: "2009"
+  type: published
+  value: "2009-01-01"
 
 contributor:
-  - organization:
-      name:
-        - content: State Economic and Trade Commission
-          language: en
-        - content: 国家发改委
-          language: zh
-    role:
-      - publisher
+  organization:
+    name:
+      - content: State Economic and Trade Commission
+        language: en
+      - content: 国家发改委
+        language: zh
+  role: publisher
 
 link:
-  - type: "src"
-    content: http://www.std.gov.cn/hb/search/stdHBDetailed?id=6BC3AD94A1728ABCE05397BE0A0A5667
+  type: "src"
+  content: http://www.std.gov.cn/hb/search/stdHBDetailed?id=6BC3AD94A1728ABCE05397BE0A0A5667
 
 committee:
   type: technical
   name: 国家发改委
 
 ics:
-  - code: "53.060"
+  code: "53.060"
 
 structuredidentifier:
   type: Chinese Standard
@@ -60,6 +61,6 @@ gbtype:
   mandate: recommended
 
 ccs:
-  - code: J83
+  code: J83
 
-gbplannumber: JB/T 13368
+plannumber: JB/T 13368

@@ -6,6 +6,7 @@ require "relaton_gb/gb_technical_committee"
 require "relaton_gb/gb_standard_type"
 require "relaton_gb/xml_parser"
 require "relaton_gb/hash_converter"
+require "relaton_gb/ccs"
 
 module RelatonGb
   # GB bibliographic item class.
@@ -47,6 +48,16 @@ module RelatonGb
           super(bldr, **opts) { |xml| render_gbxml(xml) }
         end.doc.root.to_xml
       end
+    end
+
+    # @return [Hash]
+    def to_hash
+      hash = super
+      hash["ccs"] = single_element_array(ccs) if ccs&.any?
+      hash["committee"] = committee.to_hash if committee
+      hash["plannumber"] = gbplannumber if gbplannumber
+      hash["gbtype"] = gbtype.to_hash
+      hash
     end
 
     # @return [String]
@@ -97,9 +108,8 @@ module RelatonGb
     # @param builder [Nokogiri::XML::Builder]
     def render_gbxml(builder)
       gbtype.to_xml builder
-      return unless ccs.any?
 
-      ccs.each do |c|
+      ccs&.each do |c|
         builder.ccs do
           builder.code c.code
           builder.text_ c.description
