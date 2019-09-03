@@ -10,16 +10,17 @@ module RelatonGb
     attr_reader :pid
 
     # @return [String]
-    attr_reader :title
+    attr_reader :docref, :status
 
     # @return [RelatonGb::GbScrapper, RelatonGb::SecScraper, RelatonGb::TScrapper]
     attr_reader :scrapper
 
     # @param hit [Hash]
     # @param hit_collection [Isobib:HitCollection]
-    def initialize(pid:, title:, hit_collection: nil, scrapper:)
+    def initialize(pid:, docref:, status: nil, hit_collection: nil, scrapper:)
       @pid            = pid
-      @title          = title
+      @docref         = docref
+      @status         = status
       @hit_collection = hit_collection
       @scrapper       = scrapper
       self.hit_collection << self if hit_collection
@@ -28,7 +29,7 @@ module RelatonGb
     # Parse page.
     # @return [Isobib::IsoBibliographicItem]
     def fetch
-      @fetch ||= scrapper.scrape_doc pid
+      @fetch ||= scrapper.scrape_doc self
     end
 
     # @return [String]
@@ -40,7 +41,7 @@ module RelatonGb
     def inspect
       "<#{self.class}:#{format('%#.14x', object_id << 1)} "\
       "@fullIdentifier=\"#{@fetch&.shortref}\" "\
-      "@title=\"#{title}\">"
+      "@docref=\"#{docref}\">"
     end
 
     # @param builder [Nokogiri::XML::Builder]

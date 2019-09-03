@@ -16,35 +16,38 @@ module RelatonGb
       # @return [RelatonGb::HitCollection]
       def scrape_page(text)
         search_html = OpenURI.open_uri(
-          "http://www.std.gov.cn/search/stdPage?q=" + text
+          "http://openstd.samr.gov.cn/bzgk/gb/std_list?p.p2=" + text
         )
         result = Nokogiri::HTML search_html
-        hits = result.css(".s-title a").map do |h|
-          Hit.new pid: h[:pid], title: h.text, scrapper: self
+        hits = result.
+          xpath("//table[contains(@class, 'result_list')]/tbody/tr/td[2]/a").
+          map do |h|
+          pid = h[:onclick].match(/[0-9A-F]+/).to_s
+          Hit.new pid: pid, docref: h.text, scrapper: self
         end
         HitCollection.new hits
       rescue OpenURI::HTTPError, SocketError, OpenSSL::SSL::SSLError
-        raise RelatonBib::RequestError, "Cannot access http://www.std.gov.cn/search/stdPage"
+        raise RelatonBib::RequestError, "Cannot access http://www.std.gov.cn/bzgk/gb/std_list"
       end
 
-      # @param pid [Strin] standard's page id
+      # @param hit [RelatonGb::Hit] standard's page id
       # @return [RelatonGb::GbBibliographicItem]
-      def scrape_doc(pid)
-        src = "http://www.std.gov.cn/gb/search/gbDetailed?id=" + pid
+      def scrape_doc(hit)
+        src = "http://openstd.samr.gov.cn/bzgk/gb/newGbInfo?hcno=" + hit.pid
         doc = Nokogiri::HTML OpenURI.open_uri(src)
-        GbBibliographicItem.new scrapped_data(doc, src: src)
+        GbBibliographicItem.new scrapped_data(doc, src, hit)
       rescue OpenURI::HTTPError, SocketError, OpenSSL::SSL::SSLError
         raise RelatonBib::RequestError, "Cannot access #{src}"
       end
 
       # @param doc [Nokogiri::HTML]
+      # @param _ref [String]
       # @return [Hash]
       #   * :type [String]
       #   * :name [String]
-      def get_committee(doc)
-        name = doc.xpath("//p/a[1]/following-sibling::text()").text.
-          match(/(?<=（)[^）]+/).to_s
-        { type: "technical", name: name }
+      def get_committee(doc, _ref)
+        name = doc.at("//div[contains(text(), '归口单位')]/following-sibling::div")
+        { type: "technical", name: name.text.delete("\r\n\t\t") }
       end
     end
   end

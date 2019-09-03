@@ -10,7 +10,8 @@ RSpec.describe RelatonGb::GbScrapper  do
     end
 
     it "scrape doc" do
-      expect { RelatonGb::GbScrapper.scrape_doc("pid") }.
+      hit = RelatonGb::Hit.new pid: "pid", docref: "ref", scrapper: nil
+      expect { RelatonGb::GbScrapper.scrape_doc(hit) }.
         to raise_error RelatonBib::RequestError
     end
   end

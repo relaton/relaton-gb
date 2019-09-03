@@ -95,7 +95,7 @@ module RelatonGb
         warn "fetching #{code}..."
         result = search(code)
         ret = result.select do |hit|
-          hit.title && hit.title.match(docidrx).to_s == code # &&
+          hit.docref && hit.docref.match(docidrx).to_s == code # &&
             # !corrigrx =~ hit.title
         end
         return ret unless ret.empty?

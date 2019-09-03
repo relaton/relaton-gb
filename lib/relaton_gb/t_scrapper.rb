@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require "open-uri"
+require "net/http"
 require "nokogiri"
 require "relaton_gb/scrapper"
 require "relaton_gb/gb_bibliographic_item"
@@ -21,13 +22,15 @@ module RelatonGb
         search_html = OpenURI.open_uri(
           "http://www.ttbz.org.cn/Home/Standard?searchType=2&key=" +
           CGI.escape(text.tr("-", [8212].pack("U"))),
-        )
+        ).read
         header = Nokogiri::HTML search_html
         xpath = '//table[contains(@class, "standard_list_table")]/tr/td/a'
-        t_xpath = "../preceding-sibling::td[3]"
+        t_xpath = "../preceding-sibling::td[4]"
         hits = header.xpath(xpath).map do |h|
-          title = h.at(t_xpath).text.gsub(/â\u0080\u0094/, "-")
-          Hit.new pid: h[:href].sub(%r{\/$}, ""), title: title, scrapper: self
+          docref = h.at(t_xpath).text.gsub(/â\u0080\u0094/, "-")
+          status = h.at("../preceding-sibling::td[1]").text.delete "\r\n"
+          pid = h[:href].sub(%r{\/$}, "")
+          Hit.new pid: pid, docref: docref, status: status, scrapper: self
         end
         HitCollection.new hits
       rescue OpenURI::HTTPError, SocketError, OpenSSL::SSL::SSLError
@@ -35,12 +38,12 @@ module RelatonGb
       end
       # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
-      # @param pid [String] standard's page path
+      # @param hit [RelatonGb::Hit] standard's page path
       # @return [RelatonGb::GbBibliographicItem]
-      def scrape_doc(pid)
-        src = "http://www.ttbz.org.cn#{pid}"
+      def scrape_doc(hit)
+        src = "http://www.ttbz.org.cn#{hit.pid}"
         doc = Nokogiri::HTML OpenURI.open_uri(src), nil, Encoding::UTF_8.to_s
-        GbBibliographicItem.new scrapped_data(doc, src: src)
+        GbBibliographicItem.new scrapped_data(doc, src, hit)
       rescue OpenURI::HTTPError, SocketError, OpenSSL::SSL::SSLError
         raise RelatonBib::RequestError, "Cannot access #{src}"
       end
@@ -49,16 +52,18 @@ module RelatonGb
 
       # rubocop:disable Metrics/MethodLength
       # @param doc [Nokogiri::HTML::Document]
+      # @param src [String]
+      # @param hit [RelatonGb::Hit]
       # @return [Hash]
-      def scrapped_data(doc, src:)
-        docid_xpt  = '//td[contains(.,"标准编号")]/following-sibling::td[1]'
-        status_xpt = '//td[contains(.,"标准状态")]/following-sibling::td[1]/span'
+      def scrapped_data(doc, src, hit)
+        # docid_xpt  = '//td[contains(.,"标准编号")]/following-sibling::td[1]'
+        # status_xpt = '//td[contains(.,"标准状态")]/following-sibling::td[1]/span'
         {
-          committee: get_committee(doc),
-          docid: get_docid(doc, docid_xpt),
+          committee: get_committee(doc, hit.docref),
+          docid: get_docid(hit.docref),
           title: get_titles(doc),
-          type: "international-standard",
-          docstatus: get_status(doc, status_xpt),
+          type: get_type,
+          docstatus: get_status(doc, hit.status),
           gbtype: gbtype,
           ccs: get_ccs(doc),
           ics: get_ics(doc),
@@ -66,12 +71,12 @@ module RelatonGb
           date: get_dates(doc),
           language: ["zh"],
           script: ["Hans"],
-          structuredidentifier: fetch_structuredidentifier(doc),
+          structuredidentifier: fetch_structuredidentifier(hit.docref),
         }
       end
       # rubocop:enable Metrics/MethodLength
 
-      def get_committee(doc)
+      def get_committee(doc, _ref)
         {
           name: doc.xpath('//td[.="团体名称"]/following-sibling::td[1]').text,
           type: "technical",

@@ -32,6 +32,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "ruby-debug-ide"
   spec.add_development_dependency "simplecov"
+  spec.add_development_dependency "vcr"
+  spec.add_development_dependency "webmock"
 
   spec.add_dependency "cnccs", "~> 0.1.1"
   spec.add_dependency "gb-agencies", "~> 0.0.1"
