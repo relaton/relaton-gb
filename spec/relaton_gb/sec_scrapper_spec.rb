@@ -2,7 +2,6 @@ require "relaton_gb/sec_scrapper"
 
 RSpec.describe RelatonGb::SecScrapper  do
   context "raise error when" do
-
     it "scrape page" do
       expect(Net::HTTP).to receive(:post).and_raise Timeout::Error
       expect { RelatonGb::SecScrapper.scrape_page("code") }.
@@ -17,4 +16,3 @@ RSpec.describe RelatonGb::SecScrapper  do
     end
   end
 end
-

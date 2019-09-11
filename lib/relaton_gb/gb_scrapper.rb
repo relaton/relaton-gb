@@ -19,13 +19,15 @@ module RelatonGb
           "http://openstd.samr.gov.cn/bzgk/gb/std_list?p.p2=" + text
         )
         result = Nokogiri::HTML search_html
-        hits = result.
-          xpath("//table[contains(@class, 'result_list')]/tbody/tr/td[2]/a").
-          map do |h|
-          pid = h[:onclick].match(/[0-9A-F]+/).to_s
-          Hit.new pid: pid, docref: h.text, scrapper: self
+        hits = result.xpath(
+          "//table[contains(@class, 'result_list')]/tbody[2]/tr",
+        ).map do |h|
+          ref = h.at "./td[2]/a"
+          pid = ref[:onclick].match(/[0-9A-F]+/).to_s
+          rdate = h.at("./td[7]").text
+          Hit.new pid: pid, docref: ref.text, scrapper: self, release_date: rdate
         end
-        HitCollection.new hits
+        HitCollection.new hits.sort_by(&:release_date).reverse
       rescue OpenURI::HTTPError, SocketError, OpenSSL::SSL::SSLError
         raise RelatonBib::RequestError, "Cannot access http://www.std.gov.cn/bzgk/gb/std_list"
       end

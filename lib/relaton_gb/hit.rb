@@ -7,23 +7,30 @@ module RelatonGb
     attr_reader :hit_collection
 
     # @return [String]
-    attr_reader :pid
+    attr_reader :pid, :docref
 
-    # @return [String]
-    attr_reader :docref, :status
+    # @return [Date, NilClass]
+    attr_reader :release_date
+
+    # @return [String, NilClass]
+    attr_reader :status
 
     # @return [RelatonGb::GbScrapper, RelatonGb::SecScraper, RelatonGb::TScrapper]
     attr_reader :scrapper
 
-    # @param hit [Hash]
-    # @param hit_collection [Isobib:HitCollection]
-    def initialize(pid:, docref:, status: nil, hit_collection: nil, scrapper:)
+    # @param pid [String]
+    # @param docref [String]
+    # @parma scrapper [RelatonGb::GbScrapper, RelatonGb::SecScraper, RelatonGb::TScrapper]
+    # @param release_date [String]
+    # @status [String, NilClass]
+    # @param hit_collection [RelatonGb:HitCollection, NilClass]
+    def initialize(pid:, docref:, scrapper:, **args)
       @pid            = pid
       @docref         = docref
-      @status         = status
-      @hit_collection = hit_collection
       @scrapper       = scrapper
-      self.hit_collection << self if hit_collection
+      @release_date   = Date.parse args[:release_date] if args[:release_date]
+      @status         = args[:status]
+      @hit_collection = args[:hit_collection]
     end
 
     # Parse page.
@@ -43,19 +50,5 @@ module RelatonGb
       "@fullIdentifier=\"#{@fetch&.shortref}\" "\
       "@docref=\"#{docref}\">"
     end
-
-    # @param builder [Nokogiri::XML::Builder]
-    # @param opts [Hash]
-    # @return [String]
-    # def to_xml(builder = nil, opts = {})
-    #   if builder
-    #     fetch.to_xml builder, opts
-    #   else
-    #     builder = Nokogiri::XML::Builder.new(encoding: "UTF-8") do |xml|
-    #       fetch.to_xml xml, opts
-    #     end
-    #     builder.doc.root.to_xml
-    #   end
-    # end
   end
 end

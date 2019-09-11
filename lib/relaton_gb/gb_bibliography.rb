@@ -91,16 +91,11 @@ module RelatonGb
       def search_filter(code)
         # search filter needs to incorporate year
         docidrx = %r{^[^\s]+\s[\d\.-]+}
-        # corrigrx = %r{^[^\s]+\s[\d\.]+-[0-9]+/}
         warn "fetching #{code}..."
         result = search(code)
-        ret = result.select do |hit|
-          hit.docref && hit.docref.match(docidrx).to_s == code # &&
-            # !corrigrx =~ hit.title
+        result.select do |hit|
+          hit.docref && hit.docref.match(docidrx).to_s.include?(code)
         end
-        return ret unless ret.empty?
-
-        []
       end
 
       # Sort through the results from Isobib, fetching them three at a time,
@@ -125,12 +120,15 @@ module RelatonGb
         { years: missed_years }
       end
 
-      def fetch_pages(s, n)
-        workers = RelatonBib::WorkersPool.new n
+      # @param hits [RelatonBib::HitCollection<RelatonBib::Hit>]
+      # @param threads [Integer]
+      # @return [Array<RelatonBib::GbBibliographicItem>]
+      def fetch_pages(hits, threads)
+        workers = RelatonBib::WorkersPool.new threads
         workers.worker { |w| { i: w[:i], hit: w[:hit].fetch } }
-        s.each_with_index { |hit, i| workers << { i: i, hit: hit } }
+        hits.each_with_index { |hit, i| workers << { i: i, hit: hit } }
         workers.end
-        workers.result.sort { |x, y| x[:i] <=> y[:i] }.map { |x| x[:hit] }
+        workers.result.sort_by { |x| x[:i] }.map { |x| x[:hit] }
       end
     end
   end

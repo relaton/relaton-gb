@@ -11,7 +11,7 @@ module RelatonGb
 
     # rubocop:disable Metrics/MethodLength
     # @param doc [Nokogiri::HTML::Document]
-      # @param src [String]
+    # @param src [String]
     # @param hit [RelatonGb::Hit]
     # @return [Hash]
     def scrapped_data(doc, src, hit)
