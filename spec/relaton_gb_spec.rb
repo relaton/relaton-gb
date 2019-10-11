@@ -67,7 +67,7 @@ RSpec.describe RelatonGb do
         results = RelatonGb::GbBibliography.get("GB/T 5606", 2004, all_parts: true).to_xml
         expect(results).to include %(<bibitem id="GB/T5606.1-2004" type="standard">)
         expect(results).to include %(<docidentifier type="Chinese Standard">GB/T 5606\.1-2004</docidentifier>)
-        expect(results).to include %(<docidentifier type="Chinese Standard">GB/T 5606-2004 (all parts)</docidentifier>)
+        expect(results).to include %(<docidentifier type="Chinese Standard">GB/T 5606 (all parts)</docidentifier>)
       end
     end
 
