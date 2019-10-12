@@ -16,6 +16,7 @@ module RelatonGb
     # @return [Hash]
     def scrapped_data(doc, src, hit)
       {
+        fetched: Date.today.to_s,
         committee: get_committee(doc, hit.docref),
         docid: get_docid(hit.docref),
         title: get_titles(doc),
