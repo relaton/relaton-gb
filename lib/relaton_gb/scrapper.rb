@@ -21,7 +21,7 @@ module RelatonGb
         docid: get_docid(hit.docref),
         title: get_titles(doc),
         contributor: get_contributors(doc, hit.docref),
-        type: get_type,
+        doctype: get_type,
         docstatus: get_status(doc, hit.status),
         gbtype: get_gbtype(doc, hit.docref),
         ccs: get_ccs(doc),

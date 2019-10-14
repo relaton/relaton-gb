@@ -62,7 +62,7 @@ module RelatonGb
           committee: get_committee(doc, hit.docref),
           docid: get_docid(hit.docref),
           title: get_titles(doc),
-          type: get_type,
+          doctype: get_type,
           docstatus: get_status(doc, hit.status),
           gbtype: gbtype,
           ccs: get_ccs(doc),

@@ -105,7 +105,7 @@ RSpec.describe RelatonGb do
       xml = File.open "spec/examples/gbt_20223_2006.xml", "r:UTF-8", &:read
       item = RelatonGb::XMLParser.from_xml xml
       expect(item).to be_instance_of RelatonGb::GbBibliographicItem
-      expect(item.to_xml(bibdata: true)).to be_equivalent_to xml.sub(%r{<fetched>[^<]+</fetched>}, "<fetched>#{Date.today}</fetched>")
+      expect(item.to_xml(bibdata: true)).to be_equivalent_to xml
     end
   end
 end

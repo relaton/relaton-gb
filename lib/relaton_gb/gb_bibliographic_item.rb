@@ -34,7 +34,6 @@ module RelatonGb
       args[:committee] && @committee = GbTechnicalCommittee.new(args[:committee])
       @ccs = args[:ccs].map { |c| c.is_a?(Cnccs::Ccs) ? c : Cnccs.fetch(c) }
       @gbtype = GbStandardType.new args[:gbtype]
-      @type = args[:type]
       @gbplannumber = args[:gbplannumber] || structuredidentifier&.project_number
     end
 
