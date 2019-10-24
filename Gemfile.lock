@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    relaton-gb (0.6.5)
+    relaton-gb (0.6.6)
       cnccs (~> 0.1.1)
       gb-agencies (~> 0.0.1)
       relaton-iso-bib (~> 0.3.0)
@@ -12,7 +12,7 @@ GEM
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     byebug (11.0.1)
-    cnccs (0.1.4)
+    cnccs (0.1.5)
     coderay (1.1.2)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
@@ -39,10 +39,10 @@ GEM
       pry (~> 0.10)
     public_suffix (4.0.1)
     rake (10.5.0)
-    relaton-bib (0.3.9)
+    relaton-bib (0.3.11)
       addressable
       nokogiri
-    relaton-iso-bib (0.3.9)
+    relaton-iso-bib (0.3.11)
       isoics (~> 0.1.6)
       relaton-bib (~> 0.3.0)
       ruby_deep_clone (~> 0.8.0)
