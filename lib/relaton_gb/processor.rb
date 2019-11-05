@@ -7,7 +7,7 @@ module RelatonGb
     def initialize
       @short = :relaton_gb
       @prefix = "CN"
-      @defaultprefix = %r{^GB }
+      @defaultprefix = %r{^(GB|GB/T|GB/Z) }
       @idtype = "Chinese Standard"
     end
 
