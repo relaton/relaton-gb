@@ -97,7 +97,7 @@ module RelatonGb
       end
 
       def gbtype
-        { scope: "social-group", prefix: "T", mandate: "mandatory" }
+        { scope: "social-group", prefix: "T", mandate: "mandatory", topic: "other" }
       end
 
       # def get_group_code(ref)

@@ -36,8 +36,6 @@ contributor:
     name:
       - content: State Economic and Trade Commission
         language: en
-      - content: 国家发改委
-        language: zh
   role: publisher
 
 link:
@@ -59,6 +57,7 @@ gbtype:
   scope: sector
   prefix: JB_mechanical
   mandate: recommended
+  topic: other
 
 ccs:
   code: J83

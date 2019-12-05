@@ -62,7 +62,7 @@ module RelatonGb
       gbtype = get_gbtype(doc, docref)
       entity = RelatonBib::Organization.new name: [
         { language: "en", content: gb_en.standard_agency1(gbtype[:scope], name, gbtype[:mandate]) },
-        { language: "zh", content: gb_zh.standard_agency1(gbtype[:scope], name, gbtype[:mandate]) },
+        # { language: "zh", content: gb_zh.standard_agency1(gbtype[:scope], name, gbtype[:mandate]) },
       ]
       [{ entity: entity, role: [type: "publisher"] }]
     end
@@ -110,7 +110,7 @@ module RelatonGb
     def get_gbtype(doc, ref)
       # ref = get_ref(doc)
       { scope: get_scope(doc), prefix: get_prefix(ref)["prefix"],
-        mandate: get_mandate(ref) }
+        mandate: get_mandate(ref), topic: "other" }
     end
 
     # @param doc [Nokogiri::HTML::Document]

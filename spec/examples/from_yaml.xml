@@ -1,5 +1,5 @@
 <bibdata type="standard">
-  <fetched>2019-08-19</fetched>
+  <fetched>2019-12-05</fetched>
   <title type="title-main" format="text/plain" language="zh" script="Hans">叉车属具 软包夹</title>
   <title type="main" format="text/plain" language="zh" script="Hans">叉车属具 软包夹</title>
   <title type="title-main" format="text/plain" language="en" script="Latn">Forklift attachment</title>
@@ -14,7 +14,6 @@
     <role type="publisher"/>
     <organization>
       <name language="en">State Economic and Trade Commission</name>
-      <name language="zh">国家发改委</name>
     </organization>
   </contributor>
   <language>zh</language>
@@ -38,11 +37,12 @@
       <gbscope>sector</gbscope>
       <gbprefix>JB_mechanical</gbprefix>
       <gbmandate>recommended</gbmandate>
+      <gbtopic>other</gbtopic>
     </gbtype>
     <ccs>
       <code>J83</code>
       <text>仓储设备、装卸机械</text>
     </ccs>
-    <gbplannumber>JB/T 13368</gbplannumber>
+    <plannumber>JB/T 13368</plannumber>
   </ext>
 </bibdata>

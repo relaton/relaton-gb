@@ -42,6 +42,7 @@ module RelatonGb
           scope: gbtype&.at("gbscope")&.text,
           prefix: gbtype&.at("gbprefix")&.text,
           mandate: gbtype&.at("gbmandate")&.text,
+          topic: gbtype&.at("gbtopic")&.text,
         }
       end
     end

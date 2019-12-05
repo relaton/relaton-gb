@@ -3,10 +3,17 @@
 
 require "open-uri"
 require "net/http"
+require "jing"
 
 RSpec.describe RelatonGb do
   it "has a version number" do
     expect(RelatonGb::VERSION).not_to be nil
+  end
+
+  it "returs grammar hash" do
+    hash = RelatonGb.grammar_hash
+    expect(hash).to be_instance_of String
+    expect(hash.size).to eq 32
   end
 
   it "fetch national standard" do
@@ -20,6 +27,9 @@ RSpec.describe RelatonGb do
       File.write file_path, xml unless File.exist? file_path
       expect(xml).to be_equivalent_to File.open(file_path, "r:UTF-8", &:read).
         sub(%r{<fetched>[^<]+</fetched>}, "<fetched>#{Date.today}</fetched>")
+      schema = Jing.new "spec/examples/isobib.rng"
+      errors = schema.validate file_path
+      expect(errors).to eq []
     end
   end
 
@@ -34,6 +44,9 @@ RSpec.describe RelatonGb do
       File.write file_path, xml unless File.exist? file_path
       expect(xml).to be_equivalent_to File.open(file_path, "r:UTF-8", &:read).
         sub(%r{<fetched>[^<]+</fetched>}, "<fetched>#{Date.today}</fetched>")
+      schema = Jing.new "spec/examples/isobib.rng"
+      errors = schema.validate file_path
+      expect(errors).to eq []
     end
   end
 
@@ -48,6 +61,9 @@ RSpec.describe RelatonGb do
       File.write file_path, xml unless File.exist? file_path
       expect(xml).to be_equivalent_to File.open(file_path, "r:UTF-8", &:read).
         sub(%r{<fetched>[^<]+</fetched>}, "<fetched>#{Date.today}</fetched>")
+      schema = Jing.new "spec/examples/isobib.rng"
+      errors = schema.validate file_path
+      expect(errors).to eq []
     end
   end
 

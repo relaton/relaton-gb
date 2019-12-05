@@ -13,7 +13,6 @@
     <role type="publisher"/>
     <organization>
       <name language="en">General Administration of Quality Supervision, Inspection and Quarantine; Standardization Administration of China</name>
-      <name language="zh">中华人民共和国国家质量监督检验检疫总局 中国国家标准化管理委员会</name>
     </organization>
   </contributor>
   <language>zh</language>
@@ -35,11 +34,12 @@
       <gbscope>national</gbscope>
       <gbprefix>GB_national</gbprefix>
       <gbmandate>recommended</gbmandate>
+      <gbtopic>other</gbtopic>
     </gbtype>
     <ccs>
       <code>B32</code>
       <text>纤维作物与产品</text>
     </ccs>
-    <gbplannumber>GB/T 20223</gbplannumber>
+    <plannumber>GB/T 20223</plannumber>
   </ext>
 </bibdata>

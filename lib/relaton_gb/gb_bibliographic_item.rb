@@ -115,7 +115,7 @@ module RelatonGb
         end
       end
 
-      builder.gbplannumber gbplannumber if gbplannumber
+      builder.plannumber gbplannumber if gbplannumber
     end
   end
 end

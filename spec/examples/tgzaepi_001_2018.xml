@@ -27,11 +27,12 @@
       <gbscope>social-group</gbscope>
       <gbprefix>T</gbprefix>
       <gbmandate>mandatory</gbmandate>
+      <gbtopic>other</gbtopic>
     </gbtype>
     <ccs>
       <code>Y68</code>
       <text>炊事机具、基础标准与通用方法</text>
     </ccs>
-    <gbplannumber>T/GZAEPI 001</gbplannumber>
+    <plannumber>T/GZAEPI 001</plannumber>
   </ext>
 </bibdata>

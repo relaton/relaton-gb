@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <!-- default namespace = "http://riboseinc.com/gbstandard" -->
+  <!--
+    Currently we inherit from a namespaced grammar, isostandard. Unless we inherit from isodoc,
+    we cannot have a new default namespace: we will end up with a grammar with two different
+    namespaces, one for isostandard and one for csd additions. And we do not want that.
+  -->
+  <include href="isostandard.rng">
+    <start>
+      <ref name="gb-standard"/>
+    </start>
+    <define name="preferred">
+      <element name="preferred">
+        <ref name="ZhEnLocalizedString"/>
+      </element>
+    </define>
+    <define name="admitted">
+      <element name="admitted">
+        <ref name="ZhEnLocalizedString"/>
+      </element>
+    </define>
+    <define name="deprecates">
+      <element name="deprecates">
+        <ref name="ZhEnLocalizedString"/>
+      </element>
+    </define>
+    <define name="term">
+      <element name="term">
+        <optional>
+          <attribute name="id">
+            <data type="ID"/>
+          </attribute>
+        </optional>
+        <oneOrMore>
+          <ref name="preferred"/>
+        </oneOrMore>
+        <zeroOrMore>
+          <ref name="admitted"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="deprecates"/>
+        </zeroOrMore>
+        <optional>
+          <ref name="termdomain"/>
+        </optional>
+        <ref name="definition"/>
+        <zeroOrMore>
+          <ref name="termnote"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="termexample"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="termsource"/>
+        </zeroOrMore>
+      </element>
+    </define>
+    <define name="BibDataExtensionType">
+      <optional>
+        <ref name="doctype"/>
+      </optional>
+      <zeroOrMore>
+        <ref name="gbcommittee"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="ics"/>
+      </zeroOrMore>
+      <ref name="structuredidentifier"/>
+      <ref name="gbtype"/>
+      <oneOrMore>
+        <ref name="gbccs"/>
+      </oneOrMore>
+      <optional>
+        <ref name="gbplannumber"/>
+      </optional>
+    </define>
+    <define name="term-clause">
+      <element name="clause">
+        <optional>
+          <attribute name="id">
+            <data type="ID"/>
+          </attribute>
+        </optional>
+        <optional>
+          <attribute name="language"/>
+        </optional>
+        <optional>
+          <attribute name="script"/>
+        </optional>
+        <optional>
+          <attribute name="inline-header">
+            <data type="boolean"/>
+          </attribute>
+        </optional>
+        <optional>
+          <attribute name="obligation">
+            <choice>
+              <value>normative</value>
+              <value>informative</value>
+            </choice>
+          </attribute>
+        </optional>
+        <optional>
+          <ref name="section-title"/>
+        </optional>
+        <zeroOrMore>
+          <!-- boilerplate not stripped -->
+          <choice>
+            <ref name="paragraph"/>
+            <ref name="ul"/>
+          </choice>
+        </zeroOrMore>
+        <choice>
+          <oneOrMore>
+            <ref name="term-clause"/>
+          </oneOrMore>
+          <zeroOrMore>
+            <choice>
+              <ref name="terms"/>
+              <ref name="definitions"/>
+            </choice>
+          </zeroOrMore>
+        </choice>
+      </element>
+    </define>
+    <define name="terms">
+      <element name="terms">
+        <optional>
+          <attribute name="id">
+            <data type="ID"/>
+          </attribute>
+        </optional>
+        <optional>
+          <attribute name="language"/>
+        </optional>
+        <optional>
+          <attribute name="script"/>
+        </optional>
+        <optional>
+          <attribute name="obligation">
+            <choice>
+              <value>normative</value>
+              <value>informative</value>
+            </choice>
+          </attribute>
+        </optional>
+        <optional>
+          <ref name="section-title"/>
+        </optional>
+        <zeroOrMore>
+          <!-- boilerplate not stripped -->
+          <choice>
+            <ref name="paragraph"/>
+            <ref name="ul"/>
+          </choice>
+        </zeroOrMore>
+        <choice>
+          <oneOrMore>
+            <ref name="term"/>
+          </oneOrMore>
+          <group>
+            <zeroOrMore>
+              <ref name="terms"/>
+            </zeroOrMore>
+            <optional>
+              <ref name="definitions"/>
+            </optional>
+          </group>
+        </choice>
+      </element>
+    </define>
+    <define name="DocumentType">
+      <choice>
+        <value>standard</value>
+        <value>recommendation</value>
+      </choice>
+    </define>
+  </include>
+  <!-- identical structure to iso-standard -->
+  <define name="gb-standard">
+    <element name="gb-standard">
+      <ref name="bibdata"/>
+      <zeroOrMore>
+        <ref name="termdocsource"/>
+      </zeroOrMore>
+      <optional>
+        <ref name="boilerplate"/>
+      </optional>
+      <ref name="preface"/>
+      <oneOrMore>
+        <ref name="sections"/>
+      </oneOrMore>
+      <zeroOrMore>
+        <ref name="annex"/>
+      </zeroOrMore>
+      <ref name="bibliography"/>
+    </element>
+  </define>
+  <define name="gbccs">
+    <element name="ccs">
+      <element name="code">
+        <text/>
+      </element>
+      <optional>
+        <element name="text">
+          <text/>
+        </element>
+      </optional>
+    </element>
+  </define>
+  <define name="gbplannumber">
+    <element name="plannumber">
+      <text/>
+    </element>
+  </define>
+  <define name="gbcommittee">
+    <element name="gbcommittee">
+      <attribute name="type">
+        <choice>
+          <value>technical</value>
+          <value>provisional</value>
+          <value>drafting</value>
+        </choice>
+      </attribute>
+      <text/>
+    </element>
+  </define>
+  <define name="gbtype">
+    <element name="gbtype">
+      <ref name="gbscope"/>
+      <ref name="gbprefix"/>
+      <ref name="gbmandate"/>
+      <ref name="gbtopic"/>
+    </element>
+  </define>
+  <define name="gbscope">
+    <element name="gbscope">
+      <choice>
+        <value>national</value>
+        <value>sector</value>
+        <value>professional</value>
+        <value>local</value>
+        <value>enterprise</value>
+        <value>social-group</value>
+      </choice>
+    </element>
+  </define>
+  <define name="gbmandate">
+    <element name="gbmandate">
+      <choice>
+        <value>mandatory</value>
+        <value>recommended</value>
+        <value>guidelines</value>
+      </choice>
+    </element>
+  </define>
+  <define name="gbprefix">
+    <element name="gbprefix">
+      <text/>
+    </element>
+  </define>
+  <define name="gbtopic">
+    <element name="gbtopic">
+      <choice>
+        <value>basic</value>
+        <value>health-and-safety</value>
+        <value>environment-protection</value>
+        <value>engineering-and-construction</value>
+        <value>product</value>
+        <value>method</value>
+        <value>management-techniques</value>
+        <value>other</value>
+      </choice>
+    </element>
+  </define>
+  <define name="ZhEnLocalizedString">
+    <!-- multiple languages and scripts possible: comma delimit them if so -->
+    <attribute name="language">
+      <choice>
+        <value>zh</value>
+        <value>en</value>
+      </choice>
+    </attribute>
+    <optional>
+      <attribute name="script">
+        <choice>
+          <value>Hans</value>
+          <value>Latn</value>
+        </choice>
+      </attribute>
+    </optional>
+    <oneOrMore>
+      <ref name="TextElement"/>
+    </oneOrMore>
+  </define>
+</grammar>

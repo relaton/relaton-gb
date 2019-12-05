@@ -3,7 +3,9 @@ require "yaml"
 RSpec.describe RelatonGb::GbBibliographicItem do
   it "returns string" do
     item = RelatonGb::GbBibliographicItem.new(
-      id: "12", ccs: [], gbtype: { scope: "scope", prefix: "prefix", mandate: "mandate" },
+      id: "12", ccs: [], gbtype: {
+        scope: "scope", prefix: "prefix", mandate: "mandate", topic: "other"
+      },
       gbplannumber: "1234",
     )
     expect(item.to_s).to eq "<#{item.class}:#{format('%#.14x', item.object_id << 1)}>"
