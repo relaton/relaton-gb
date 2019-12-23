@@ -1,9 +1,12 @@
 = RelatonGb
 
 image:https://img.shields.io/gem/v/relaton-gb.svg["Gem Version", link="https://rubygems.org/gems/relaton-gb"]
-image:https://img.shields.io/travis/metanorma/relaton-gb/master.svg["Build Status", link="https://travis-ci.com/metanorma/relaton-gb"]
-image:https://ci.appveyor.com/api/projects/status/7sgnnqlf38jwf4ds?svg=true["Appveyor Build Status", link="https://ci.appveyor.com/project/ribose/relaton-gb"]
-image:https://codeclimate.com/github/metanorma/relaton-gb/badges/gpa.svg["Code Climate", link="https://codeclimate.com/github/metanorma/relaton-gb"]
+image:https://github.com/relaton/relaton-gb/workflows/macos/badge.svg["Build Status (macOS)", link="https://github.com/relaton/relaton-gb/actions?workflow=macos"]
+image:https://github.com/relaton/relaton-gb/workflows/windows/badge.svg["Build Status (Windows)", link="https://github.com/relaton/relaton-gb/actions?workflow=windows"]
+image:https://github.com/relaton/relaton-gb/workflows/ubuntu/badge.svg["Build Status (Ubuntu)", link="https://github.com/relaton/relaton-gb/actions?workflow=ubuntu"]
+image:https://codeclimate.com/github/relaton/relaton-gb/badges/gpa.svg["Code Climate", link="https://codeclimate.com/github/relaton/relaton-gb"]
+image:https://img.shields.io/github/issues-pr-raw/relaton/relaton-gb.svg["Pull Requests", link="https://github.com/relaton/relaton-gb/pulls"]
+image:https://img.shields.io/github/commits-since/relaton/relaton-gb/latest.svg["Commits since latest",link="https://github.com/relaton/relaton-gb/releases"]
 
 
 RelatonGb is a Ruby gem that search and fetch Chinese GB standards.
