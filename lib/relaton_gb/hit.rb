@@ -2,10 +2,7 @@
 
 module RelatonGb
   # Hit.
-  class Hit
-    # @return [Isobib::HitCollection]
-    attr_reader :hit_collection
-
+  class Hit < RelatonBib::Hit
     # @return [String]
     attr_reader :pid, :docref
 
@@ -37,11 +34,6 @@ module RelatonGb
     # @return [Isobib::IsoBibliographicItem]
     def fetch
       @fetch ||= scrapper.scrape_doc self
-    end
-
-    # @return [String]
-    def to_s
-      inspect
     end
 
     # @return [String]
