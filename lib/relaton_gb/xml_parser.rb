@@ -6,7 +6,11 @@ module RelatonGb
       def from_xml(xml)
         doc = Nokogiri::XML(xml)
         gbitem = doc.at "/bibitem|/bibdata"
-        GbBibliographicItem.new item_data(gbitem)
+        if gbitem
+          GbBibliographicItem.new item_data(gbitem)
+        else
+          warn "[relato-gb] can't find bibitem or bibdata element in the XML"
+        end
       end
 
       private
