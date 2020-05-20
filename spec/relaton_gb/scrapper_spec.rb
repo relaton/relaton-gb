@@ -14,7 +14,7 @@ RSpec.describe RelatonGb::Scrapper do
       </html>
     END_HTML
     status = RelatonGb::GbScrapper.get_status doc
-    expect(status.stage).to eq "published"
+    expect(status.stage.value).to eq "published"
   end
 
   it "returns guidelines" do

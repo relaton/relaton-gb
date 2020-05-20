@@ -25,7 +25,8 @@ script:
   - Latn
 
 docstatus:
-  stage: activated
+  stage:
+    value: activated
 
 date:
   type: published
