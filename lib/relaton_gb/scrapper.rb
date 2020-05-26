@@ -55,16 +55,26 @@ module RelatonGb
     # @param docref [Strings]
     # @return [Array<Hash>]
     def get_contributors(doc, docref)
-      gb_en = GbAgencies::Agencies.new("en", {}, "")
-      gb_zh = GbAgencies::Agencies.new("zh", {}, "")
       name = docref.match(/^[^\s]+/).to_s
       name.sub!(%r{/[TZ]$}, "") unless name =~ /^GB/
       gbtype = get_gbtype(doc, docref)
-      entity = RelatonBib::Organization.new name: [
-        { language: "en", content: gb_en.standard_agency1(gbtype[:scope], name, gbtype[:mandate]) },
-        { language: "zh", content: gb_zh.standard_agency1(gbtype[:scope], name, gbtype[:mandate]) },
-      ]
+      orgs = %w[en zh].map { |l| org(l, name, gbtype) }.compact
+      return [] unless orgs.any?
+
+      entity = RelatonBib::Organization.new name: orgs
       [{ entity: entity, role: [type: "publisher"] }]
+    end
+
+    # @param lang [String]
+    # @param name [String]
+    # @param gbtype [Hash]
+    # @return [Hash]
+    def org(lang, name, gbtype)
+      ag = GbAgencies::Agencies.new(lang, {}, "")
+      content = ag.standard_agency1(gbtype[:scope], name, gbtype[:mandate])
+      return unless content
+
+      { language: lang, content: content }
     end
 
     # @param doc [Nokogiri::HTML::Document]
