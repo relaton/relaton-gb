@@ -4,9 +4,19 @@ title:
   - content: 叉车属具 软包夹
     language: zh
     script: Hans
+    type: title-main
+  - content: 叉车属具 软包夹
+    language: zh
+    script: Hans
+    type: main
   - content: Forklift attachment
     language: en
     script: Latn
+    type: title-main
+  - content: Forklift attachment
+    language: en
+    script: Latn
+    type: main
 
 doctype: standard
 

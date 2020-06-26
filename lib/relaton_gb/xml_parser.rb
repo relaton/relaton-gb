@@ -3,17 +3,14 @@ require "nokogiri"
 module RelatonGb
   class XMLParser < RelatonIsoBib::XMLParser
     class << self
-      def from_xml(xml)
-        doc = Nokogiri::XML(xml)
-        gbitem = doc.at "/bibitem|/bibdata"
-        if gbitem
-          GbBibliographicItem.new item_data(gbitem)
-        else
-          warn "[relato-gb] can't find bibitem or bibdata element in the XML"
-        end
-      end
-
       private
+
+      # override RelatonBib::BibliographicItem.bib_item method
+      # @param item_hash [Hash]
+      # @return [RelatonGb::GbBibliographicItem]
+      def bib_item(item_hash)
+        GbBibliographicItem.new item_hash
+      end
 
       def item_data(gbitem)
         data = super
@@ -23,11 +20,6 @@ module RelatonGb
         data[:plannumber] = gbitem.at("./plannumber")&.text
         data
       end
-
-      # Overrade get_id from RelatonIsoBib::XMLParser
-      # def get_id(did)
-      #   did.text.match(/^(?<project>.*?\d+)(?<hyphen>-)?(?(<hyphen>)(?<year>\d*))/)
-      # end
 
       def fetch_committee(doc)
         committee = doc.at "./ext/gbcommittee"

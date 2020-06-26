@@ -3,7 +3,7 @@ RSpec.describe RelatonGb::HitCollection do
 
   it "returns string" do
     expect(subject.to_s).to eq(
-      "<RelatonGb::HitCollection:#{format('%#.14x', subject.object_id << 1)} "\
+      "<RelatonGb::HitCollection:#{format('%<id>#.14x', id: subject.object_id << 1)} "\
       "@ref= @fetched=false>",
     )
   end

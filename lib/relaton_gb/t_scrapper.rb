@@ -84,16 +84,13 @@ module RelatonGb
       end
 
       def get_titles(doc)
-        xpath  = '//td[contains(.,"中文标题")]/following-sibling::td[1]'
-        titles = [{ title_main: doc.xpath(xpath).text,
-                    title_intro: nil, language: "zh", script: "Hans" }]
-        xpath = '//td[contains(.,"英文标题")]/following-sibling::td[1]'
-        title_main = doc.xpath(xpath).text
-        unless title_main.empty?
-          titles << { title_main: title_main, title_intro: nil, language: "en",
-                      script: "Latn" }
-        end
-        titles
+        xpz = '//td[contains(.,"中文标题")]/following-sibling::td[1]'
+        titles = RelatonBib::TypedTitleString.from_string doc.at(xpz).text, "zh", "Hans"
+        xpe = '//td[contains(.,"英文标题")]/following-sibling::td[1]'
+        ten = doc.xpath(xpe).text
+        return titles if ten.empty?
+
+        titles + RelatonBib::TypedTitleString.from_string(ten, "en", "Latn")
       end
 
       def gbtype

@@ -5,10 +5,11 @@ module RelatonGb
   class HitCollection < RelatonBib::HitCollection
     # @param hits [Array<Hash>]
     # @param hit_pages [Integer]
-    # @param scrapper [RelatonGb::GbScrapper, RelatonGb::SecScrapper, RelatonGb::TScrapper]
+    # @param scrapper [RelatonGb::GbScrapper, RelatonGb::SecScrapper,
+    #   RelatonGb::TScrapper]
     def initialize(hits = [])
       @array = hits
-      @fetched   = false
+      @fetched = false
     end
   end
 end

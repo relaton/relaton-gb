@@ -78,19 +78,14 @@ module RelatonGb
     end
 
     # @param doc [Nokogiri::HTML::Document]
-    # @return [Array<Hash>]
-    #   * :title_intro [String]
-    #   * :title_main [String]
-    #   * :language [String]
-    #   * :script [String]
+    # @return [Array<RelatonBib::TypedTitleString>]
     def get_titles(doc)
-      titles = [{ title_main: doc.at("//td[contains(text(), '中文标准名称')]/b").text,
-                  title_intro: nil, language: "zh", script: "Hans" }]
-      title_main = doc.at("//td[contains(text(), '英文标准名称')]").text.match(/[\w\s]+/).to_s
-      unless title_main.empty?
-        titles << { title_main: title_main, title_intro: nil, language: "en", script: "Latn" }
-      end
-      titles
+      tzh = doc.at("//td[contains(text(), '中文标准名称')]/b").text
+      titles = RelatonBib::TypedTitleString.from_string tzh, "zh", "Hans"
+      ten = doc.at("//td[contains(text(), '英文标准名称')]").text.match(/[\w\s]+/).to_s
+      return titles if ten.empty?
+
+      titles + RelatonBib::TypedTitleString.from_string(ten, "en", "Latn")
     end
 
     def get_type
@@ -122,12 +117,6 @@ module RelatonGb
       { scope: get_scope(doc), prefix: get_prefix(ref)["prefix"],
         mandate: get_mandate(ref), topic: "other" }
     end
-
-    # @param doc [Nokogiri::HTML::Document]
-    # @return [String]
-    # def get_ref(doc)
-    #   doc.xpath('//dt[text()="标准号"]/following-sibling::dd[1]').text
-    # end
 
     # @param doc [Nokogiri::HTML::Document]
     # @return [Array<String>]

@@ -38,7 +38,7 @@ module RelatonGb
 
     # @return [String]
     def inspect
-      "<#{self.class}:#{format('%#.14x', object_id << 1)} "\
+      "<#{self.class}:#{format('%<id>#.14x', id: object_id << 1)} "\
       "@fullIdentifier=\"#{@fetch&.shortref}\" "\
       "@docref=\"#{docref}\">"
     end

@@ -17,6 +17,15 @@ module RelatonGb
 
       private
 
+      #
+      # Ovverides superclass's method
+      #
+      # @param item [Hash]
+      # @retirn [RelatonGb::GbBibliographicItem]
+      def bib_item(item)
+        GbBibliographicItem.new(item)
+      end
+
       def ccs_hash_to_bib(ret)
         ret[:ccs] = array(ret[:ccs]).map do |ccs|
           ccs[:code] ? Cnccs.fetch(ccs[:code]) : Cnccs.fetch(ccs)

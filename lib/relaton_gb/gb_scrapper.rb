@@ -16,7 +16,7 @@ module RelatonGb
       # @return [RelatonGb::HitCollection]
       def scrape_page(text)
         search_html = OpenURI.open_uri(
-          "http://openstd.samr.gov.cn/bzgk/gb/std_list?p.p2=" + text
+          "http://openstd.samr.gov.cn/bzgk/gb/std_list?p.p2=" + text,
         )
         result = Nokogiri::HTML search_html
         hits = result.xpath(
