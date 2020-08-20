@@ -60,6 +60,14 @@ module RelatonGb
       hash
     end
 
+    # @param prefix [String]
+    # @return [String]
+    def to_asciibib(prefix = "")
+      out = super
+      ccs.each { |c| out += c.to_aciibib prefix, ccs.size }
+      out
+    end
+
     # @return [String]
     def inspect
       "<#{self.class}:#{format('%<id>#.14x', id: object_id << 1)}>"

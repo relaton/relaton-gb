@@ -21,7 +21,7 @@ module RelatonGb
       def scrape_page(text)
         search_html = OpenURI.open_uri(
           "http://www.ttbz.org.cn/Home/Standard?searchType=2&key=" +
-          CGI.escape(text.tr("-", [8212].pack("U"))),
+          CGI.escape(text.tr("-", [8212].pack("U")))
         ).read
         header = Nokogiri::HTML search_html
         xpath = '//table[contains(@class, "standard_list_table")]/tr/td/a'
@@ -85,7 +85,8 @@ module RelatonGb
 
       def get_titles(doc)
         xpz = '//td[contains(.,"中文标题")]/following-sibling::td[1]'
-        titles = RelatonBib::TypedTitleString.from_string doc.at(xpz).text, "zh", "Hans"
+        titles = RelatonBib::TypedTitleString.from_string doc.at(xpz)
+          .text, "zh", "Hans"
         xpe = '//td[contains(.,"英文标题")]/following-sibling::td[1]'
         ten = doc.xpath(xpe).text
         return titles if ten.empty?
@@ -94,12 +95,9 @@ module RelatonGb
       end
 
       def gbtype
-        { scope: "social-group", prefix: "T", mandate: "mandatory", topic: "other" }
+        { scope: "social-group", prefix: "T", mandate: "mandatory",
+          topic: "other" }
       end
-
-      # def get_group_code(ref)
-      #   ref.match(%r{(?<=\/)[^\s]})
-      # end
 
       def get_ccs(doc)
         [doc.xpath('//td[contains(.,"中国标准分类号")]/following-sibling::td[1]')
