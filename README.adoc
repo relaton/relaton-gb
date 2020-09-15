@@ -46,28 +46,10 @@ Or install it yourself as:
 require 'relaton_gb'
 
 hit_collection = RelatonGb::GbBibliography.search "GB/T 20223-2006"
-=> [<RelatonGb::Hit:0x007f97572b7348 @fullIdentifier="" @title="GB/T 20223-2006  棉短绒">,
- <RelatonGb::Hit:0x007f97572b7208 @fullIdentifier="" @title="20010320-T-424  棉短绒">,
- <RelatonGb::Hit:0x007f97572b70c8 @fullIdentifier="" @title="GB/T 20223-2018  棉短绒">,
- <RelatonGb::Hit:0x007f97572b6fb0 @fullIdentifier="" @title="NB/T 20223-2013  核电厂安全重要机械设备维修指南">,
- <RelatonGb::Hit:0x007f97572b6e98 @fullIdentifier="" @title="20130458-T-424  棉短绒">,
- <RelatonGb::Hit:0x007f97572b6d80 @fullIdentifier="" @title="GB 12995-2006  机动轮椅车">,
- <RelatonGb::Hit:0x007f97572b6c68 @fullIdentifier="" @title="GB 14866-2006  个人用眼护具技术要求">,
- <RelatonGb::Hit:0x007f97572b6b28 @fullIdentifier="" @title="GB/T 20788-2006  饲草揉碎机">,
- <RelatonGb::Hit:0x007f97572b6a10 @fullIdentifier="" @title="GB/T 20707-2006  可可脂">,
- <RelatonGb::Hit:0x007f97572b68f8 @fullIdentifier="" @title="GB/T 20706-2006  可可粉">]
-
-hit_collection.size
-=> 10
+=> <RelatonGb::HitCollection:0x007fc8d8a26d10 @ref= @fetched=false>
 
 hit_collection.first
-=> <RelatonGb::Hit:0x007f97572b7348 @fullIdentifier="" @title="GB/T 20223-2006  棉短绒">
-
-hit_collection[1]
-=> <RelatonGb::Hit:0x007f97572b7208 @fullIdentifier="" @title="20010320-T-424  棉短绒">
-
-hit_collection.first.title
-=> "GB/T 20223-2006  棉短绒"
+=> <RelatonGb::Hit:0x007fc8d8a27c88 @fullIdentifier="" @docref="GB/T 20223-2006">
 ----
 
 === Scrape document form collection
@@ -111,7 +93,7 @@ hit_collection.first.fetch.date
 => [#<RelatonBib::BibliographicDate:0x007f975a0207d0 @from=nil, @on=2006-03-10 00:00:00 +0100, @to=nil, @type="published">]
 ----
 
-=== Create bibliographic item form YAML
+=== Create bibliographic item from YAML
 [source,ruby]
 ----
 hash = YAML.load_file 'spec/examples/gb_bib_item.yml'
@@ -131,7 +113,7 @@ RelatonGb::GbBibliographicItem.new bib_hash
 [source,ruby]
 ----
 hit_collection.first.fetch.to_xml
-=>"<bibitem id="GB/T20223-2006" type="international-standard">
+=>"<bibitem id="GB/T20223-2006" type="standard\">
   <title type="title-main" format="text/plain" language="zh" script="Hans">棉短绒</title>
   <title type="main" format="text/plain" language="zh" script="Hans">棉短绒</title>
   <title type="title-main" format="text/plain" language="en" script="Latn">Cotton linter</title>
