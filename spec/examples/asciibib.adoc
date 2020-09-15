@@ -1,28 +1,28 @@
 [%bibitem]
 == {blank}
 id:: JB/T13368
-fetched:: 2020-08-15
+fetched:: 2020-09-15
 title::
 title.type:: title-main
-title.conten:: 叉车属具 软包夹
+title.content:: 叉车属具 软包夹
 title.language:: zh
 title.script:: Hans
 title.format:: text/plain
 title::
 title.type:: main
-title.conten:: 叉车属具 软包夹
+title.content:: 叉车属具 软包夹
 title.language:: zh
 title.script:: Hans
 title.format:: text/plain
 title::
 title.type:: title-main
-title.conten:: Forklift attachment
+title.content:: Forklift attachment
 title.language:: en
 title.script:: Latn
 title.format:: text/plain
 title::
 title.type:: main
-title.conten:: Forklift attachment
+title.content:: Forklift attachment
 title.language:: en
 title.script:: Latn
 title.format:: text/plain
@@ -39,7 +39,7 @@ date.type:: published
 date.on:: 2009-01-01
 link.type:: src
 link.content:: http://www.std.gov.cn/hb/search/stdHBDetailed?id=6BC3AD94A1728ABCE05397BE0A0A5667
-contributor.organization.name.conten:: State Economic and Trade Commission
+contributor.organization.name.content:: State Economic and Trade Commission
 contributor.organization.name.language:: en
 contributor.role.type:: publisher
 doctype:: standard
