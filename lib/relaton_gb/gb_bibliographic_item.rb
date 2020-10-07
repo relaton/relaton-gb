@@ -31,27 +31,25 @@ module RelatonGb
 
     def initialize(**args)
       super
-      args[:committee] && @committee = GbTechnicalCommittee.new(args[:committee])
+      @committee = GbTechnicalCommittee.new args[:committee] if args[:committee]
       @ccs = args[:ccs].map { |c| c.is_a?(Cnccs::Ccs) ? c : Cnccs.fetch(c) }
       @gbtype = GbStandardType.new args[:gbtype]
-      @gbplannumber = args[:gbplannumber] || structuredidentifier&.project_number
-      # @doctype = args[:doctype]
+      @gbplannumber = args[:gbplannumber] ||
+        structuredidentifier&.project_number
     end
 
-    # @param builder [Nokogiri::XML::Builder]
-    # @return [String]
-    def to_xml(builder = nil, **opts)
-      if builder
-        super(builder, **opts) { |xml| render_gbxml(xml) }
-      else
-        Nokogiri::XML::Builder.new(encoding: "UTF-8") do |bldr|
-          super(bldr, **opts) { |xml| render_gbxml(xml) }
-        end.doc.root.to_xml
-      end
+    # @param opts [Hash]
+    # @option opts [Nokogiri::XML::Builder] :builder XML builder
+    # @option opts [Boolean] :bibdata
+    # @option opts [Symbol, NilClass] :date_format (:short), :full
+    # @option opts [String, Symbol] :lang language
+    # @return [String] XML
+    def to_xml(**opts)
+      super(**opts) { |xml| render_gbxml(xml) }
     end
 
     # @return [Hash]
-    def to_hash
+    def to_hash # rubocop:disable Metrics/AbcSize
       hash = super
       hash["ccs"] = single_element_array(ccs) if ccs&.any?
       hash["committee"] = committee.to_hash if committee
