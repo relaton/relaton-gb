@@ -113,7 +113,7 @@ RSpec.describe RelatonGb do
     it "getd a reference without a year in a code" do
       VCR.use_cassette "gb_t_1_1" do
         result = RelatonGb::GbBibliography.get("GB/T 1.1", nil, {})
-        expect(result.relation[0].bibitem.date[0].on.year).to eq 2009
+        expect(result.relation[0].bibitem.date[0].on.year).to eq 2020
       end
     end
 

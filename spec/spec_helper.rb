@@ -1,14 +1,15 @@
+require "bundler/setup"
+require "rspec/matchers"
+require "equivalent-xml"
 require "simplecov"
+
+Dir["./spec/support/**/*.rb"].each { |f| require f }
+
 SimpleCov.start do
   add_filter "/spec/"
 end
 
-require "bundler/setup"
 require "relaton_gb"
-require "rspec/matchers"
-require "equivalent-xml"
-
-Dir["./spec/support/**/*.rb"].each { |f| require f }
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
