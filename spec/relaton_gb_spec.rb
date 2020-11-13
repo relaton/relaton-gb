@@ -25,8 +25,8 @@ RSpec.describe RelatonGb do
       file_path = "spec/examples/gbt_20223_2006.xml"
       xml = hits.first.fetch.to_xml bibdata: true
       File.write file_path, xml unless File.exist? file_path
-      expect(xml).to be_equivalent_to File.open(file_path, "r:UTF-8", &:read).
-        sub(%r{<fetched>[^<]+</fetched>}, "<fetched>#{Date.today}</fetched>")
+      expect(xml).to be_equivalent_to File.open(file_path, "r:UTF-8", &:read)
+        .sub(%r{<fetched>[^<]+</fetched>}, "<fetched>#{Date.today}</fetched>")
       schema = Jing.new "spec/examples/isobib.rng"
       errors = schema.validate file_path
       expect(errors).to eq []
@@ -42,8 +42,8 @@ RSpec.describe RelatonGb do
       file_path = "spec/examples/jbt_13368_2018.xml"
       xml = hits.first.fetch.to_xml bibdata: true
       File.write file_path, xml unless File.exist? file_path
-      expect(xml).to be_equivalent_to File.open(file_path, "r:UTF-8", &:read).
-        sub(%r{<fetched>[^<]+</fetched>}, "<fetched>#{Date.today}</fetched>")
+      expect(xml).to be_equivalent_to File.open(file_path, "r:UTF-8", &:read)
+        .sub(%r{<fetched>[^<]+</fetched>}, "<fetched>#{Date.today}</fetched>")
       schema = Jing.new "spec/examples/isobib.rng"
       errors = schema.validate file_path
       expect(errors).to eq []
@@ -59,8 +59,8 @@ RSpec.describe RelatonGb do
       file_path = "spec/examples/tgzaepi_001_2018.xml"
       xml = hits.first.fetch.to_xml bibdata: true
       File.write file_path, xml unless File.exist? file_path
-      expect(xml).to be_equivalent_to File.open(file_path, "r:UTF-8", &:read).
-        sub(%r{<fetched>[^<]+</fetched>}, "<fetched>#{Date.today}</fetched>")
+      expect(xml).to be_equivalent_to File.open(file_path, "r:UTF-8", &:read)
+        .sub(%r{<fetched>[^<]+</fetched>}, "<fetched>#{Date.today}</fetched>")
       schema = Jing.new "spec/examples/isobib.rng"
       errors = schema.validate file_path
       expect(errors).to eq []
@@ -72,7 +72,7 @@ RSpec.describe RelatonGb do
       VCR.use_cassette "gb_t_5606_1_2004" do
         results = RelatonGb::GbBibliography.get("GB/T 5606.1", 2004, {}).to_xml
         expect(results).to include %(<bibitem id="GB/T5606.1-2004" type="standard">)
-        expect(results).to include %(<on>2004</on>)
+        expect(results).to include %(<on>2004-12-14</on>)
         expect(results).to include %(<docidentifier type="Chinese Standard">GB/T 5606.1-2004</docidentifier>)
         expect(results).not_to include %(<docidentifier type="Chinese Standard">GB/T 5606</docidentifier>)
       end
@@ -90,7 +90,7 @@ RSpec.describe RelatonGb do
     it "gets a code and year successfully" do
       VCR.use_cassette "gb_t_20223_2006" do
         results = RelatonGb::GbBibliography.get("GB/T 20223", "2006", {}).to_xml
-        expect(results).to include %(<on>2006</on>)
+        expect(results).to include %(<on>2006-03-10</on>)
         expect(results).not_to include %(<docidentifier type="Chinese Standard">GB/T 20223.1-2006</docidentifier>)
         expect(results).to include %(<docidentifier type="Chinese Standard">GB/T 20223-2006</docidentifier>)
       end
@@ -106,14 +106,14 @@ RSpec.describe RelatonGb do
     it "gets a referece with a year in a code" do
       VCR.use_cassette "gb_t_20223_2006" do
         result = RelatonGb::GbBibliography.get("GB/T 20223-2006").to_xml
-        expect(result).to include %(<on>2006</on>)
+        expect(result).to include %(<on>2006-03-10</on>)
       end
     end
 
     it "getd a reference without a year in a code" do
       VCR.use_cassette "gb_t_1_1" do
         result = RelatonGb::GbBibliography.get("GB/T 1.1", nil, {})
-        expect(result.relation[0].bibitem.date[0].on.year).to eq 2020
+        expect(result.relation[0].bibitem.date[0].on(:year)).to eq 2020
       end
     end
 

@@ -63,17 +63,20 @@ module RelatonGb
 
       def fetch_ref_err(code, year, missed_years)
         id = year ? "#{code}:#{year}" : code
-        warn "[relaton-gb] WARNING: no match found on the GB website for #{id}. "\
-          "The code must be exactly like it is on the website."
-        warn "[relaton-gb] (There was no match for #{year}, though there were matches "\
-          "found for #{missed_years.join(', ')}.)" unless missed_years.empty?
-        if /\d-\d/ =~ code
-          warn "[relaton-gb] The provided document part may not exist, or the document "\
-            "may no longer be published in parts."
+        warn "[relaton-gb] WARNING: no match found on the GB website "\
+          "for #{id}. The code must be exactly like it is on the website."
+        unless missed_years.empty?
+          warn "[relaton-gb] (There was no match for #{year}, though there "\
+            "were matches found for #{missed_years.join(', ')}.)"
+        end
+        if /\d-\d/.match? code
+          warn "[relaton-gb] The provided document part may not exist, or the "\
+            "document may no longer be published in parts."
         else
-          warn "[relaton-gb] If you wanted to cite all document parts for the reference, "\
-            "use \"#{code} (all parts)\".\nIf the document is not a standard, "\
-            "use its document type abbreviation (TS, TR, PAS, Guide)."
+          warn "[relaton-gb] If you wanted to cite all document parts for the "\
+            "reference, use \"#{code} (all parts)\".\nIf the document is not "\
+            "a standard, use its document type abbreviation (TS, TR, PAS, "\
+            "Guide)."
         end
         nil
       end
@@ -103,20 +106,22 @@ module RelatonGb
 
       # Sort through the results from Isobib, fetching them three at a time,
       # and return the first result that matches the code,
-      # matches the year (if provided), and which # has a title (amendments do not).
+      # matches the year (if provided), and which # has a title (amendments do
+      # not).
       # Only expects the first page of results to be populated.
       # Does not match corrigenda etc (e.g. ISO 3166-1:2006/Cor 1:2007)
-      # If no match, returns any years which caused mismatch, for error reporting
-      def results_filter(result, year)
+      # If no match, returns any years which caused mismatch, for error
+      # reporting
+      def results_filter(result, year) # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength
         missed_years = []
         result.each_slice(3) do |s| # ISO website only allows 3 connections
-          fetch_pages(s, 3).each_with_index do |r, i|
+          fetch_pages(s, 3).each do |r|
             return { ret: r } if !year
 
             r.date.select { |d| d.type == "published" }.each do |d|
-              return { ret: r } if year.to_i == d.on.year
+              return { ret: r } if year.to_i == d.on(:year)
 
-              missed_years << d.on.year
+              missed_years << d.on(:year)
             end
           end
         end
