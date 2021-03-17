@@ -24,7 +24,7 @@ RSpec.describe RelatonGb::GbBibliographicItem do
     subject do
       hash = YAML.load_file "spec/examples/gb_bib_item.yml"
       item_hash = RelatonGb::HashConverter.hash_to_bib hash
-      RelatonGb::GbBibliographicItem.new item_hash
+      RelatonGb::GbBibliographicItem.new **item_hash
     end
 
     it "returns Hash" do

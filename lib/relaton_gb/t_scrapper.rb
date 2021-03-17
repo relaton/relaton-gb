@@ -43,7 +43,7 @@ module RelatonGb
       def scrape_doc(hit)
         src = "http://www.ttbz.org.cn#{hit.pid}"
         doc = Nokogiri::HTML OpenURI.open_uri(src), nil, Encoding::UTF_8.to_s
-        GbBibliographicItem.new scrapped_data(doc, src, hit)
+        GbBibliographicItem.new **scrapped_data(doc, src, hit)
       rescue OpenURI::HTTPError, SocketError, OpenSSL::SSL::SSLError
         raise RelatonBib::RequestError, "Cannot access #{src}"
       end

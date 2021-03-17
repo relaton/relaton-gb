@@ -9,7 +9,7 @@ module RelatonGb
       # @param item_hash [Hash]
       # @return [RelatonGb::GbBibliographicItem]
       def bib_item(item_hash)
-        GbBibliographicItem.new item_hash
+        GbBibliographicItem.new **item_hash
       end
 
       def item_data(gbitem)
