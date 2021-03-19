@@ -38,6 +38,13 @@ module RelatonGb
         structuredidentifier&.project_number
     end
 
+    # @param hash [Hash]
+    # @return [RelatonGb::GbBibliographicItem]
+    def self.from_hash(hash)
+      item_hash = ::RelatonGb::HashConverter.hash_to_bib(hash)
+      new **item_hash
+    end
+
     # @param opts [Hash]
     # @option opts [Nokogiri::XML::Builder] :builder XML builder
     # @option opts [Boolean] :bibdata

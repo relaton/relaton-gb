@@ -3,8 +3,7 @@ require "jing"
 RSpec.describe RelatonGb::HashConverter do
   it "creates GbBibliographicItem form hash" do
     hash = YAML.load_file "spec/examples/gb_bib_item.yml"
-    item_hash = RelatonGb::HashConverter.hash_to_bib hash
-    item = RelatonGb::GbBibliographicItem.new **item_hash
+    item = RelatonGb::GbBibliographicItem.from_hash hash
     xml = item.to_xml bibdata: true
     file = "spec/examples/from_yaml.xml"
     File.write file, xml, encoding: "UTF-8" unless File.exist? file

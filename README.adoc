@@ -100,11 +100,7 @@ hash = YAML.load_file 'spec/examples/gb_bib_item.yml'
 => {"id"=>"JB/T13368",
 ...
 
-bib_hash = RelatonGb::HashConverter.hash_to_bib hash
-=> {:id=>"JB/T13368",
-...
-
-RelatonGb::GbBibliographicItem.new bib_hash
+RelatonGb::GbBibliographicItem.from_hash hash
 => <RelatonGb::GbBibliographicItem:0x007fc680802700>
 ----
 
