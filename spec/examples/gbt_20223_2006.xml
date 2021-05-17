@@ -1,5 +1,5 @@
 <bibdata type="standard">
-  <fetched>2020-11-11</fetched>
+  <fetched>2021-05-14</fetched>
   <title type="title-main" format="text/plain" language="zh" script="Hans">棉短绒</title>
   <title type="main" format="text/plain" language="zh" script="Hans">棉短绒</title>
   <title type="title-main" format="text/plain" language="en" script="Latn">Cotton linter</title>
@@ -19,7 +19,7 @@
   <language>zh</language>
   <script>Hans</script>
   <status>
-    <stage>obsoleted</stage>
+    <stage>replaced</stage>
   </status>
   <ext>
     <doctype>standard</doctype>

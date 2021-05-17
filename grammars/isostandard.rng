@@ -38,6 +38,9 @@
     </define>
     <define name="BibDataExtensionType">
       <ref name="doctype"/>
+      <optional>
+        <ref name="horizontal"/>
+      </optional>
       <ref name="editorialgroup"/>
       <zeroOrMore>
         <ref name="ics"/>
@@ -74,19 +77,6 @@
             </choice>
           </element>
         </choice>
-      </element>
-    </define>
-    <define name="ul">
-      <element name="ul">
-        <attribute name="id">
-          <data type="ID"/>
-        </attribute>
-        <oneOrMore>
-          <ref name="ul_li"/>
-        </oneOrMore>
-        <zeroOrMore>
-          <ref name="note"/>
-        </zeroOrMore>
       </element>
     </define>
     <define name="sections">
@@ -138,21 +128,27 @@
         </attribute>
       </optional>
       <optional>
+        <attribute name="type"/>
+      </optional>
+      <optional>
         <ref name="section-title"/>
       </optional>
-      <choice>
-        <group>
-          <oneOrMore>
-            <ref name="BasicBlock"/>
-          </oneOrMore>
-          <zeroOrMore>
-            <ref name="note"/>
-          </zeroOrMore>
-        </group>
+      <group>
+        <choice>
+          <group>
+            <oneOrMore>
+              <ref name="BasicBlock"/>
+            </oneOrMore>
+            <zeroOrMore>
+              <ref name="note"/>
+            </zeroOrMore>
+          </group>
+          <ref name="amend"/>
+        </choice>
         <oneOrMore>
           <ref name="clause-subsection"/>
         </oneOrMore>
-      </choice>
+      </group>
     </define>
     <define name="term">
       <element name="term">
@@ -181,17 +177,6 @@
         <zeroOrMore>
           <ref name="termsource"/>
         </zeroOrMore>
-      </element>
-    </define>
-    <define name="definition">
-      <element name="definition">
-        <oneOrMore>
-          <choice>
-            <ref name="paragraph"/>
-            <ref name="figure"/>
-            <ref name="formula"/>
-          </choice>
-        </oneOrMore>
       </element>
     </define>
     <define name="annex">
@@ -271,6 +256,7 @@
         <value>guide</value>
         <value>amendment</value>
         <value>technical-corrigendum</value>
+        <value>directive</value>
       </choice>
     </define>
     <define name="structuredidentifier">
@@ -325,12 +311,23 @@
         <attribute name="script"/>
       </optional>
       <optional>
+        <attribute name="inline-header">
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
         <attribute name="obligation">
           <choice>
             <value>normative</value>
             <value>informative</value>
           </choice>
         </attribute>
+      </optional>
+      <optional>
+        <attribute name="number"/>
+      </optional>
+      <optional>
+        <attribute name="type"/>
       </optional>
       <optional>
         <ref name="section-title"/>
@@ -348,54 +345,6 @@
           <ref name="content-subsection"/>
         </oneOrMore>
       </choice>
-    </define>
-    <define name="table">
-      <element name="table">
-        <attribute name="id">
-          <data type="ID"/>
-        </attribute>
-        <optional>
-          <attribute name="width"/>
-        </optional>
-        <optional>
-          <attribute name="unnumbered">
-            <data type="boolean"/>
-          </attribute>
-        </optional>
-        <optional>
-          <attribute name="number"/>
-        </optional>
-        <optional>
-          <attribute name="subsequence"/>
-        </optional>
-        <optional>
-          <attribute name="alt"/>
-        </optional>
-        <optional>
-          <attribute name="summary"/>
-        </optional>
-        <optional>
-          <attribute name="uri">
-            <data type="anyURI"/>
-          </attribute>
-        </optional>
-        <optional>
-          <ref name="tname"/>
-        </optional>
-        <optional>
-          <ref name="thead"/>
-        </optional>
-        <ref name="tbody"/>
-        <optional>
-          <ref name="tfoot"/>
-        </optional>
-        <zeroOrMore>
-          <ref name="table-note"/>
-        </zeroOrMore>
-        <optional>
-          <ref name="dl"/>
-        </optional>
-      </element>
     </define>
   </include>
   <!-- end overrides -->
@@ -417,6 +366,9 @@
         <ref name="termdocsource"/>
       </zeroOrMore>
       <optional>
+        <ref name="misccontainer"/>
+      </optional>
+      <optional>
         <ref name="boilerplate"/>
       </optional>
       <ref name="preface"/>
@@ -427,6 +379,14 @@
         <ref name="annex"/>
       </zeroOrMore>
       <ref name="bibliography"/>
+      <zeroOrMore>
+        <ref name="indexsect"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="horizontal">
+    <element name="horizontal">
+      <data type="boolean"/>
     </element>
   </define>
   <define name="documentnumber">
@@ -508,28 +468,6 @@
   <define name="annex-appendix">
     <element name="appendix">
       <ref name="Clause-Section"/>
-    </element>
-  </define>
-  <define name="ul_li">
-    <element name="li">
-      <optional>
-        <attribute name="id">
-          <data type="ID"/>
-        </attribute>
-      </optional>
-      <optional>
-        <attribute name="uncheckedcheckbox">
-          <data type="boolean"/>
-        </attribute>
-      </optional>
-      <optional>
-        <attribute name="checkedcheckbox">
-          <data type="boolean"/>
-        </attribute>
-      </optional>
-      <oneOrMore>
-        <ref name="BasicBlock"/>
-      </oneOrMore>
     </element>
   </define>
   <define name="stagename">

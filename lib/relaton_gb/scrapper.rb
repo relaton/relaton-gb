@@ -7,6 +7,11 @@ require "gb_agencies"
 module RelatonGb
   # Common scrapping methods.
   module Scrapper
+    STAGES = { "即将实施" => "published",
+               "现行" => "activated",
+               "废止" => "obsoleted",
+               "被代替" => "replaced" }.freeze
+
     @prefixes = nil
 
     # rubocop:disable Metrics/MethodLength
@@ -96,12 +101,8 @@ module RelatonGb
     # @param status [String, NilClass]
     # @return [RelatonBib::DocumentStatus]
     def get_status(doc, status = nil)
-      stage = case status || doc.at("//td[contains(., '标准状态')]/span")&.text
-              when "即将实施" then "published"
-              when "现行" then "activated"
-              when "废止" then "obsoleted"
-              end
-      RelatonBib::DocumentStatus.new stage: stage
+      status ||= doc.at("//td[contains(., '标准状态')]/span")&.text
+      RelatonBib::DocumentStatus.new stage: STAGES[status]
     end
 
     private

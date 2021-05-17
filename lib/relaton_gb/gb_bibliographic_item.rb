@@ -52,7 +52,20 @@ module RelatonGb
     # @option opts [String, Symbol] :lang language
     # @return [String] XML
     def to_xml(**opts)
-      super(**opts) { |xml| render_gbxml(xml) }
+      super(**opts) do |b|
+        if opts[:bibdata] && has_ext_attrs?
+          b.ext do
+            b.doctype doctype if doctype
+            b.horizontal horizontal unless horizontal.nil?
+            # b.docsubtype docsubtype if docsubtype
+            committee&.to_xml b
+            ics.each { |i| i.to_xml b }
+            structuredidentifier&.to_xml b
+            b.stagename stagename if stagename
+            render_gbxml(b)
+          end
+        end
+      end
     end
 
     # @return [Hash]
@@ -105,6 +118,13 @@ module RelatonGb
       end
 
       builder.plannumber gbplannumber if gbplannumber
+    end
+
+    #
+    # @return [Boolean]
+    #
+    def has_ext_attrs?
+      super || committee || docsubtype
     end
   end
 end
