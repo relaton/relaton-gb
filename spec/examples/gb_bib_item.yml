@@ -59,6 +59,7 @@ committee:
 
 ics:
   code: "53.060"
+  text: Industrial trucks
 
 structuredidentifier:
   type: Chinese Standard
