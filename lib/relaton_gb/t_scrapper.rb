@@ -33,7 +33,7 @@ module RelatonGb
           Hit.new pid: pid, docref: docref, status: status, scrapper: self
         end
         HitCollection.new hits
-      rescue OpenURI::HTTPError, SocketError, OpenSSL::SSL::SSLError
+      rescue OpenURI::HTTPError, SocketError, OpenSSL::SSL::SSLError, Net::OpenTimeout
         raise RelatonBib::RequestError, "Cannot access http://www.ttbz.org.cn/Home/Standard"
       end
       # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
@@ -44,7 +44,7 @@ module RelatonGb
         src = "http://www.ttbz.org.cn#{hit.pid}"
         doc = Nokogiri::HTML OpenURI.open_uri(src), nil, Encoding::UTF_8.to_s
         GbBibliographicItem.new **scrapped_data(doc, src, hit)
-      rescue OpenURI::HTTPError, SocketError, OpenSSL::SSL::SSLError
+      rescue OpenURI::HTTPError, SocketError, OpenSSL::SSL::SSLError, Net::OpenTimeout
         raise RelatonBib::RequestError, "Cannot access #{src}"
       end
 

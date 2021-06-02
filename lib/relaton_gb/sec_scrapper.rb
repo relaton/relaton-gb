@@ -32,7 +32,7 @@ module RelatonGb
         HitCollection.new hits
       rescue SocketError, Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
              Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,
-             OpenSSL::SSL::SSLError, Errno::ETIMEDOUT
+             OpenSSL::SSL::SSLError, Errno::ETIMEDOUT, Net::OpenTimeout
         raise RelatonBib::RequestError, "Cannot access #{uri}"
       end
 
@@ -45,7 +45,7 @@ module RelatonGb
         GbBibliographicItem.new **scrapped_data(doc, src, hit)
       rescue SocketError, Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
              Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,
-             OpenSSL::SSL::SSLError, Errno::ETIMEDOUT
+             OpenSSL::SSL::SSLError, Errno::ETIMEDOUT, Net::OpenTimeout
         raise RelatonBib::RequestError, "Cannot access #{src}"
       end
 
