@@ -14,17 +14,18 @@ module RelatonGb
       # @param text [Strin] code of standard for search
       # @return [RelatonGb::HitCollection]
       def search(text)
-        if text =~ /^(GB|GJ|GS)/
+        case text
+        when /^(GB|GJ|GS)/
           # Scrape national standards.
           require "relaton_gb/gb_scrapper"
           GbScrapper.scrape_page text
-        elsif text =~ /^ZB/
+        when /^ZB/
           # Scrape proffesional.
-        elsif text =~ /^DB/
+        when /^DB/
           # Scrape local standard.
-        elsif text =~ %r{^Q\/}
+        when %r{^Q/}
           # Enterprise standard
-        elsif text =~ %r{^T\/[^\s]{3,6}\s}
+        when %r{^T/[^\s]{3,6}\s}
           # Scrape social standard.
           require "relaton_gb/t_scrapper"
           TScrapper.scrape_page text
@@ -96,7 +97,7 @@ module RelatonGb
 
       def search_filter(code)
         # search filter needs to incorporate year
-        docidrx = %r{^[^\s]+\s[\d\.-]+}
+        docidrx = %r{^[^\s]+\s[\d.-]+}
         warn "[relaton-gb] (\"#{code}\") fetching..."
         result = search(code)
         result.select do |hit|
