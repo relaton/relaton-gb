@@ -183,6 +183,16 @@ hit_collection.first.fetch.to_xml bibdata: true
 </bibdata>"
 ----
 
+=== Typed links
+
+Each GB document has `src` type link.
+
+[source,ruby]
+----
+hit_collection.first.fetch.link
+=> [#<RelatonBib::TypedUri:0x00007fee2c0257e8 @content=#<Addressable::URI:0x67c URI:http://openstd.samr.gov.cn/bzgk/gb/newGbInfo?hcno=083B48FA72DBD3B9BDE74507BC31736A>, @type="src">]
+----
+
 == Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
