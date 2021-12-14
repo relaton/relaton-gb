@@ -14,10 +14,9 @@ module RelatonGb
     class << self
       # @param text [Strin] code of standard for serarch
       # @return [RelatonGb::HitCollection]
-      def scrape_page(text)
-        search_html = OpenURI.open_uri(
-          "http://openstd.samr.gov.cn/bzgk/gb/std_list?p.p2=" + text,
-        )
+      def scrape_page(text) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+        host = "http://openstd.samr.gov.cn/bzgk/gb/std_list"
+        search_html = OpenURI.open_uri("#{host}?p.p2=#{text}")
         result = Nokogiri::HTML search_html
         hits = result.xpath(
           "//table[contains(@class, 'result_list')]/tbody[2]/tr",
@@ -29,15 +28,15 @@ module RelatonGb
         end
         HitCollection.new hits.sort_by(&:release_date).reverse
       rescue OpenURI::HTTPError, SocketError, OpenSSL::SSL::SSLError, Net::OpenTimeout
-        raise RelatonBib::RequestError, "Cannot access http://www.std.gov.cn/bzgk/gb/std_list"
+        raise RelatonBib::RequestError, "Cannot access #{host}"
       end
 
       # @param hit [RelatonGb::Hit] standard's page id
       # @return [RelatonGb::GbBibliographicItem]
       def scrape_doc(hit)
-        src = "http://openstd.samr.gov.cn/bzgk/gb/newGbInfo?hcno=" + hit.pid
+        src = "http://openstd.samr.gov.cn/bzgk/gb/newGbInfo?hcno=#{hit.pid}"
         doc = Nokogiri::HTML OpenURI.open_uri(src)
-        GbBibliographicItem.new **scrapped_data(doc, src, hit)
+        GbBibliographicItem.new(**scrapped_data(doc, src, hit))
       rescue OpenURI::HTTPError, SocketError, OpenSSL::SSL::SSLError, Net::OpenTimeout
         raise RelatonBib::RequestError, "Cannot access #{src}"
       end

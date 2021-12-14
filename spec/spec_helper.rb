@@ -3,7 +3,7 @@ require "rspec/matchers"
 require "equivalent-xml"
 require "simplecov"
 
-Dir["./spec/support/**/*.rb"].each { |f| require f }
+Dir["./spec/support/**/*.rb"].sort.each { |f| require f }
 
 SimpleCov.start do
   add_filter "/spec/"

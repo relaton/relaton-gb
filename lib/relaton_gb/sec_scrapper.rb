@@ -42,7 +42,7 @@ module RelatonGb
         src = "http://hbba.sacinfo.org.cn/stdDetail/#{hit.pid}"
         page_uri = URI src
         doc = Nokogiri::HTML Net::HTTP.get(page_uri)
-        GbBibliographicItem.new **scrapped_data(doc, src, hit)
+        GbBibliographicItem.new(**scrapped_data(doc, src, hit))
       rescue SocketError, Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
              Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,
              OpenSSL::SSL::SSLError, Errno::ETIMEDOUT, Net::OpenTimeout
