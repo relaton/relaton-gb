@@ -24,17 +24,17 @@ RSpec.describe RelatonGb::GbBibliographicItem do
     subject do
       hash = YAML.load_file "spec/examples/gb_bib_item.yml"
       item_hash = RelatonGb::HashConverter.hash_to_bib hash
-      RelatonGb::GbBibliographicItem.new **item_hash
+      RelatonGb::GbBibliographicItem.new(**item_hash)
     end
 
     it "returns Hash" do
       hash = YAML.load_file "spec/examples/gb_bib_item.yml"
       h = subject.to_hash
       expect(h["committee"]).to eq hash["committee"]
-      expect(h["ics"]).to eq hash["ics"]
+      expect(h["ics"][0]).to eq hash["ics"]
       expect(h["structuredidentifier"]).to eq hash["structuredidentifier"]
       expect(h["gbtype"]).to eq hash["gbtype"]
-      expect(h["ccs"]).to eq hash["ccs"]
+      expect(h["ccs"][0]).to eq hash["ccs"]
       expect(h["plannumber"]).to eq hash["plannumber"]
     end
 
