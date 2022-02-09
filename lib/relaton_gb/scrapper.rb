@@ -43,7 +43,7 @@ module RelatonGb
     # @param docref [String]
     # @return [Array<RelatonBib::DocumentIdentifier>]
     def get_docid(docref)
-      [RelatonBib::DocumentIdentifier.new(id: docref, type: "Chinese Standard")]
+      [RelatonBib::DocumentIdentifier.new(id: docref, type: "Chinese Standard", primary: true)]
     end
 
     # @param docref [String]

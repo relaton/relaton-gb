@@ -73,8 +73,8 @@ RSpec.describe RelatonGb do
         results = RelatonGb::GbBibliography.get("GB/T 5606.1", 2004, {}).to_xml
         expect(results).to include %(<bibitem id="GB/T5606.1-2004" type="standard">)
         expect(results).to include %(<on>2004-12-14</on>)
-        expect(results).to include %(<docidentifier type="Chinese Standard">GB/T 5606.1-2004</docidentifier>)
-        expect(results).not_to include %(<docidentifier type="Chinese Standard">GB/T 5606</docidentifier>)
+        expect(results).to include %(<docidentifier type="Chinese Standard" primary="true">GB/T 5606.1-2004</docidentifier>)
+        expect(results).not_to include %(<docidentifier type="Chinese Standard" primary="true">GB/T 5606</docidentifier>)
       end
     end
 
@@ -82,8 +82,8 @@ RSpec.describe RelatonGb do
       VCR.use_cassette "gb_t_5606_2004_all_parts" do
         results = RelatonGb::GbBibliography.get("GB/T 5606", 2004, all_parts: true).to_xml
         expect(results).to include %(<bibitem id="GB/T5606.1-2004" type="standard">)
-        expect(results).to include %(<docidentifier type="Chinese Standard">GB/T 5606\.1-2004</docidentifier>)
-        expect(results).to include %(<docidentifier type="Chinese Standard">GB/T 5606 (all parts)</docidentifier>)
+        expect(results).to include %(<docidentifier type="Chinese Standard" primary="true">GB/T 5606\.1-2004</docidentifier>)
+        expect(results).to include %(<docidentifier type="Chinese Standard" primary="true">GB/T 5606 (all parts)</docidentifier>)
       end
     end
 
@@ -91,8 +91,8 @@ RSpec.describe RelatonGb do
       VCR.use_cassette "gb_t_20223_2006" do
         results = RelatonGb::GbBibliography.get("GB/T 20223", "2006", {}).to_xml
         expect(results).to include %(<on>2006-03-10</on>)
-        expect(results).not_to include %(<docidentifier type="Chinese Standard">GB/T 20223.1-2006</docidentifier>)
-        expect(results).to include %(<docidentifier type="Chinese Standard">GB/T 20223-2006</docidentifier>)
+        expect(results).not_to include %(<docidentifier type="Chinese Standard" primary="true">GB/T 20223.1-2006</docidentifier>)
+        expect(results).to include %(<docidentifier type="Chinese Standard" primary="true">GB/T 20223-2006</docidentifier>)
       end
     end
 

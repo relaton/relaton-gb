@@ -1,11 +1,11 @@
 <bibdata type="standard">
-  <fetched>2021-05-14</fetched>
+  <fetched>2022-02-02</fetched>
   <title type="title-main" format="text/plain" language="zh" script="Hans">棉短绒</title>
   <title type="main" format="text/plain" language="zh" script="Hans">棉短绒</title>
   <title type="title-main" format="text/plain" language="en" script="Latn">Cotton linter</title>
   <title type="main" format="text/plain" language="en" script="Latn">Cotton linter</title>
   <uri type="src">http://openstd.samr.gov.cn/bzgk/gb/newGbInfo?hcno=083B48FA72DBD3B9BDE74507BC31736A</uri>
-  <docidentifier type="Chinese Standard">GB/T 20223-2006</docidentifier>
+  <docidentifier type="Chinese Standard" primary="true">GB/T 20223-2006</docidentifier>
   <date type="published">
     <on>2006-03-10</on>
   </date>

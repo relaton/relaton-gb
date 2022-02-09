@@ -4,7 +4,7 @@
   <title type="title-main" format="text/plain" language="en" script="Latn">Environmental protection type household range hood</title>
   <title type="main" format="text/plain" language="en" script="Latn">Environmental protection type household range hood</title>
   <uri type="src">http://www.ttbz.org.cn/StandardManage/Detail/22746</uri>
-  <docidentifier type="Chinese Standard">T/GZAEPI 001—2018</docidentifier>
+  <docidentifier type="Chinese Standard" primary="true">T/GZAEPI 001—2018</docidentifier>
   <date type="published">
     <on>2018-05-08</on>
   </date>
