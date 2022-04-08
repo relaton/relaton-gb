@@ -35,5 +35,5 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "cnccs", "~> 0.1.1"
   spec.add_dependency "gb-agencies", "~> 0.0.1"
-  spec.add_dependency "relaton-iso-bib", "~> 1.10.1"
+  spec.add_dependency "relaton-iso-bib", "~> 1.11.0"
 end

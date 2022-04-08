@@ -23,6 +23,7 @@ doctype: standard
 docid:
   id: T13368
   type: JB
+  primary: true
 
 docnumber: "13368"
 

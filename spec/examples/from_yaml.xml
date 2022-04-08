@@ -1,11 +1,11 @@
 <bibdata type="standard">
-  <fetched>2020-11-10</fetched>
+  <fetched>2022-02-09</fetched>
   <title type="title-main" format="text/plain" language="zh" script="Hans">叉车属具 软包夹</title>
   <title type="main" format="text/plain" language="zh" script="Hans">叉车属具 软包夹</title>
   <title type="title-main" format="text/plain" language="en" script="Latn">Forklift attachment</title>
   <title type="main" format="text/plain" language="en" script="Latn">Forklift attachment</title>
   <uri type="src">http://www.std.gov.cn/hb/search/stdHBDetailed?id=6BC3AD94A1728ABCE05397BE0A0A5667</uri>
-  <docidentifier type="JB">T13368</docidentifier>
+  <docidentifier type="JB" primary="true">T13368</docidentifier>
   <docnumber>13368</docnumber>
   <date type="published">
     <on>2009-01-01</on>

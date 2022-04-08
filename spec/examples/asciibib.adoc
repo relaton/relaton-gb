@@ -1,7 +1,7 @@
 [%bibitem]
 == {blank}
 id:: JB/T13368
-fetched:: 2020-09-15
+fetched:: 2022-02-09
 title::
 title.type:: title-main
 title.content:: 叉车属具 软包夹
@@ -28,6 +28,7 @@ title.script:: Latn
 title.format:: text/plain
 type:: standard
 docid.type:: JB
+docid.primary:: true
 docid.id:: T13368
 docnumber:: 13368
 language:: zh
