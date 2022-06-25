@@ -7,7 +7,7 @@ module RelatonGb
       # @param args [Hash]
       # @param nested [TrueClass, FalseClass]
       # @return [Hash]
-      def hash_to_bib(args, nested = false)
+      def hash_to_bib(args)
         ret = super
         return if ret.nil?
 

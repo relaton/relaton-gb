@@ -45,6 +45,9 @@
         <ref name="horizontal"/>
       </optional>
       <ref name="editorialgroup"/>
+      <optional>
+        <ref name="approvalgroup"/>
+      </optional>
       <zeroOrMore>
         <ref name="ics"/>
       </zeroOrMore>
@@ -249,6 +252,7 @@
         <value>warning</value>
         <value>important</value>
         <value>safety precautions</value>
+        <value>editorial</value>
       </choice>
     </define>
     <define name="preface">
@@ -308,18 +312,7 @@
     </define>
     <define name="editorialgroup">
       <element name="editorialgroup">
-        <oneOrMore>
-          <ref name="technical-committee"/>
-        </oneOrMore>
-        <zeroOrMore>
-          <ref name="subcommittee"/>
-        </zeroOrMore>
-        <zeroOrMore>
-          <ref name="workgroup"/>
-        </zeroOrMore>
-        <optional>
-          <ref name="secretariat"/>
-        </optional>
+        <ref name="ISOProjectGroup"/>
       </element>
     </define>
     <define name="Content-Section">
@@ -367,6 +360,33 @@
     </define>
   </include>
   <!-- end overrides -->
+  <define name="ISOProjectGroup">
+    <zeroOrMore>
+      <ref name="agency"/>
+    </zeroOrMore>
+    <oneOrMore>
+      <ref name="technical-committee"/>
+    </oneOrMore>
+    <zeroOrMore>
+      <ref name="subcommittee"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <ref name="workgroup"/>
+    </zeroOrMore>
+    <optional>
+      <ref name="secretariat"/>
+    </optional>
+  </define>
+  <define name="approvalgroup">
+    <element name="approvalgroup">
+      <ref name="ISOProjectGroup"/>
+    </element>
+  </define>
+  <define name="agency">
+    <element name="agency">
+      <text/>
+    </element>
+  </define>
   <!--
     We display the Normative References between scope and terms; but to keep the
     grammar simple, we keep the references together
