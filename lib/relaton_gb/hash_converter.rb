@@ -27,8 +27,8 @@ module RelatonGb
       end
 
       def ccs_hash_to_bib(ret)
-        ret[:ccs] = array(ret[:ccs]).map do |ccs|
-          ccs[:code] ? Cnccs.fetch(ccs[:code]) : Cnccs.fetch(ccs)
+        ret[:ccs] = RelatonBib.array(ret[:ccs]).map do |ccs|
+          (ccs[:code] && Cnccs.fetch(ccs[:code])) || Cnccs.fetch(ccs)
         end
       end
     end

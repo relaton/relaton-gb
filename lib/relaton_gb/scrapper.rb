@@ -14,12 +14,11 @@ module RelatonGb
 
     @prefixes = nil
 
-    # rubocop:disable Metrics/MethodLength
     # @param doc [Nokogiri::HTML::Document]
     # @param src [String]
     # @param hit [RelatonGb::Hit]
     # @return [Hash]
-    def scrapped_data(doc, src, hit)
+    def scrapped_data(doc, src, hit) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       {
         fetched: Date.today.to_s,
         committee: get_committee(doc, hit.docref),
@@ -38,7 +37,6 @@ module RelatonGb
         structuredidentifier: fetch_structuredidentifier(hit.docref),
       }
     end
-    # rubocop:enable Metrics/MethodLength
 
     # @param docref [String]
     # @return [Array<RelatonBib::DocumentIdentifier>]

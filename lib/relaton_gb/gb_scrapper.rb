@@ -47,7 +47,7 @@ module RelatonGb
       #   * :type [String]
       #   * :name [String]
       def get_committee(doc, _ref)
-        name = doc.at("//div[contains(text(), '归口单位')]/following-sibling::div")
+        name = doc.at("//div[contains(., '归口单位') or contains(., '归口部门')]/following-sibling::div")
         { type: "technical", name: name.text.delete("\r\n\t\t") }
       end
     end
