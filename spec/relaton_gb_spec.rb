@@ -50,22 +50,22 @@ RSpec.describe RelatonGb do
   #   end
   # end
 
-  it "fetch social standard" do
-    VCR.use_cassette "t_gzaepi_001_20018" do
-      hits = RelatonGb::GbBibliography.search "T/GZAEPI 001-2018"
-      expect(hits).to be_instance_of RelatonGb::HitCollection
-      expect(hits.first).to be_instance_of RelatonGb::Hit
-      expect(hits.first.fetch).to be_instance_of RelatonGb::GbBibliographicItem
-      file_path = "spec/examples/tgzaepi_001_2018.xml"
-      xml = hits.first.fetch.to_xml bibdata: true
-      File.write file_path, xml unless File.exist? file_path
-      expect(xml).to be_equivalent_to File.open(file_path, "r:UTF-8", &:read)
-        .sub(%r{<fetched>[^<]+</fetched>}, "<fetched>#{Date.today}</fetched>")
-      schema = Jing.new "spec/examples/isobib.rng"
-      errors = schema.validate file_path
-      expect(errors).to eq []
-    end
-  end
+  # it "fetch social standard" do
+  #   VCR.use_cassette "t_gzaepi_001_20018" do
+  #     hits = RelatonGb::GbBibliography.search "T/GZAEPI 001-2018"
+  #     expect(hits).to be_instance_of RelatonGb::HitCollection
+  #     expect(hits.first).to be_instance_of RelatonGb::Hit
+  #     expect(hits.first.fetch).to be_instance_of RelatonGb::GbBibliographicItem
+  #     file_path = "spec/examples/tgzaepi_001_2018.xml"
+  #     xml = hits.first.fetch.to_xml bibdata: true
+  #     File.write file_path, xml unless File.exist? file_path
+  #     expect(xml).to be_equivalent_to File.open(file_path, "r:UTF-8", &:read)
+  #       .sub(%r{<fetched>[^<]+</fetched>}, "<fetched>#{Date.today}</fetched>")
+  #     schema = Jing.new "spec/examples/isobib.rng"
+  #     errors = schema.validate file_path
+  #     expect(errors).to eq []
+  #   end
+  # end
 
   describe "relaton_gb get" do
     it "gets a code" do

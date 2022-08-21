@@ -20,8 +20,8 @@ module RelatonGb
       # @return [RelatonGb::HitCollection]
       def scrape_page(text)
         search_html = OpenURI.open_uri(
-          "http://www.ttbz.org.cn/Home/Standard?searchType=2&key=" +
-          CGI.escape(text.tr("-", [8212].pack("U")))
+          "http://www.ttbz.org.cn/Home/Standard?searchType=2&key=" \
+          "#{CGI.escape(text.tr('-', [8212].pack('U')))}",
         ).read
         header = Nokogiri::HTML search_html
         xpath = '//table[contains(@class, "standard_list_table")]/tr/td/a'
@@ -29,7 +29,7 @@ module RelatonGb
         hits = header.xpath(xpath).map do |h|
           docref = h.at(t_xpath).text.gsub(/â\u0080\u0094/, "-")
           status = h.at("../preceding-sibling::td[1]").text.delete "\r\n"
-          pid = h[:href].sub(%r{\/$}, "")
+          pid = h[:href].sub(%r{/$}, "")
           Hit.new pid: pid, docref: docref, status: status, scrapper: self
         end
         HitCollection.new hits
@@ -43,7 +43,7 @@ module RelatonGb
       def scrape_doc(hit)
         src = "http://www.ttbz.org.cn#{hit.pid}"
         doc = Nokogiri::HTML OpenURI.open_uri(src), nil, Encoding::UTF_8.to_s
-        GbBibliographicItem.new **scrapped_data(doc, src, hit)
+        GbBibliographicItem.new(**scrapped_data(doc, src, hit))
       rescue OpenURI::HTTPError, SocketError, OpenSSL::SSL::SSLError, Net::OpenTimeout
         raise RelatonBib::RequestError, "Cannot access #{src}"
       end
