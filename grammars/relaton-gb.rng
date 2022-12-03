@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <include href="biblio-standoc.rng">
+    <define name="BibDataExtensionType">
+      <optional>
+        <attribute name="schema-version"/>
+      </optional>
+      <optional>
+        <ref name="doctype"/>
+      </optional>
+      <optional>
+        <ref name="docsubtype"/>
+      </optional>
+      <zeroOrMore>
+        <ref name="gbcommittee"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="ics"/>
+      </zeroOrMore>
+      <ref name="structuredidentifier"/>
+      <optional>
+        <ref name="stagename"/>
+      </optional>
+      <ref name="gbtype"/>
+      <oneOrMore>
+        <ref name="gbccs"/>
+      </oneOrMore>
+      <optional>
+        <ref name="gbplannumber"/>
+      </optional>
+    </define>
+    <define name="bdate">
+      <element name="date">
+        <attribute name="type">
+          <choice>
+            <ref name="BibliographicDateType"/>
+            <text/>
+          </choice>
+        </attribute>
+        <choice>
+          <group>
+            <element name="from">
+              <ref name="ISO8601Date"/>
+            </element>
+            <optional>
+              <element name="to">
+                <ref name="ISO8601Date"/>
+              </element>
+            </optional>
+          </group>
+          <element name="on">
+            <choice>
+              <ref name="ISO8601Date"/>
+              <value>--</value>
+              <value>–</value>
+            </choice>
+          </element>
+        </choice>
+      </element>
+    </define>
+    <define name="organization">
+      <element name="organization">
+        <oneOrMore>
+          <ref name="orgname"/>
+        </oneOrMore>
+        <optional>
+          <ref name="abbreviation"/>
+        </optional>
+        <optional>
+          <ref name="uri"/>
+        </optional>
+        <zeroOrMore>
+          <ref name="org-identifier"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="contact"/>
+        </zeroOrMore>
+        <optional>
+          <ref name="technical-committee"/>
+        </optional>
+        <optional>
+          <ref name="subcommittee"/>
+        </optional>
+        <optional>
+          <ref name="workgroup"/>
+        </optional>
+        <optional>
+          <ref name="secretariat"/>
+        </optional>
+      </element>
+    </define>
+    <define name="DocumentType">
+      <choice>
+        <value>standard</value>
+        <value>recommendation</value>
+      </choice>
+    </define>
+    <define name="DocumentSubtype">
+      <choice>
+        <value>specification</value>
+        <value>method-of-test</value>
+        <value>vocabulary</value>
+        <value>code-of-practice</value>
+      </choice>
+    </define>
+    <define name="structuredidentifier">
+      <element name="structuredidentifier">
+        <optional>
+          <attribute name="type"/>
+        </optional>
+        <group>
+          <ref name="documentnumber"/>
+          <optional>
+            <ref name="tc-documentnumber"/>
+          </optional>
+        </group>
+      </element>
+    </define>
+    <define name="editorialgroup">
+      <element name="editorialgroup">
+        <ref name="ISOProjectGroup"/>
+      </element>
+    </define>
+  </include>
+  <define name="updates_document_type">
+    <element name="updates-document-type">
+      <ref name="DocumentType"/>
+    </element>
+  </define>
+  <define name="ISOProjectGroup">
+    <zeroOrMore>
+      <ref name="agency"/>
+    </zeroOrMore>
+    <oneOrMore>
+      <ref name="technical-committee"/>
+    </oneOrMore>
+    <zeroOrMore>
+      <ref name="subcommittee"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <ref name="workgroup"/>
+    </zeroOrMore>
+    <optional>
+      <ref name="secretariat"/>
+    </optional>
+  </define>
+  <define name="approvalgroup">
+    <element name="approvalgroup">
+      <ref name="ISOProjectGroup"/>
+    </element>
+  </define>
+  <define name="agency">
+    <element name="agency">
+      <text/>
+    </element>
+  </define>
+  <define name="horizontal">
+    <element name="horizontal">
+      <data type="boolean"/>
+    </element>
+  </define>
+  <define name="documentnumber">
+    <element name="project-number">
+      <optional>
+        <attribute name="part">
+          <data type="int"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="subpart">
+          <data type="int"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="amendment">
+          <data type="int"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="corrigendum">
+          <data type="int"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="origyr">
+          <ref name="ISO8601Date"/>
+        </attribute>
+      </optional>
+      <text/>
+    </element>
+  </define>
+  <define name="tc-documentnumber">
+    <element name="tc-document-number">
+      <data type="int"/>
+    </element>
+  </define>
+  <define name="subcommittee">
+    <element name="subcommittee">
+      <ref name="IsoWorkgroup"/>
+    </element>
+  </define>
+  <define name="workgroup">
+    <element name="workgroup">
+      <ref name="IsoWorkgroup"/>
+    </element>
+  </define>
+  <define name="secretariat">
+    <element name="secretariat">
+      <text/>
+    </element>
+  </define>
+  <define name="stagename">
+    <element name="stagename">
+      <optional>
+        <attribute name="abbreviation"/>
+      </optional>
+      <text/>
+    </element>
+  </define>
+  <define name="gbccs">
+    <element name="ccs">
+      <element name="code">
+        <text/>
+      </element>
+      <optional>
+        <element name="text">
+          <text/>
+        </element>
+      </optional>
+    </element>
+  </define>
+  <define name="gbplannumber">
+    <element name="plannumber">
+      <text/>
+    </element>
+  </define>
+  <define name="gbcommittee">
+    <element name="gbcommittee">
+      <attribute name="type">
+        <choice>
+          <value>technical</value>
+          <value>provisional</value>
+          <value>drafting</value>
+        </choice>
+      </attribute>
+      <text/>
+    </element>
+  </define>
+  <define name="gbtype">
+    <element name="gbtype">
+      <ref name="gbscope"/>
+      <ref name="gbprefix"/>
+      <ref name="gbmandate"/>
+      <ref name="gbtopic"/>
+    </element>
+  </define>
+  <define name="gbscope">
+    <element name="gbscope">
+      <choice>
+        <value>national</value>
+        <value>sector</value>
+        <value>professional</value>
+        <value>local</value>
+        <value>enterprise</value>
+        <value>social-group</value>
+      </choice>
+    </element>
+  </define>
+  <define name="gbmandate">
+    <element name="gbmandate">
+      <choice>
+        <value>mandatory</value>
+        <value>recommended</value>
+        <value>guidelines</value>
+      </choice>
+    </element>
+  </define>
+  <define name="gbprefix">
+    <element name="gbprefix">
+      <text/>
+    </element>
+  </define>
+  <define name="gbtopic">
+    <element name="gbtopic">
+      <choice>
+        <value>basic</value>
+        <value>health-and-safety</value>
+        <value>environment-protection</value>
+        <value>engineering-and-construction</value>
+        <value>product</value>
+        <value>method</value>
+        <value>management-techniques</value>
+        <value>other</value>
+      </choice>
+    </element>
+  </define>
+</grammar>

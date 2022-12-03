@@ -27,7 +27,7 @@ RSpec.describe RelatonGb do
       File.write file_path, xml unless File.exist? file_path
       expect(xml).to be_equivalent_to File.open(file_path, "r:UTF-8", &:read)
         .sub(%r{<fetched>[^<]+</fetched>}, "<fetched>#{Date.today}</fetched>")
-      schema = Jing.new "spec/examples/isobib.rng"
+      schema = Jing.new "grammars/relaton-gb-compile.rng"
       errors = schema.validate file_path
       expect(errors).to eq []
     end
@@ -71,7 +71,7 @@ RSpec.describe RelatonGb do
     it "gets a code" do
       VCR.use_cassette "gb_t_5606_1_2004" do
         results = RelatonGb::GbBibliography.get("GB/T 5606.1", 2004, {}).to_xml
-        expect(results).to include %(<bibitem id="GB/T5606.1-2004" type="standard">)
+        expect(results).to include %(<bibitem id="GB/T5606.1-2004" type="standard" schema-version="v1.2.1">)
         expect(results).to include %(<on>2004-12-14</on>)
         expect(results).to include %(<docidentifier type="Chinese Standard" primary="true">GB/T 5606.1-2004</docidentifier>)
         expect(results).not_to include %(<docidentifier type="Chinese Standard" primary="true">GB/T 5606</docidentifier>)
@@ -81,7 +81,7 @@ RSpec.describe RelatonGb do
     it "gets an all-parts code" do
       VCR.use_cassette "gb_t_5606_2004_all_parts" do
         results = RelatonGb::GbBibliography.get("GB/T 5606", 2004, all_parts: true).to_xml
-        expect(results).to include %(<bibitem id="GB/T5606.1-2004" type="standard">)
+        expect(results).to include %(<bibitem id="GB/T5606.1-2004" type="standard" schema-version="v1.2.1">)
         expect(results).to include %(<docidentifier type="Chinese Standard" primary="true">GB/T 5606\.1-2004</docidentifier>)
         expect(results).to include %(<docidentifier type="Chinese Standard" primary="true">GB/T 5606 (all parts)</docidentifier>)
       end

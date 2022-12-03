@@ -1,5 +1,5 @@
-<bibdata type="standard">
-  <fetched>2022-07-19</fetched>
+<bibdata type="standard" schema-version="v1.2.1">
+  <fetched>2022-11-24</fetched>
   <title type="title-main" format="text/plain" language="zh" script="Hans">棉短绒</title>
   <title type="main" format="text/plain" language="zh" script="Hans">棉短绒</title>
   <title type="title-main" format="text/plain" language="en" script="Latn">Cotton linter</title>
@@ -21,7 +21,7 @@
   <status>
     <stage>replaced</stage>
   </status>
-  <ext>
+  <ext schema-version="v1.0.0">
     <doctype>standard</doctype>
     <gbcommittee type="technical">国家市场监督管理总局</gbcommittee>
     <ics>

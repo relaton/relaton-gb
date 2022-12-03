@@ -31,18 +31,22 @@ module RelatonGb
 
     def initialize(**args)
       super
-      @committee = GbTechnicalCommittee.new **args[:committee] if args[:committee]
+      @committee = GbTechnicalCommittee.new(**args[:committee]) if args[:committee]
       @ccs = args[:ccs].map { |c| c.is_a?(Cnccs::Ccs) ? c : Cnccs.fetch(c) }
-      @gbtype = GbStandardType.new **args[:gbtype]
+      @gbtype = GbStandardType.new(**args[:gbtype])
       @gbplannumber = args[:gbplannumber] ||
         structuredidentifier&.project_number
+    end
+
+    def ext_schema
+      @ext_schema ||= schema_versions["relaton-model-gb"]
     end
 
     # @param hash [Hash]
     # @return [RelatonGb::GbBibliographicItem]
     def self.from_hash(hash)
       item_hash = ::RelatonGb::HashConverter.hash_to_bib(hash)
-      new **item_hash
+      new(**item_hash)
     end
 
     # @param opts [Hash]
@@ -51,10 +55,10 @@ module RelatonGb
     # @option opts [Symbol, NilClass] :date_format (:short), :full
     # @option opts [String, Symbol] :lang language
     # @return [String] XML
-    def to_xml(**opts)
+    def to_xml(**opts) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       super(**opts) do |b|
         if opts[:bibdata] && has_ext_attrs?
-          b.ext do
+          ext = b.ext do
             b.doctype doctype if doctype
             b.horizontal horizontal unless horizontal.nil?
             # b.docsubtype docsubtype if docsubtype
@@ -64,6 +68,7 @@ module RelatonGb
             b.stagename stagename if stagename
             render_gbxml(b)
           end
+          ext["schema-version"] = ext_schema unless opts[:embedded]
         end
       end
     end
