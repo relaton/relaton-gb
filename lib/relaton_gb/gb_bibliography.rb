@@ -15,24 +15,25 @@ module RelatonGb
       # @return [RelatonGb::HitCollection]
       def search(text)
         case text
-        when /^(GB|GJ|GS)/
+        # when /^(GB|GJ|GS)/
           # Scrape national standards.
-          require "relaton_gb/gb_scrapper"
-          GbScrapper.scrape_page text
-        when /^ZB/
+          # require "relaton_gb/gb_scrapper"
+          # GbScrapper.scrape_page text
+        # when /^ZB/
           # Scrape proffesional.
-        when /^DB/
+        # when /^DB/
           # Scrape local standard.
-        when %r{^Q/}
+        # when %r{^Q/}
           # Enterprise standard
-        when %r{^T/[^\s]{3,6}\s}
+        when %r{^T/[^\s]{2,6}\s}
           # Scrape social standard.
           require "relaton_gb/t_scrapper"
           TScrapper.scrape_page text
         else
           # Scrape sector standard.
-          require "relaton_gb/sec_scrapper"
-          SecScrapper.scrape_page text
+          # require "relaton_gb/sec_scrapper"
+          # SecScrapper.scrape_page text
+          []
         end
       end
       # rubocop:enable Metrics/MethodLength
