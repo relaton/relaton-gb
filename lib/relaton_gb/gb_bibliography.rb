@@ -52,7 +52,7 @@ module RelatonGb
         end
 
         code += ".1" if opts[:all_parts]
-        code, year = code.split(/-/, 2) if /-/ =~ code
+        code, year = code.split("-", 2) if code.include?("-")
         ret = get1(code, year, opts)
         return nil if ret.nil?
 
@@ -65,20 +65,20 @@ module RelatonGb
 
       def fetch_ref_err(code, year, missed_years)
         id = year ? "#{code}:#{year}" : code
-        warn "[relaton-gb] WARNING: no match found on the GB website "\
-          "for #{id}. The code must be exactly like it is on the website."
+        warn  "[relaton-gb] WARNING: no match found on the GB website " \
+              "for #{id}. The code must be exactly like it is on the website."
         unless missed_years.empty?
-          warn "[relaton-gb] (There was no match for #{year}, though there "\
-            "were matches found for #{missed_years.join(', ')}.)"
+          warn  "[relaton-gb] (There was no match for #{year}, though there " \
+                "were matches found for #{missed_years.join(', ')}.)"
         end
         if /\d-\d/.match? code
-          warn "[relaton-gb] The provided document part may not exist, or the "\
-            "document may no longer be published in parts."
+          warn  "[relaton-gb] The provided document part may not exist, or " \
+                "the document may no longer be published in parts."
         else
-          warn "[relaton-gb] If you wanted to cite all document parts for the "\
-            "reference, use \"#{code} (all parts)\".\nIf the document is not "\
-            "a standard, use its document type abbreviation (TS, TR, PAS, "\
-            "Guide)."
+          warn  "[relaton-gb] If you wanted to cite all document parts for " \
+                "the reference, use \"#{code} (all parts)\".\nIf the document " \
+                "is not a standard, use its document type abbreviation " \
+                "(TS, TR, PAS, Guide)."
         end
         nil
       end
