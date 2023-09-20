@@ -1,6 +1,10 @@
-require "relaton_gb/version"
-require "relaton_gb/gb_bibliography"
 require "digest/md5"
+require "relaton_iso_bib"
+require "cnccs"
+require "relaton_gb/version"
+require "relaton_gb/config"
+require "relaton_gb/util"
+require "relaton_gb/gb_bibliography"
 
 # if defined? Relaton
 #   require "relaton_gb/processor"

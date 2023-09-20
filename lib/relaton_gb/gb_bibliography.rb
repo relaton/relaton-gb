@@ -42,7 +42,7 @@ module RelatonGb
       # @param year [String] the year the standard was published (optional)
       # @param opts [Hash] options; restricted to :all_parts if all-parts reference is required
       # @return [String] Relaton XML serialisation of reference
-      def get(code, year = nil, opts = {})
+      def get(code, year = nil, opts = {}) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/PerceivedComplexity
         if year.nil?
           /^(?<code1>[^-]+)-(?<year1>[^-]+)$/ =~ code
           unless code1.nil?
@@ -63,22 +63,22 @@ module RelatonGb
 
       private
 
-      def fetch_ref_err(code, year, missed_years)
+      def fetch_ref_err(code, year, missed_years) # rubocop:disable Metrics/MethodLength
         id = year ? "#{code}:#{year}" : code
-        warn  "[relaton-gb] WARNING: no match found on the GB website " \
-              "for #{id}. The code must be exactly like it is on the website."
+        Util.warn "WARNING: no match found on the GB website for `#{id}`. " \
+                  "The code must be exactly like it is on the website."
         unless missed_years.empty?
-          warn  "[relaton-gb] (There was no match for #{year}, though there " \
-                "were matches found for #{missed_years.join(', ')}.)"
+          Util.warn "(There was no match for `#{year}`, though there " \
+                    "were matches found for `#{missed_years.join('`, `')}`.)"
         end
         if /\d-\d/.match? code
-          warn  "[relaton-gb] The provided document part may not exist, or " \
-                "the document may no longer be published in parts."
+          Util.warn "The provided document part may not exist, or " \
+                    "the document may no longer be published in parts."
         else
-          warn  "[relaton-gb] If you wanted to cite all document parts for " \
-                "the reference, use \"#{code} (all parts)\".\nIf the document " \
-                "is not a standard, use its document type abbreviation " \
-                "(TS, TR, PAS, Guide)."
+          Util.warn "If you wanted to cite all document parts for the " \
+                    "reference, use `#{code} (all parts)`.\nIf the document " \
+                    "is not a standard, use its document type abbreviation " \
+                    "(TS, TR, PAS, Guide)."
         end
         nil
       end
@@ -89,7 +89,7 @@ module RelatonGb
         result = search_filter(searchcode) || return
         ret = results_filter(result, year)
         if ret[:ret]
-          warn "[relaton-gb] (\"#{code}\") found #{ret[:ret].docidentifier.first.id}"
+          Util.warn "(#{code}) found `#{ret[:ret].docidentifier.first.id}`"
           ret[:ret]
         else
           fetch_ref_err(code, year, ret[:years])
@@ -99,7 +99,7 @@ module RelatonGb
       def search_filter(code)
         # search filter needs to incorporate year
         docidrx = %r{^[^\s]+\s[\d.-]+}
-        warn "[relaton-gb] (\"#{code}\") fetching..."
+        Util.warn "(#{code}) fetching..."
         result = search(code)
         result.select do |hit|
           hit.docref && hit.docref.match(docidrx).to_s.include?(code)

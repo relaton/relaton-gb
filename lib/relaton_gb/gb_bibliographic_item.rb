@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "relaton_iso_bib"
-require "cnccs"
 require "relaton_gb/gb_technical_committee"
 require "relaton_gb/gb_standard_type"
 require "relaton_gb/xml_parser"
