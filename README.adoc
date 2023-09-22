@@ -39,13 +39,24 @@ Or install it yourself as:
 
 == Usage
 
-=== Search document
+=== Configuration
+
+Configuration is optional. The available option is `logger` which is a `Logger` instance. By default, the logger is `Logger.new($stderr)` with `Logger::WARN` level. To change the logger level, use `RelatonGb.configure` block.
 
 [source,ruby]
 ----
 require 'relaton_gb'
 => true
 
+RelatonGb.configure do |config|
+  config.logger.level = Logger::DEBUG
+end
+----
+
+=== Search document
+
+[source,ruby]
+----
 hit_collection = RelatonGb::GbBibliography.search "GB/T 20223-2006"
 => <RelatonGb::HitCollection:0x007fc8d8a26d10 @ref= @fetched=false>
 
