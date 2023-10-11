@@ -15,10 +15,11 @@ module RelatonGb
       # @return [RelatonGb::HitCollection]
       def search(text)
         case text
-        # when /^(GB|GJ|GS)/
+        when /^(GB|GJ|GS)/
           # Scrape national standards.
-          # require "relaton_gb/gb_scrapper"
-          # GbScrapper.scrape_page text
+          Util.warn "(#{text}) Fetching from openstd.samr.gov.cn ..."
+          require "relaton_gb/gb_scrapper"
+          GbScrapper.scrape_page text
         # when /^ZB/
           # Scrape proffesional.
         # when /^DB/
@@ -27,6 +28,7 @@ module RelatonGb
           # Enterprise standard
         when %r{^T/[^\s]{2,6}\s}
           # Scrape social standard.
+          Util.warn "(#{text}) Fetching from www.ttbz.org.cn ..."
           require "relaton_gb/t_scrapper"
           TScrapper.scrape_page text
         else
@@ -64,9 +66,9 @@ module RelatonGb
       private
 
       def fetch_ref_err(code, year, missed_years) # rubocop:disable Metrics/MethodLength
-        id = year ? "#{code}:#{year}" : code
-        Util.warn "WARNING: no match found on the GB website for `#{id}`. " \
-                  "The code must be exactly like it is on the website."
+        # id = year ? "#{code}:#{year}" : code
+        # Util.warn "WARNING: No match found on the GB website for `#{id}`. " \
+        #           "The code must be exactly like it is on the website."
         unless missed_years.empty?
           Util.warn "(There was no match for `#{year}`, though there " \
                     "were matches found for `#{missed_years.join('`, `')}`.)"
@@ -89,9 +91,10 @@ module RelatonGb
         result = search_filter(searchcode) || return
         ret = results_filter(result, year)
         if ret[:ret]
-          Util.warn "(#{code}) found `#{ret[:ret].docidentifier.first.id}`"
+          Util.warn "(#{searchcode}) Found: `#{ret[:ret].docidentifier.first.id}`"
           ret[:ret]
         else
+          Util.warn "(#{searchcode}) Not found."
           fetch_ref_err(code, year, ret[:years])
         end
       end
@@ -99,7 +102,6 @@ module RelatonGb
       def search_filter(code)
         # search filter needs to incorporate year
         docidrx = %r{^[^\s]+\s[\d.-]+}
-        Util.warn "(#{code}) fetching..."
         result = search(code)
         result.select do |hit|
           hit.docref && hit.docref.match(docidrx).to_s.include?(code)

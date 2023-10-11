@@ -58,6 +58,7 @@ end
 [source,ruby]
 ----
 hit_collection = RelatonGb::GbBibliography.search "GB/T 20223-2006"
+[relaton-gb] (GB/T 20223-2006) Fetching from openstd.samr.gov.cn ...
 => <RelatonGb::HitCollection:0x007fc8d8a26d10 @ref= @fetched=false>
 
 hit_collection.first
@@ -75,7 +76,7 @@ hit_collection.first.fetch.committee
 => #<RelatonGb::GbTechnicalCommittee:0x007f975713c450 @name="中国纤维检验局", @type="technical">
 
 hit_collection.first.fetch.gbtype
-=> #<RelatonGb::GbStandardType:0x007f9758087018 @mandate="recommended", @prefix="GB_national", @scope="national">
+=> #<RelatonGb::GbStandardType:0x0000000112957dc0 @mandate="recommended", @prefix="GB_national", @scope="national", @topic="other">
 
 hit_collection.first.fetch.ccs
 => [#<Cnccs::Ccs:0x007f975713c090
@@ -88,21 +89,43 @@ hit_collection.first.fetch.ccs
   @subgroupcode="32">]
 
 hit_collection.first.fetch.title
-=> [#<RelatonIsoBib::TypedTitleString:0x007f975714cfa8
-  @title=#<RelatonBib::FormattedString:0x007f975714cb20 @content="棉短绒", @format="text/plain", @language=["zh"], @script=["Hans"]>,
-  @type="title-main">,
- #<RelatonIsoBib::TypedTitleString:0x007f975714c580
-  @title=#<RelatonBib::FormattedString:0x007f9757147f08 @content="棉短绒", @format="text/plain", @language=["zh"], @script=["Hans"]>,
-  @type="main">,
- #<RelatonIsoBib::TypedTitleString:0x007f97571477d8
-  @title=#<RelatonBib::FormattedString:0x007f9757146ec8 @content="Cotton linter", @format="text/plain", @language=["en"], @script=["Latn"]>,
-  @type="title-main">,
- #<RelatonIsoBib::TypedTitleString:0x007f97571465e0
-  @title=#<RelatonBib::FormattedString:0x007f9757146158 @content="Cotton linter", @format="text/plain", @language=["en"], @script=["Latn"]>,
-  @type="main">]
+=> #<RelatonBib::TypedTitleStringCollection:0x0000000112a1ac08
+ @array=
+  [#<RelatonBib::TypedTitleString:0x0000000112a1f438
+    @title=#<RelatonBib::FormattedString:0x0000000112cd6050 @content="棉短绒", @format="text/plain", @language=["zh"], @script=["Hans"]>,
+    @type="title-main">,
+   #<RelatonBib::TypedTitleString:0x0000000112a1eb78
+    @title=#<RelatonBib::FormattedString:0x0000000112cd6000 @content="棉短绒", @format="text/plain", @language=["zh"], @script=["Hans"]>,
+    @type="main">,
+   #<RelatonBib::TypedTitleString:0x0000000112a1c198
+    @title=#<RelatonBib::FormattedString:0x0000000112cd5ce0 @content="Cotton linter", @format="text/plain", @language=["en"], @script=["Latn"]>,
+    @type="title-main">,
+   #<RelatonBib::TypedTitleString:0x0000000112a1bba8
+    @title=#<RelatonBib::FormattedString:0x0000000112cd5c40 @content="Cotton linter", @format="text/plain", @language=["en"], @script=["Latn"]>,
+    @type="main">]>
 
 hit_collection.first.fetch.date
-=> [#<RelatonBib::BibliographicDate:0x007f975a0207d0 @from=nil, @on=2006-03-10 00:00:00 +0100, @to=nil, @type="published">]
+=> [#<RelatonBib::BibliographicDate:0x000000011307f468 @from=nil, @on="2006-03-10", @to=nil, @type="published">]
+----
+
+=== Get document by identifier
+
+[source,ruby]
+----
+RelatonGb::GbBibliography.get "GB/T 20223-2006"
+[relaton-gb] (GB/T 20223-2006) Fetching from openstd.samr.gov.cn ...
+[relaton-gb] (GB/T 20223-2006) Found: `GB/T 20223-2006`
+=> <RelatonGb::GbBibliographicItem:0x000000000011f8>
+----
+
+=== Get document by identifier and year
+
+[source,ruby]
+----
+RelatonGb::GbBibliography.get "GB/T 20223", "2006"
+[relaton-gb] (GB/T 20223-2006) Fetching from openstd.samr.gov.cn ...
+[relaton-gb] (GB/T 20223-2006) Found: `GB/T 20223-2006`
+=> <RelatonGb::GbBibliographicItem:0x00000000001248>
 ----
 
 === Create bibliographic item from YAML

@@ -1,0 +1,24 @@
+<bibitem id="GB/T5606.1-2004" type="standard" schema-version="v1.2.4">
+  <fetched>2023-10-10</fetched>
+  <title type="title-main" format="text/plain" language="zh" script="Hans">卷烟  第1部分:抽样</title>
+  <title type="main" format="text/plain" language="zh" script="Hans">卷烟  第1部分:抽样</title>
+  <title type="title-main" format="text/plain" language="en" script="Latn">Cigarettes</title>
+  <title type="main" format="text/plain" language="en" script="Latn">Cigarettes</title>
+  <uri type="src">http://openstd.samr.gov.cn/bzgk/gb/newGbInfo?hcno=B32027E7AEF4CB6D1515A02985FC5B40</uri>
+  <docidentifier type="Chinese Standard" primary="true">GB/T 5606.1-2004</docidentifier>
+  <date type="published">
+    <on>2004-12-14</on>
+  </date>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name language="en">General Administration of Quality Supervision, Inspection and Quarantine; Standardization Administration of China</name>
+      <name language="zh">中华人民共和国国家质量监督检验检疫总局 中国国家标准化管理委员会</name>
+    </organization>
+  </contributor>
+  <language>zh</language>
+  <script>Hans</script>
+  <status>
+    <stage>activated</stage>
+  </status>
+</bibitem>

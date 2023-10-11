@@ -9,6 +9,8 @@ require "relaton_gb/ccs"
 module RelatonGb
   # GB bibliographic item class.
   class GbBibliographicItem < RelatonIsoBib::IsoBibliographicItem
+    DOCTYPES = %w[standard reccomendation].freeze
+
     # @return [RelatonGb::GbTechnicalCommittee]
     attr_reader :committee
 
