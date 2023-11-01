@@ -15,8 +15,8 @@ module RelatonGb
       # @param text [Strin] code of standard for serarch
       # @return [RelatonGb::HitCollection]
       def scrape_page(text) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-        host = "http://openstd.samr.gov.cn/bzgk/gb/std_list"
-        search_html = OpenURI.open_uri("#{host}?p.p2=#{text}")
+        host = "https://openstd.samr.gov.cn/bzgk/gb/std_list"
+        search_html = OpenURI.open_uri("#{host}?p.p2=#{text}", ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE)
         result = Nokogiri::HTML search_html
         hits = result.xpath(
           "//table[contains(@class, 'result_list')]/tbody[2]/tr",
@@ -35,7 +35,7 @@ module RelatonGb
       # @return [RelatonGb::GbBibliographicItem]
       def scrape_doc(hit)
         src = "http://openstd.samr.gov.cn/bzgk/gb/newGbInfo?hcno=#{hit.pid}"
-        doc = Nokogiri::HTML OpenURI.open_uri(src)
+        doc = Nokogiri::HTML OpenURI.open_uri(src, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE)
         GbBibliographicItem.new(**scrapped_data(doc, src, hit))
       rescue OpenURI::HTTPError, SocketError, OpenSSL::SSL::SSLError, Net::OpenTimeout
         raise RelatonBib::RequestError, "Cannot access #{src}"
