@@ -92,7 +92,7 @@ module RelatonGb
     end
 
     def get_type
-      "standard"
+      DocumentType.new type: "standard"
     end
 
     # @param doc [Nokogiri::HTML::Document]

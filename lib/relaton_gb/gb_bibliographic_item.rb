@@ -9,7 +9,7 @@ require "relaton_gb/ccs"
 module RelatonGb
   # GB bibliographic item class.
   class GbBibliographicItem < RelatonIsoBib::IsoBibliographicItem
-    DOCTYPES = %w[standard reccomendation].freeze
+    SUBDOCTYPES = %w[specification method-of-test vocabulary code-of-practice].freeze
 
     # @return [RelatonGb::GbTechnicalCommittee]
     attr_reader :committee
@@ -59,7 +59,7 @@ module RelatonGb
       super(**opts) do |b|
         if opts[:bibdata] && has_ext_attrs?
           ext = b.ext do
-            b.doctype doctype if doctype
+            doctype&.to_xml b
             b.horizontal horizontal unless horizontal.nil?
             # b.docsubtype docsubtype if docsubtype
             committee&.to_xml b

@@ -4,6 +4,7 @@ require "cnccs"
 require "relaton_gb/version"
 require "relaton_gb/config"
 require "relaton_gb/util"
+require "relaton_gb/document_type"
 require "relaton_gb/gb_bibliography"
 
 # if defined? Relaton
