@@ -104,7 +104,10 @@ YD:
   administration: 信息产业部
 GY:
   prefix: GY_media
-  administration: 国家广播电影电视总局
+  administration: 国家广播电视总局
+DY:
+  prefix: DY_film
+  administration: 国家电影局
 DL:
   prefix: DL_electricity
   administration: 国家发改委

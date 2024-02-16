@@ -19,7 +19,7 @@ module RelatonGb
       # @return [RelatonGb::HitCollection]
       def scrape_page(text)
         # uri = URI "http://www.std.gov.cn/hb/search/hbPage?searchText=#{text}"
-        uri = URI "http://hbba.sacinfo.org.cn/stdQueryList"
+        uri = URI "https://hbba.sacinfo.org.cn/stdQueryList"
         resp = Net::HTTP.post uri, URI.encode_www_form({ key: text })
         # res = JSON.parse Net::HTTP.get(uri)
         json = JSON.parse resp.body
@@ -39,7 +39,7 @@ module RelatonGb
       # @param hit [RelatonGb::Hit]
       # @return [RelatonGb::GbBibliographicItem]
       def scrape_doc(hit)
-        src = "http://hbba.sacinfo.org.cn/stdDetail/#{hit.pid}"
+        src = "https://hbba.sacinfo.org.cn/stdDetail/#{hit.pid}"
         page_uri = URI src
         doc = Nokogiri::HTML Net::HTTP.get(page_uri)
         GbBibliographicItem.new(**scrapped_data(doc, src, hit))
