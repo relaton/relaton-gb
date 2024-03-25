@@ -17,7 +17,7 @@ module RelatonGb
         case text
         when /^(GB|GJ|GS)/
           # Scrape national standards.
-          Util.warn "(#{text}) Fetching from openstd.samr.gov.cn ..."
+          Util.info "Fetching from openstd.samr.gov.cn ...", key: text
           require "relaton_gb/gb_scrapper"
           GbScrapper.scrape_page text
         # when /^ZB/
@@ -28,7 +28,7 @@ module RelatonGb
           # Enterprise standard
         when %r{^T/[^\s]{2,6}\s}
           # Scrape social standard.
-          Util.warn "(#{text}) Fetching from www.ttbz.org.cn ..."
+          Util.info "Fetching from www.ttbz.org.cn ...", key: text
           require "relaton_gb/t_scrapper"
           TScrapper.scrape_page text
         else
@@ -67,17 +67,17 @@ module RelatonGb
 
       def fetch_ref_err(code, year, missed_years) # rubocop:disable Metrics/MethodLength
         # id = year ? "#{code}:#{year}" : code
-        # Util.warn "WARNING: No match found on the GB website for `#{id}`. " \
+        # Util.info "WARNING: No match found on the GB website for `#{id}`. " \
         #           "The code must be exactly like it is on the website."
         unless missed_years.empty?
-          Util.warn "(There was no match for `#{year}`, though there " \
+          Util.info "(There was no match for `#{year}`, though there " \
                     "were matches found for `#{missed_years.join('`, `')}`.)"
         end
         if /\d-\d/.match? code
-          Util.warn "The provided document part may not exist, or " \
+          Util.info "The provided document part may not exist, or " \
                     "the document may no longer be published in parts."
         else
-          Util.warn "If you wanted to cite all document parts for the " \
+          Util.info "If you wanted to cite all document parts for the " \
                     "reference, use `#{code} (all parts)`.\nIf the document " \
                     "is not a standard, use its document type abbreviation " \
                     "(TS, TR, PAS, Guide)."
@@ -91,10 +91,10 @@ module RelatonGb
         result = search_filter(searchcode) || return
         ret = results_filter(result, year)
         if ret[:ret]
-          Util.warn "(#{searchcode}) Found: `#{ret[:ret].docidentifier.first.id}`"
+          Util.info "Found: `#{ret[:ret].docidentifier.first.id}`", key: searchcode
           ret[:ret]
         else
-          Util.warn "(#{searchcode}) Not found."
+          Util.info "Not found.", key: searchcode
           fetch_ref_err(code, year, ret[:years])
         end
       end
