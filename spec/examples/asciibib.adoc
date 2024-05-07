@@ -7,25 +7,21 @@ title.type:: title-main
 title.content:: 叉车属具 软包夹
 title.language:: zh
 title.script:: Hans
-title.format:: text/plain
 title::
 title.type:: main
 title.content:: 叉车属具 软包夹
 title.language:: zh
 title.script:: Hans
-title.format:: text/plain
 title::
 title.type:: title-main
 title.content:: Forklift attachment
 title.language:: en
 title.script:: Latn
-title.format:: text/plain
 title::
 title.type:: main
 title.content:: Forklift attachment
 title.language:: en
 title.script:: Latn
-title.format:: text/plain
 type:: standard
 docid.type:: JB
 docid.primary:: true

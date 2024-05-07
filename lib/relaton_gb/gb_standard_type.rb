@@ -25,7 +25,7 @@ module RelatonGb
     end
 
     # @return [Hash]
-    def to_hash
+    def to_h
       { "scope" => scope, "prefix" => prefix, "mandate" => mandate, "topic" => topic }
     end
   end

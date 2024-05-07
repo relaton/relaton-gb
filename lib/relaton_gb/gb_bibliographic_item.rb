@@ -74,12 +74,12 @@ module RelatonGb
     end
 
     # @return [Hash]
-    def to_hash # rubocop:disable Metrics/AbcSize
+    def to_h # rubocop:disable Metrics/AbcSize
       hash = super
-      hash["ccs"] = single_element_array(ccs) if ccs&.any?
-      hash["committee"] = committee.to_hash if committee
+      hash["ccs"] = ccs.map(&:to_h) if ccs&.any?
+      hash["committee"] = committee.to_h if committee
       hash["plannumber"] = gbplannumber if gbplannumber
-      hash["gbtype"] = gbtype.to_hash
+      hash["gbtype"] = gbtype.to_h
       hash
     end
 
