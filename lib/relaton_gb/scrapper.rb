@@ -84,11 +84,11 @@ module RelatonGb
     # @return [Array<RelatonBib::TypedTitleString>]
     def get_titles(doc)
       tzh = doc.at("//td[contains(text(), '中文标准名称')]/b").text
-      titles = RelatonBib::TypedTitleString.from_string tzh, "zh", "Hans"
+      titles = RelatonBib::TypedTitleString.from_string tzh, lang: "zh", script: "Hans"
       ten = doc.at("//td[contains(text(), '英文标准名称')]").text.match(/[\w\s]+/).to_s
       return titles if ten.empty?
 
-      titles + RelatonBib::TypedTitleString.from_string(ten, "en", "Latn")
+      titles + RelatonBib::TypedTitleString.from_string(ten, lang: "en", script: "Latn")
     end
 
     def get_type

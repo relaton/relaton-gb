@@ -21,7 +21,7 @@ module RelatonGb
     end
 
     # @return [Hash]
-    def to_hash
+    def to_h
       { "type" => type, "name" => name }
     end
   end

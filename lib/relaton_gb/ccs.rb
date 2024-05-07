@@ -1,7 +1,7 @@
 module Cnccs
   class Ccs
     # @return [Hash]
-    def to_hash
+    def to_h
       { "code" => code }
     end
 
