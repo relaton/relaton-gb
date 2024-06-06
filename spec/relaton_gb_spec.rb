@@ -6,7 +6,10 @@ require "net/http"
 require "jing"
 
 RSpec.describe RelatonGb do
-  before { RelatonGb.instance_variable_set :@configuration, nil }
+  before do
+    RelatonGb.instance_variable_set :@configuration, nil
+    RelatonGb::GbScrapper.instance_variable_set :@agent, nil
+  end
 
   it "has a version number" do
     expect(RelatonGb::VERSION).not_to be nil
