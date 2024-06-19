@@ -31,7 +31,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Thu, 06 Jun 2024 21:18:10 GMT
+      - Tue, 18 Jun 2024 12:48:31 GMT
       Content-Type:
       - text/html;charset=UTF-8
       Transfer-Encoding:
@@ -41,7 +41,7 @@ http_interactions:
       Vary:
       - Accept-Encoding
       Set-Cookie:
-      - JSESSIONID=341208AE8EED26F20A345193789DD4B5; Path=/bzgk; HttpOnly
+      - JSESSIONID=191E24D4C05B6659DBEE3C5C535E2A1C; Path=/bzgk; HttpOnly
       Content-Language:
       - en-US
       Content-Encoding:
@@ -325,7 +325,7 @@ http_interactions:
         T3ZsLlb7W2kRBlKEDlGDdCIjr44wRON7EKBaXtqbTHK7Vl/ZzMN0hmxLrfaO
         GhZJimV7qgkBtmG36+ZuNocjk4PisxecJDTc8MYtycQoQEwe+iDiWdwGmonb
         aHmQZiD4q8iNHGhDp6bGF6YpivP/ARRKg32EngAA
-  recorded_at: Thu, 06 Jun 2024 21:18:09 GMT
+  recorded_at: Tue, 18 Jun 2024 12:48:30 GMT
 - request:
     method: get
     uri: http://openstd.samr.gov.cn/bzgk/gb/newGbInfo?hcno=B32027E7AEF4CB6D1515A02985FC5B40
@@ -344,7 +344,7 @@ http_interactions:
       Accept-Language:
       - en-us,en;q=0.5
       Cookie:
-      - JSESSIONID=341208AE8EED26F20A345193789DD4B5
+      - JSESSIONID=191E24D4C05B6659DBEE3C5C535E2A1C
       Host:
       - openstd.samr.gov.cn
       Connection:
@@ -359,7 +359,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Thu, 06 Jun 2024 21:18:11 GMT
+      - Tue, 18 Jun 2024 12:48:32 GMT
       Content-Type:
       - text/html
       Content-Length:
@@ -375,7 +375,7 @@ http_interactions:
         aXRsZT48L2hlYWQ+DQo8Ym9keT4NCjxjZW50ZXI+PGgxPjMwMSBNb3ZlZCBQ
         ZXJtYW5lbnRseTwvaDE+PC9jZW50ZXI+DQo8aHI+PGNlbnRlcj5uZ2lueDwv
         Y2VudGVyPg0KPC9ib2R5Pg0KPC9odG1sPg0K
-  recorded_at: Thu, 06 Jun 2024 21:18:09 GMT
+  recorded_at: Tue, 18 Jun 2024 12:48:30 GMT
 - request:
     method: get
     uri: https://openstd.samr.gov.cn/bzgk/gb/newGbInfo?hcno=B32027E7AEF4CB6D1515A02985FC5B40
@@ -394,7 +394,7 @@ http_interactions:
       Accept-Language:
       - en-us,en;q=0.5
       Cookie:
-      - JSESSIONID=341208AE8EED26F20A345193789DD4B5
+      - JSESSIONID=191E24D4C05B6659DBEE3C5C535E2A1C
       Host:
       - openstd.samr.gov.cn
       Connection:
@@ -409,7 +409,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Thu, 06 Jun 2024 21:18:11 GMT
+      - Tue, 18 Jun 2024 12:48:32 GMT
       Content-Type:
       - text/html;charset=utf-8
       Transfer-Encoding:
@@ -553,5 +553,5 @@ http_interactions:
         UBSyfdDtKC45Spq4LckFfX7EkHzdF2Z8xwEk9X1ofu2UE1yUoGifr3hWQFVz
         qFsJq/BzE6JnemHww8S7Pe0o4uLAigQugEPcbwcyB44Pb/sGDxZ/bPc/Fzwd
         3ek3AAA=
-  recorded_at: Thu, 06 Jun 2024 21:18:10 GMT
+  recorded_at: Tue, 18 Jun 2024 12:48:30 GMT
 recorded_with: VCR 6.2.0
