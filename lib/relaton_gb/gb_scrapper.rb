@@ -10,15 +10,15 @@ module RelatonGb
   # National standard scrapper.
   module GbScrapper
     extend Scrapper
+    SEARCH_URL = "https://openstd.samr.gov.cn/bzgk/gb/std_list"
+    DOC_URL = "http://openstd.samr.gov.cn/bzgk/gb/newGbInfo?hcno="
 
     class << self
       # @param text [Strin] code of standard for serarch
       # @return [RelatonGb::HitCollection]
       def scrape_page(text) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-        host = "https://openstd.samr.gov.cn/bzgk/gb/std_list"
-        search_html = OpenURI.open_uri("#{host}?p.p2=#{text}", ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE)
-        result = Nokogiri::HTML search_html
-        hits = result.xpath(
+        doc = agent.get("#{SEARCH_URL}?p.p2=#{CGI.escape(text)}")
+        hits = doc.xpath(
           "//table[contains(@class, 'result_list')]/tbody[2]/tr",
         ).map do |h|
           ref = h.at "./td[2]/a"
@@ -27,18 +27,22 @@ module RelatonGb
           Hit.new pid: pid, docref: ref.text, scrapper: self, release_date: rdate
         end
         HitCollection.new hits.sort_by(&:release_date).reverse
-      rescue OpenURI::HTTPError, SocketError, OpenSSL::SSL::SSLError, Net::OpenTimeout
-        raise RelatonBib::RequestError, "Cannot access #{host}"
+      rescue Mechanize::Error => e
+        raise RelatonBib::RequestError, e.message
+      end
+
+      def agent
+        @agent ||= Mechanize.new
       end
 
       # @param hit [RelatonGb::Hit] standard's page id
       # @return [RelatonGb::GbBibliographicItem]
       def scrape_doc(hit)
-        src = "http://openstd.samr.gov.cn/bzgk/gb/newGbInfo?hcno=#{hit.pid}"
-        doc = Nokogiri::HTML OpenURI.open_uri(src, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE)
+        src = DOC_URL + hit.pid
+        doc = agent.get src
         GbBibliographicItem.new(**scrapped_data(doc, src, hit))
-      rescue OpenURI::HTTPError, SocketError, OpenSSL::SSL::SSLError, Net::OpenTimeout
-        raise RelatonBib::RequestError, "Cannot access #{src}"
+      rescue Mechanize::Error => e
+        raise RelatonBib::RequestError, e.message
       end
 
       # @param doc [Nokogiri::HTML]

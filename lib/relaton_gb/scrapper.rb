@@ -99,7 +99,9 @@ module RelatonGb
     # @param status [String, NilClass]
     # @return [RelatonBib::DocumentStatus]
     def get_status(doc, status = nil)
-      status ||= doc.at("//td[contains(., '标准状态')]/span")&.text
+      status ||= doc.at("//td[contains(., '标准状态')]/span")&.text&.strip
+      return unless STAGES[status]
+
       RelatonBib::DocumentStatus.new stage: STAGES[status]
     end
 

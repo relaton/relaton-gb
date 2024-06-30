@@ -1,4 +1,5 @@
 require "digest/md5"
+require "mechanize"
 require "relaton_iso_bib"
 require "cnccs"
 require "relaton_gb/version"
