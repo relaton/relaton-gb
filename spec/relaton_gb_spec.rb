@@ -87,10 +87,10 @@ RSpec.describe RelatonGb do
         File.write file, results, encoding: "UTF-8" unless File.exist? file
         expect(results).to be_equivalent_to File.read(file, encoding: "UTF-8")
           .sub(/(?<=<fetched>)[^<]+/, Date.today.to_s)
-      end.to output(%r{
-        \[relaton-gb\]\s\(GB/T\s5606.1-2004\)\sFetching\sfrom\sopenstd\.samr\.gov\.cn\s\.\.\.\n
-        \[relaton-gb\]\s\(GB/T\s5606\.1-2004\)\sFound:\s`GB/T\s5606\.1-2004`
-      }x).to_stderr
+      end.to output(include(
+        "[relaton-gb] INFO: (GB/T 5606.1-2004) Fetching from openstd.samr.gov.cn ...",
+        "[relaton-gb] INFO: (GB/T 5606.1-2004) Found: `GB/T\s5606\.1-2004`"
+      )).to_stderr_from_any_process
     end
 
     it "gets an all-parts code", vcr: "gb_t_5606_2004_all_parts" do
@@ -114,7 +114,7 @@ RSpec.describe RelatonGb do
       expect do
         results = RelatonGb::GbBibliography.get("GB/T 20223", "2014", {})
         expect(results).to be nil
-      end.to output(/\[relaton-gb\] \(GB\/T 20223-2014\) Not found\./).to_stderr
+      end.to output(/\[relaton-gb\] INFO: \(GB\/T 20223-2014\) Not found\./).to_stderr_from_any_process
     end
 
     it "gets a referece with a year in a code" do
@@ -139,10 +139,10 @@ RSpec.describe RelatonGb do
     end
 
     it "warn if XML doesn't have bibitem or bibdata element" do
-      item = ""
-      expect { item = RelatonGb::XMLParser.from_xml "" }.to output(/can't find bibitem/)
-        .to_stderr
-      expect(item).to be_nil
+      expect do
+        item = RelatonGb::XMLParser.from_xml ""
+        expect(item).to be_nil
+      end.to output(/\[relaton-bib\] WARN: Can't find bibitem/).to_stderr_from_any_process
     end
   end
 end

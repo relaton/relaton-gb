@@ -39,24 +39,13 @@ Or install it yourself as:
 
 == Usage
 
-=== Configuration
-
-Configuration is optional. The available option is `logger` which is a `Logger` instance. By default, the logger is `Logger.new($stderr)` with `Logger::WARN` level. To change the logger level, use `RelatonGb.configure` block.
+=== Search document
 
 [source,ruby]
 ----
 require 'relaton_gb'
 => true
 
-RelatonGb.configure do |config|
-  config.logger.level = Logger::DEBUG
-end
-----
-
-=== Search document
-
-[source,ruby]
-----
 hit_collection = RelatonGb::GbBibliography.search "GB/T 20223-2006"
 [relaton-gb] (GB/T 20223-2006) Fetching from openstd.samr.gov.cn ...
 => <RelatonGb::HitCollection:0x007fc8d8a26d10 @ref= @fetched=false>
@@ -181,6 +170,10 @@ Each GB document has `src` type link.
 hit_collection.first.fetch.link
 => [#<RelatonBib::TypedUri:0x00007fee2c0257e8 @content=#<Addressable::URI:0x67c URI:http://openstd.samr.gov.cn/bzgk/gb/newGbInfo?hcno=083B48FA72DBD3B9BDE74507BC31736A>, @type="src">]
 ----
+
+=== Logging
+
+RelatonGb uses the relaton-logger gem for logging. By default, it logs to STDOUT. To change the log levels and add other loggers, read the https://github.com/relaton/relaton-logger#usage[relaton-logger] documentation.
 
 == Development
 

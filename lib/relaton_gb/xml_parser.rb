@@ -41,6 +41,10 @@ module RelatonGb
           topic: gbtype&.at("gbtopic")&.text,
         }
       end
+
+      def create_doctype(type)
+        DocumentType.new type: type.text, abbreviation: type[:abbreviation]
+      end
     end
   end
 end
