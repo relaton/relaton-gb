@@ -1,5 +1,5 @@
 <bibdata type="standard" schema-version="v1.2.9">
-  <fetched>2023-10-10</fetched>
+  <fetched>2024-08-03</fetched>
   <title type="title-main" format="text/plain" language="zh" script="Hans">棉短绒</title>
   <title type="main" format="text/plain" language="zh" script="Hans">棉短绒</title>
   <title type="title-main" format="text/plain" language="en" script="Latn">Cotton linter</title>
@@ -23,7 +23,7 @@
   </status>
   <ext schema-version="v1.0.0">
     <doctype>standard</doctype>
-    <gbcommittee type="technical">国家市场监督管理总局</gbcommittee>
+    <gbcommittee type="technical">市场监管总局</gbcommittee>
     <ics>
       <code>59.060.10</code>
       <text>Natural fibres</text>

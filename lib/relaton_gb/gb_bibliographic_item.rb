@@ -57,7 +57,7 @@ module RelatonGb
     # @return [String] XML
     def to_xml(**opts) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       super(**opts) do |b|
-        if opts[:bibdata] && has_ext_attrs?
+        if opts[:bibdata] && has_ext?
           ext = b.ext do
             doctype&.to_xml b
             b.horizontal horizontal unless horizontal.nil?
@@ -76,11 +76,15 @@ module RelatonGb
     # @return [Hash]
     def to_hash # rubocop:disable Metrics/AbcSize
       hash = super
-      hash["ccs"] = single_element_array(ccs) if ccs&.any?
-      hash["committee"] = committee.to_hash if committee
-      hash["plannumber"] = gbplannumber if gbplannumber
-      hash["gbtype"] = gbtype.to_hash
+      hash["ext"]["ccs"] = single_element_array(ccs) if ccs&.any?
+      hash["ext"]["committee"] = committee.to_hash if committee
+      hash["ext"]["plannumber"] = gbplannumber if gbplannumber
+      hash["ext"]["gbtype"] = gbtype.to_hash if gbtype
       hash
+    end
+
+    def has_ext?
+      super || ccs&.any? || committee || gbplannumber || gbtype
     end
 
     # @param prefix [String]
@@ -128,8 +132,8 @@ module RelatonGb
     #
     # @return [Boolean]
     #
-    def has_ext_attrs?
-      super || committee || docsubtype
-    end
+    # def has_ext_attrs?
+    #   super || committee || docsubtype
+    # end
   end
 end

@@ -30,12 +30,12 @@ RSpec.describe RelatonGb::GbBibliographicItem do
     it "returns Hash" do
       hash = YAML.load_file "spec/examples/gb_bib_item.yml"
       h = subject.to_hash
-      expect(h["committee"]).to eq hash["committee"]
-      expect(h["ics"][0]).to eq hash["ics"]
-      expect(h["structuredidentifier"]).to eq hash["structuredidentifier"]
-      expect(h["gbtype"]).to eq hash["gbtype"]
-      expect(h["ccs"][0]).to eq hash["ccs"]
-      expect(h["plannumber"]).to eq hash["plannumber"]
+      expect(h["ext"]["committee"]).to eq hash["ext"]["committee"]
+      expect(h["ext"]["ics"][0]).to eq hash["ext"]["ics"]
+      expect(h["ext"]["structuredidentifier"]).to eq hash["ext"]["structuredidentifier"]
+      expect(h["ext"]["gbtype"]).to eq hash["ext"]["gbtype"]
+      expect(h["ext"]["ccs"][0]).to eq hash["ext"]["ccs"]
+      expect(h["ext"]["plannumber"]).to eq hash["ext"]["plannumber"]
     end
 
     it "returns AciiBib" do
