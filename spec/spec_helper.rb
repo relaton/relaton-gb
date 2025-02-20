@@ -2,6 +2,9 @@ require "bundler/setup"
 require "rspec/matchers"
 require "equivalent-xml"
 require "simplecov"
+require "open-uri"
+require "net/http"
+require "jing"
 
 Dir["./spec/support/**/*.rb"].sort.each { |f| require f }
 
@@ -9,7 +12,7 @@ SimpleCov.start do
   add_filter "/spec/"
 end
 
-require "relaton_gb"
+require "relaton/gb"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
