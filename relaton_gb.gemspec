@@ -25,7 +25,7 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = Gem::Requirement.new(">= 2.7.0")
 
   spec.add_dependency "cnccs", "~> 0.1.1"
-  spec.add_dependency "connection_pool", "~> 2.4.0"
+  spec.add_dependency "connection_pool", "~> 2.4.0" # @TODO v2.5 has an issue with Windows
   spec.add_dependency "gb-agencies", "~> 0.0.1"
   spec.add_dependency "mechanize", "~> 2.10"
   spec.add_dependency "relaton-iso-bib", "~> 1.20.0"
