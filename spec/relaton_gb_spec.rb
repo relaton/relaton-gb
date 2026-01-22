@@ -1,14 +1,15 @@
 # encoding: UTF-8
 # frozen_string_literal: true
 
-require "open-uri"
-require "net/http"
 require "jing"
+require "relaton_gb/gb_scrapper"
+require "relaton_gb/t_scrapper"
 
 RSpec.describe RelatonGb do
   before do
     RelatonGb.instance_variable_set :@configuration, nil
     RelatonGb::GbScrapper.instance_variable_set :@agent, nil
+    RelatonGb::TScrapper.instance_variable_set :@agent, nil
   end
 
   it "has a version number" do

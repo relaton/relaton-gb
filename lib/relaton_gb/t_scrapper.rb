@@ -1,8 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
 
-require "open-uri"
-require "net/http"
 require "nokogiri"
 require "relaton_gb/scrapper"
 require "relaton_gb/gb_bibliographic_item"
@@ -19,22 +17,24 @@ module RelatonGb
       # @param text [String]
       # @return [RelatonGb::HitCollection]
       def scrape_page(text)
-        search_html = OpenURI.open_uri(
-          "http://www.ttbz.org.cn/Home/Standard?searchType=2&key=" \
-          "#{CGI.escape(text.tr('-', [8212].pack('U')))}",
-        ).read
-        header = Nokogiri::HTML search_html
+        url = "http://www.ttbz.org.cn/Home/Standard?searchType=2&key=" \
+              "#{CGI.escape(text.tr('-', [8212].pack('U')))}"
+        doc = agent.get(url)
         xpath = '//table[contains(@class, "standard_list_table")]/tr/td/a'
         t_xpath = "../preceding-sibling::td[4]"
-        hits = header.xpath(xpath).map do |h|
+        hits = doc.xpath(xpath).map do |h|
           docref = h.at(t_xpath).text.gsub(/â\u0080\u0094/, "-")
           status = h.at("../preceding-sibling::td[1]").text.delete "\r\n"
           pid = h[:href].sub(%r{/$}, "")
           Hit.new pid: pid, docref: docref, status: status, scrapper: self
         end
         HitCollection.new hits
-      rescue OpenURI::HTTPError, SocketError, OpenSSL::SSL::SSLError, Net::OpenTimeout
-        raise RelatonBib::RequestError, "Cannot access http://www.ttbz.org.cn/Home/Standard"
+      rescue Mechanize::ResponseCodeError => e
+        return nil if e.response_code == "404"
+
+        raise RelatonBib::RequestError, "Cannot access #{url}: #{e.message}"
+      rescue Mechanize::Error => e
+        raise RelatonBib::RequestError, "Cannot access #{url}: #{e.message}"
       end
       # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
@@ -42,10 +42,14 @@ module RelatonGb
       # @return [RelatonGb::GbBibliographicItem]
       def scrape_doc(hit)
         src = "http://www.ttbz.org.cn#{hit.pid}"
-        doc = Nokogiri::HTML OpenURI.open_uri(src), nil, Encoding::UTF_8.to_s
+        doc = agent.get(src)
         GbBibliographicItem.new(**scrapped_data(doc, src, hit))
-      rescue OpenURI::HTTPError, SocketError, OpenSSL::SSL::SSLError, Net::OpenTimeout
-        raise RelatonBib::RequestError, "Cannot access #{src}"
+      rescue Mechanize::Error => e
+        raise RelatonBib::RequestError, "Cannot access #{src}: #{e.message}"
+      end
+
+      def agent
+        @agent ||= Mechanize.new
       end
 
       private
