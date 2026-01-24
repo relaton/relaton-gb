@@ -1,7 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
 
-require "open-uri"
 require "nokogiri"
 require "relaton_gb/scrapper"
 require "relaton_gb/gb_bibliographic_item"
