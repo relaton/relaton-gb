@@ -12,9 +12,6 @@
         <ref name="docsubtype"/>
       </optional>
       <zeroOrMore>
-        <ref name="gbcommittee"/>
-      </zeroOrMore>
-      <zeroOrMore>
         <ref name="ics"/>
       </zeroOrMore>
       <ref name="structuredidentifier"/>
@@ -58,14 +55,6 @@
         </choice>
       </element>
     </define>
-    <define name="organization">
-      <element name="organization">
-        <choice>
-          <ref name="OrganizationType"/>
-          <ref name="IsoOrganizationType"/>
-        </choice>
-      </element>
-    </define>
     <define name="DocumentType">
       <choice>
         <value>standard</value>
@@ -93,42 +82,10 @@
         </group>
       </element>
     </define>
-    <define name="editorialgroup">
-      <element name="editorialgroup">
-        <ref name="ISOProjectGroup"/>
-      </element>
-    </define>
   </include>
   <define name="updates_document_type">
     <element name="updates-document-type">
       <ref name="DocumentType"/>
-    </element>
-  </define>
-  <define name="ISOProjectGroup">
-    <zeroOrMore>
-      <ref name="agency"/>
-    </zeroOrMore>
-    <oneOrMore>
-      <ref name="technical-committee"/>
-    </oneOrMore>
-    <zeroOrMore>
-      <ref name="subcommittee"/>
-    </zeroOrMore>
-    <zeroOrMore>
-      <ref name="workgroup"/>
-    </zeroOrMore>
-    <optional>
-      <ref name="secretariat"/>
-    </optional>
-  </define>
-  <define name="approvalgroup">
-    <element name="approvalgroup">
-      <ref name="ISOProjectGroup"/>
-    </element>
-  </define>
-  <define name="agency">
-    <element name="agency">
-      <text/>
     </element>
   </define>
   <define name="horizontal">
@@ -171,21 +128,6 @@
       <data type="int"/>
     </element>
   </define>
-  <define name="subcommittee">
-    <element name="subcommittee">
-      <ref name="IsoWorkgroup"/>
-    </element>
-  </define>
-  <define name="workgroup">
-    <element name="workgroup">
-      <ref name="IsoWorkgroup"/>
-    </element>
-  </define>
-  <define name="secretariat">
-    <element name="secretariat">
-      <text/>
-    </element>
-  </define>
   <define name="stagename">
     <element name="stagename">
       <optional>
@@ -208,18 +150,6 @@
   </define>
   <define name="gbplannumber">
     <element name="plannumber">
-      <text/>
-    </element>
-  </define>
-  <define name="gbcommittee">
-    <element name="gbcommittee">
-      <attribute name="type">
-        <choice>
-          <value>technical</value>
-          <value>provisional</value>
-          <value>drafting</value>
-        </choice>
-      </attribute>
       <text/>
     </element>
   </define>
@@ -270,19 +200,5 @@
         <value>other</value>
       </choice>
     </element>
-  </define>
-  <define name="IsoOrganizationType">
-    <optional>
-      <ref name="technical-committee"/>
-    </optional>
-    <optional>
-      <ref name="subcommittee"/>
-    </optional>
-    <optional>
-      <ref name="workgroup"/>
-    </optional>
-    <optional>
-      <ref name="secretariat"/>
-    </optional>
   </define>
 </grammar>

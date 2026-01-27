@@ -1,4 +1,4 @@
-<bibdata>
+<bibdata schema-version="v1.4.1">
   <fetched>2022-06-22</fetched>
   <title language="zh" script="Hans" type="title-main">叉车属具 软包夹</title>
   <title language="zh" script="Hans" type="main">叉车属具 软包夹</title>
@@ -23,10 +23,9 @@
   <status>
     <stage>activated</stage>
   </status>
-  <ext schema-version="1.0.1">
+  <ext schema-version="v1.0.0">
     <doctype abbreviation="JB">standard</doctype>
     <subdoctype>specification</subdoctype>
-    <gbcommittee type="technical">国家发改委</gbcommittee>
     <ics>
       <code>53.060</code>
       <text>Industrial trucks</text>
@@ -44,7 +43,7 @@
     </gbtype>
     <ccs>
       <code>J83</code>
-      <text>机械工程</text>
+      <text>仓储设备、装卸机械</text>
     </ccs>
     <plannumber>JB/T 13368</plannumber>
   </ext>

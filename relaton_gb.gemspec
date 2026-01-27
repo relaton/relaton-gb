@@ -27,6 +27,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "cnccs", "~> 0.1.1"
   spec.add_dependency "gb-agencies", "~> 0.0.1"
   spec.add_dependency "mechanize", "~> 2.10"
+  spec.add_dependency "relaton-core", "~> 0.0.7"
   spec.add_dependency "relaton-iso", "~> 2.0.0-alpha.1"
   spec.add_dependency "csv", "~> 3.0"
 end

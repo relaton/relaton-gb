@@ -1,3 +1,5 @@
+schema_version: "v1.4.1"
+
 id: JBT13368
 
 fetched: '2022-06-22'
@@ -56,17 +58,13 @@ source:
   content: http://www.std.gov.cn/hb/search/stdHBDetailed?id=6BC3AD94A1728ABCE05397BE0A0A5667
 
 ext:
-  schema_version: "1.0.1"
+  schema_version: "v1.0.0"
 
   doctype:
     abbreviation: JB
     content: standard
 
   subdoctype: specification
-
-  gbcommittee:
-    type: technical
-    content: 国家发改委
 
   ics:
     code: "53.060"
@@ -80,21 +78,20 @@ ext:
       amendment: 3
       corrigendum: 4
       origyr: "2009"
-      content: JB/T 13368
-    tc_document_number: 13368
+      content: JB/T 13368.1.2-2009
 
   stagename:
     abbreviation: ST
     content: standard
 
   gbtype:
-    gbscope: sector
-    gbprefix: JB_mechanical
-    gbmandate: recommended
-    gbtopic: other
+    scope: sector
+    prefix: JB_mechanical
+    mandate: recommended
+    topic: other
 
   ccs:
     code: J83
-    text: 机械工程
+    text: 仓储设备、装卸机械
 
   plannumber: JB/T 13368

@@ -1,0 +1,200 @@
+# GbStandardNationalPrefix
+GB:
+  prefix: GB_national
+GBn:
+  prefix: GBn_confidential
+GJB:
+  prefix: GJB_military
+GSB:
+  prefix: GSB_physical
+
+# GbStandardSectorPrefix
+NY:
+  prefix: NY_agriculture
+  administration: 农业部
+SC:
+  prefix: SC_aquatic
+  administration: 农业部
+SL:
+  prefix: SL_water_resources
+  administration: 水利部
+QB:
+  prefix: QB_light_industry
+  administration: 国家发改委
+FZ:
+  prefix: FZ_textile
+  administration: 国家发改委
+YY:
+  prefix: YY_medicine
+  administration: 国家食品药品监督管理局
+MZ:
+  prefix: MZ_civil_affairs
+  administration: 民政部
+JY:
+  prefix: JY_education
+  administration: 教育部
+YC:
+  prefix: YC_tobacco
+  administration: 国家烟草专卖局
+YB:
+  prefix: YB_ferrous_metallurgy
+  administration: 国家发改委
+YS:
+  prefix: YS_nonferrous_metallurgy
+  administration: 国家发改委
+SY:
+  prefix: SY_natural_gas
+  administration: 国家发改委
+HG:
+  prefix: HG_chemical_industry
+  administration: 国家发改委
+SH:
+  prefix: SH_petrochemical
+  administration: 国家发改委
+JC:
+  prefix: JC_building_materials
+  administration: 国家发改委
+DZ:
+  prefix: DZ_geological
+  administration: 国土资源部
+TD:
+  prefix: TD_land_management
+  administration: 国土资源部
+CH:
+  prefix: CH_surveying
+  administration: 国家测绘局
+JB:
+  prefix: JB_mechanical
+  administration: 国家发改委
+QC:
+  prefix: QC_automotile
+  administration: 国家发改委
+MH:
+  prefix: MH_civil_aviation
+  administration: 中国民航管理总局
+WJ:
+  prefix: WJ_ordnance
+  administration: 国防科学工业委员会
+CB:
+  prefix: CB_ships
+  administration: 国防科学工业委员会
+HB:
+  prefix: HB_aviation
+  administration: 国防科学工业委员会
+QJ:
+  prefix: QJ_aerospace
+  administration: 国防科学工业委员会
+EJ:
+  prefix: EJ_nuclear_industry
+  administration: 国防科学工业委员会
+TB:
+  prefix: TB_rail_transport
+  administration: 铁道部
+JT:
+  prefix: JT_traffic
+  administration: 交通部
+LD:
+  prefix: LD_work_safety
+  administration: 劳动和社会保障部
+SJ:
+  prefix: SJ_electronics
+  administration: 信息产业部
+YD:
+  prefix: YD_communication
+  administration: 信息产业部
+GY:
+  prefix: GY_media
+  administration: 国家广播电视总局
+DY:
+  prefix: DY_film
+  administration: 国家电影局
+DL:
+  prefix: DL_electricity
+  administration: 国家发改委
+JR:
+  prefix: JR_financial
+  administration: 中国人民银行
+HY:
+  prefix: HY_oceanic
+  administration: 国家海洋局
+DA:
+  prefix: DA_archiving
+  administration: 国家档案局
+SN:
+  prefix: SN_inspection
+  administration: 国家质量监督检验检疫总局
+WH:
+  prefix: WH_culture
+  administration: 文化部
+TY:
+  prefix: TY_sports
+  administration: 国家体育总局
+SB:
+  prefix: SB_business
+  administration: 商务部
+WB:
+  prefix: WB_materials_management
+  administration: 国家发改委
+HJ:
+  prefix: HJ_environment_protection
+  administration: 国家环境保护总局
+XB:
+  prefix: XB_rare_earth
+  administration: 国家发改委稀土办公室
+CJ:
+  prefix: CJ_town_construction
+  administration: 建设部
+JG:
+  prefix: JG_construction_industry
+  administration: 建设部
+CY:
+  prefix: CY_news_publishing
+  administration: 国家新闻出版总署
+MT:
+  prefix: MT_coal
+  administration: 国家发改委
+WS:
+  prefix: WS_health
+  administration: 卫生部
+GA:
+  prefix: GA_public_safety
+  administration: 公安部
+BB:
+  prefix: BB_packaging
+  administration: 国家发改委
+DB:
+  prefix: DB_seismology
+  administration: 中国地震局
+LB:
+  prefix: LB_tourism
+  administration: 国家旅游局
+QX:
+  prefix: QX_meteorological
+  administration: 中国气象局
+WM:
+  prefix: WM_foreign_trade
+  administration: 外经贸部科技司
+HS:
+  prefix: HS_customs
+  administration: 海关总署
+YZ:
+  prefix: YZ_postal
+  administration: 国家邮政局
+GM:
+  prefix: GM_cryptography
+  administration: 国家密码管理局
+AQ:
+  prefix: AQ_production_safety
+  administration: 国家安全生产管理局
+GH:
+  prefix: GH_supply_marketing
+  administration: 中华全国供销合作总社
+LS:
+  prefix: LS_food
+  administration: 国家粮食局
+TJ:
+  prefix: TJ_railway_traffic
+  administration: 铁道部标准所
+ZY:
+  prefix: ZY_chinese_medicine
+  administration: 国家中医药管理局

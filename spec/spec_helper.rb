@@ -2,7 +2,6 @@ require "bundler/setup"
 require "rspec/matchers"
 require "equivalent-xml"
 require "simplecov"
-require "open-uri"
 require "net/http"
 require "jing"
 

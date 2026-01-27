@@ -1,14 +1,15 @@
 require "digest/md5"
 require "mechanize"
+require "relaton/core"
 require "relaton/iso"
 require "cnccs"
 require_relative "gb/version"
 require_relative "gb/util"
+require_relative "gb/item_data"
 require_relative "gb/item"
 require_relative "gb/bibitem"
 require_relative "gb/bibdata"
-# require "relaton_gb/document_type"
-# require "relaton_gb/gb_bibliography"
+require_relative "gb/bibliography"
 
 # if defined? Relaton
 #   require "relaton_gb/processor"

@@ -1,19 +1,19 @@
 module Relaton
   module Gb
     class GbType < Lutaml::Model::Serializable
-      attribute :gbscope, :string, values: %w[national sector professional local enterprise social-group]
-      attribute :gbprefix, :string
-      attribute :gbmandate, :string, values: %w[mandatory recommended guidelines]
-      attribute :gbtopic, :string, values: %w[
+      attribute :scope, :string, values: %w[national sector professional local enterprise social-group]
+      attribute :prefix, :string
+      attribute :mandate, :string, values: %w[mandatory recommended guidelines]
+      attribute :topic, :string, values: %w[
         basic health-and-safety environment-protection engineering-and-construction
         product method management-techniques other
       ]
 
       xml do
-        map_element "gbscope", to: :gbscope
-        map_element "gbprefix", to: :gbprefix
-        map_element "gbmandate", to: :gbmandate
-        map_element "gbtopic", to: :gbtopic
+        map_element "gbscope", to: :scope
+        map_element "gbprefix", to: :prefix
+        map_element "gbmandate", to: :mandate
+        map_element "gbtopic", to: :topic
       end
     end
   end

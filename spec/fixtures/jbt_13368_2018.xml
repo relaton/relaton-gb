@@ -1,8 +1,8 @@
-<bibdata type="standard">
+<bibdata type="standard" schema-version="v1.4.1">
   <fetched>2022-02-02</fetched>
-  <title type="title-main" format="text/plain" language="zh" script="Hans">叉车属具 软包夹</title>
-  <title type="main" format="text/plain" language="zh" script="Hans">叉车属具 软包夹</title>
-  <uri type="src">http://hbba.sacinfo.org.cn/stdDetail/733d6a7744529f70673a12c464998ffc</uri>
+  <title type="title-main" language="zh" script="Hans">叉车属具 软包夹</title>
+  <title type="main" language="zh" script="Hans">叉车属具 软包夹</title>
+  <uri type="src">https://hbba.sacinfo.org.cn/stdDetail/733d6a7744529f70673a12c464998ffc</uri>
   <docidentifier type="Chinese Standard" primary="true">JB/T 13368-2018</docidentifier>
   <date type="published">
     <on>2018-02-09</on>
@@ -19,15 +19,13 @@
   <status>
     <stage>activated</stage>
   </status>
-  <ext>
+  <ext schema-version="v1.0.0">
     <doctype>standard</doctype>
-    <gbcommittee type="technical">国家发改委</gbcommittee>
     <ics>
-      <code>53.060</code>
-      <text>Industrial trucks</text>
+      <code>53.06</code>
     </ics>
     <structuredidentifier type="Chinese Standard">
-      <project-number>JB/T 13368</project-number>
+      <project-number origyr="2018">JB/T 13368-2018</project-number>
     </structuredidentifier>
     <gbtype>
       <gbscope>sector</gbscope>
