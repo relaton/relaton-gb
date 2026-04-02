@@ -1,4 +1,4 @@
-schema_version: "v1.4.1"
+schema_version: "v1.5.6"
 
 id: JBT13368
 
@@ -58,7 +58,7 @@ source:
   content: http://www.std.gov.cn/hb/search/stdHBDetailed?id=6BC3AD94A1728ABCE05397BE0A0A5667
 
 ext:
-  schema_version: "v1.0.0"
+  schema_version: "v1.1.2"
 
   doctype:
     abbreviation: JB

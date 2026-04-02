@@ -1,31 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <grammar xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
   <include href="biblio-standoc.rng">
-    <define name="BibDataExtensionType">
-      <optional>
-        <attribute name="schema-version"/>
-      </optional>
-      <optional>
-        <ref name="doctype"/>
-      </optional>
-      <optional>
-        <ref name="docsubtype"/>
-      </optional>
-      <zeroOrMore>
-        <ref name="ics"/>
-      </zeroOrMore>
-      <ref name="structuredidentifier"/>
-      <optional>
-        <ref name="stagename"/>
-      </optional>
-      <ref name="gbtype"/>
-      <oneOrMore>
-        <ref name="gbccs"/>
-      </oneOrMore>
-      <optional>
-        <ref name="gbplannumber"/>
-      </optional>
-    </define>
     <define name="bdate">
       <element name="date">
         <attribute name="type">
@@ -83,6 +58,18 @@
       </element>
     </define>
   </include>
+  <define name="BibDataExtensionType" combine="interleave">
+    <optional>
+      <ref name="stagename"/>
+    </optional>
+    <ref name="gbtype"/>
+    <oneOrMore>
+      <ref name="gbccs"/>
+    </oneOrMore>
+    <optional>
+      <ref name="gbplannumber"/>
+    </optional>
+  </define>
   <define name="updates_document_type">
     <element name="updates-document-type">
       <ref name="DocumentType"/>

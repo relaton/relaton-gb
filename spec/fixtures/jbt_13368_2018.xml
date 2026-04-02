@@ -1,4 +1,4 @@
-<bibdata type="standard" schema-version="v1.4.1">
+<bibdata type="standard" schema-version="v1.5.6">
   <fetched>2022-02-02</fetched>
   <title type="title-main" language="zh" script="Hans">叉车属具 软包夹</title>
   <title type="main" language="zh" script="Hans">叉车属具 软包夹</title>
@@ -19,8 +19,9 @@
   <status>
     <stage>activated</stage>
   </status>
-  <ext schema-version="v1.0.0">
+  <ext schema-version="v1.1.2">
     <doctype>standard</doctype>
+    <flavor>gb</flavor>
     <ics>
       <code>53.06</code>
     </ics>

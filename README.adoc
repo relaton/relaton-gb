@@ -128,7 +128,7 @@ Relaton::Gb::Item.from_yaml File.read('spec/fixtures/item.yaml')
 [source,ruby]
 ----
 hit_collection.first.item.to_xml
-=> "<bibitem id="GBT202232006" type="standard" schema-version="v1.4.1">
+=> "<bibitem id="GBT202232006" type="standard" schema-version="v1.5.6">
       <fetched>2026-01-26</fetched>
       <title language="zh" script="Hans" type="title-main">棉短绒</title>
       <title language="zh" script="Hans" type="main">棉短绒</title>
@@ -145,7 +145,7 @@ With `bibdata: true` option XML output is wrapped with `bibdata` element and `ex
 [source,ruby]
 ----
 hit_collection.first.item.to_xml bibdata: true
-=> "<bibdata type="standard" schema-version="v1.4.1">
+=> "<bibdata type="standard" schema-version="v1.5.6">
       <fetched>2026-01-26</fetched>
       <title language="zh" script="Hans" type="title-main">棉短绒</title>
       <title language="zh" script="Hans" type="main">棉短绒</title>
@@ -154,7 +154,7 @@ hit_collection.first.item.to_xml bibdata: true
       <uri type="src">http://openstd.samr.gov.cn/bzgk/gb/newGbInfo?hcno=083B48FA72DBD3B9BDE74507BC31736A</uri>
       <docidentifier type="Chinese Standard" primary="true">GB/T 20223-2006</docidentifier>
       ...
-      <ext schema-version="v1.0.0">
+      <ext schema-version="v1.1.2">
         <doctype>standard</doctype>
         ...
       </ext>

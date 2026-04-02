@@ -1,4 +1,4 @@
-<bibdata type="standard" schema-version="v1.4.1">
+<bibdata type="standard" schema-version="v1.5.6">
   <fetched>2024-08-03</fetched>
   <title type="title-main" language="zh" script="Hans">棉短绒</title>
   <title type="main" language="zh" script="Hans">棉短绒</title>
@@ -21,8 +21,9 @@
   <status>
     <stage>obsoleted</stage>
   </status>
-  <ext schema-version="v1.0.0">
+  <ext schema-version="v1.1.2">
     <doctype>standard</doctype>
+    <flavor>gb</flavor>
     <ics>
       <code>59.060.10</code>
       <text>Natural fibres</text>

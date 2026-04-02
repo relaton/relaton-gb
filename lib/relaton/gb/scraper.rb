@@ -162,6 +162,7 @@ module Relaton
         Ext.new(
           doctype: get_type,
           gbtype: get_gbtype(doc, docref),
+          flavor: "gb",
           # gbcommittee: get_committee(doc, docref),
           ccs: get_ccs(doc),
           ics: get_ics(doc),
