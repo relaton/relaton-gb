@@ -28,7 +28,8 @@ module RelatonGb
     # @param hash [Hash]
     # @return [RelatonGb::GbBibliographicItem]
     def hash_to_bib(hash)
-      ::RelatonGb::GbBibliographicItem.new hash
+      item_hash = HashConverter.hash_to_bib hash
+      ::RelatonGb::GbBibliographicItem.new(**item_hash)
     end
 
     # Returns hash of XML grammar

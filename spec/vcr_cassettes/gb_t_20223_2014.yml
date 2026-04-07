@@ -29,7 +29,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Thu, 22 Jan 2026 19:13:52 GMT
+      - Tue, 07 Apr 2026 18:19:32 GMT
       Content-Type:
       - text/html;charset=UTF-8
       Transfer-Encoding:
@@ -39,7 +39,7 @@ http_interactions:
       Vary:
       - Accept-Encoding
       Set-Cookie:
-      - JSESSIONID=5B2A20A1E993F91EF4CFA509E0382327; Path=/bzgk; HttpOnly
+      - JSESSIONID=A96E74D67CA888CB3B8B96FFB2E4793B; Path=/bzgk; HttpOnly
       Content-Language:
       - en-US
       Content-Encoding:
@@ -322,5 +322,5 @@ http_interactions:
         Kc089LK+PYACGQ2e2eXM7GXlZsMU1+Ll3WKn29/OiNiYEpSQOgQY6ai+2J9/
         dA+iditLe8UrYO2xctkfMxh7bnbW8TZz8t883YKE23TYLU9H5oTFa1M4N2y4
         4817ktligJgClEoE+bhNdJOw0fIw3WBvqDUItVYfOiG5DG39XyWwxau9lwAA
-  recorded_at: Thu, 22 Jan 2026 19:13:52 GMT
+  recorded_at: Tue, 07 Apr 2026 18:19:32 GMT
 recorded_with: VCR 6.4.0
