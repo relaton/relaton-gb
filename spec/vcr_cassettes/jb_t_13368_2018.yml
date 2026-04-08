@@ -25,7 +25,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Wed, 01 Apr 2026 17:31:05 GMT
+      - Wed, 08 Apr 2026 19:42:38 GMT
       Content-Type:
       - text/json;charset=UTF-8
       Content-Length:
@@ -44,7 +44,7 @@ http_interactions:
         NDk5OGZmYyIsInJlY29yZERhdGUiOjE1MTk1NzQ0MDAwMDAsInJlY29yZE5v
         IjoiNjE3MTUtMjAxOCIsInN0YXR1cyI6IueOsOihjCJ9XSwic2VhcmNoQ291
         bnQiOnRydWUsInNpemUiOjEwLCJ0b3RhbCI6MX0=
-  recorded_at: Wed, 01 Apr 2026 17:31:06 GMT
+  recorded_at: Wed, 08 Apr 2026 19:42:38 GMT
 - request:
     method: get
     uri: https://hbba.sacinfo.org.cn/stdDetail/733d6a7744529f70673a12c464998ffc
@@ -68,7 +68,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Wed, 01 Apr 2026 17:31:06 GMT
+      - Wed, 08 Apr 2026 19:42:39 GMT
       Content-Type:
       - text/html;charset=UTF-8
       Transfer-Encoding:
@@ -505,5 +505,5 @@ http_interactions:
         ICdodHRwczovL2hiYmEuc2FjaW5mby5vcmcuY24vc2lmL3BvcnRhbC9oZFJl
         dmlldz9zdGRUeXBlPUhCJmlkPScrY29kZQ0KCQl9KQ0KCX0NCjwvc2NyaXB0
         Pg==
-  recorded_at: Wed, 01 Apr 2026 17:31:07 GMT
+  recorded_at: Wed, 08 Apr 2026 19:42:39 GMT
 recorded_with: VCR 6.4.0
