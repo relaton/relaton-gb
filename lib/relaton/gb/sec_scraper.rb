@@ -56,15 +56,8 @@ module Relaton
         # @param doc [Nokogiri::HTML::Document]
         # @return [Array<Relaton::Bib::Title>]
         def get_titles(doc)
-          # titles = [{ title_main: doc.at("//h4").text.delete("\r\n\t"),
-          #             title_intro: nil, language: "zh", script: "Hans" }]
           tzh = doc.at("//h4").text.delete("\r\n\t")
-          [Bib::Title.from_string(tzh, "zh", "Hans")]
-          # title_main = doc.at("//td[contains(text(), '英文标准名称')]").text.match(/[\w\s]+/).to_s
-          # unless title_main.empty?
-          #   titles << { title_main: title_main, title_intro: nil, language: "en", script: "Latn" }
-          # end
-          # titles
+          Bib::Title.from_string(tzh, "zh", "Hans")
         end
 
         # @param _doc [Nokogiri::HTML::Document]

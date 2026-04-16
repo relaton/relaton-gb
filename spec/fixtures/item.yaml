@@ -23,7 +23,7 @@ title:
     type: main
 
 docidentifier:
-  content: T13368
+- content: T13368
   type: JB
   primary: true
 
@@ -42,11 +42,11 @@ status:
     content: activated
 
 date:
-  type: published
+- type: published
   at: "2009-01-01"
 
 contributor:
-  organization:
+- organization:
     name:
       - content: State Economic and Trade Commission
         language: en
@@ -54,7 +54,7 @@ contributor:
   - type: publisher
 
 source:
-  type: "src"
+- type: "src"
   content: http://www.std.gov.cn/hb/search/stdHBDetailed?id=6BC3AD94A1728ABCE05397BE0A0A5667
 
 ext:
@@ -67,7 +67,7 @@ ext:
   subdoctype: specification
 
   ics:
-    code: "53.060"
+  - code: "53.060"
     text: Industrial trucks
 
   structuredidentifier:
@@ -91,7 +91,7 @@ ext:
     topic: other
 
   ccs:
-    code: J83
+  - code: J83
     text: 仓储设备、装卸机械
 
   plannumber: JB/T 13368
