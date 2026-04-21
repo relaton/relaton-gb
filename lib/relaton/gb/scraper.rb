@@ -96,7 +96,7 @@ module Relaton
       # @return [Array<String>]
       def get_ccs(doc)
         code = doc.at("//div[contains(text(), '中国标准分类号')]/following-sibling::div").text.delete("\r\n\t\t")
-        [CCS.new(code: code)]
+        [CCS.new(code: code.strip)]
       end
 
       # @param doc [Nokogiri::HTML::Document]
@@ -107,7 +107,7 @@ module Relaton
         return [] unless ics
 
         code = ics.text.delete("\r\n\t\t")
-        [Bib::ICS.new(code: code)]
+        [Bib::ICS.new(code: code.strip)]
       end
 
       # @param doc [Nokogiri::HTML::Document]
