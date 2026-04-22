@@ -22,7 +22,7 @@ module RelatonGb
         ).map do |h|
           ref = h.at "./td[2]/a"
           pid = ref[:onclick].match(/[0-9A-F]+/).to_s
-          rdate = h.at("./td[7]").text
+          rdate = h.at("./td[8]").text
           Hit.new pid: pid, docref: ref.text, scrapper: self, release_date: rdate
         end
         HitCollection.new hits.sort_by(&:release_date).reverse
@@ -51,7 +51,7 @@ module RelatonGb
       #   * :name [String]
       def get_committee(doc, _ref)
         name = doc.at("//div[contains(., '归口单位') or contains(., '归口部门')]/following-sibling::div")
-        { type: "technical", name: name.text.delete("\r\n\t\t") }
+        { type: "technical", name: name.text.strip }
       end
     end
   end

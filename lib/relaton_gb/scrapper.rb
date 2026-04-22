@@ -123,7 +123,7 @@ module RelatonGb
     # @return [Array<String>]
     def get_ccs(doc)
       [doc.at("//div[contains(text(), '中国标准分类号')]/following-sibling::div").
-        text.delete("\r\n\t\t")]
+        text.strip]
     end
 
     # @param doc [Nokogiri::HTML::Document]
@@ -136,7 +136,7 @@ module RelatonGb
                    " | //dt[contains(text(), '国际标准分类号')]/following-sibling::dd")
       return [] unless ics
 
-      field, group, subgroup = ics.text.delete("\r\n\t\t").split "."
+      field, group, subgroup = ics.text.strip.split "."
       [{ field: field, group: group.ljust(3, "0"), subgroup: subgroup }]
     end
 
@@ -181,7 +181,7 @@ module RelatonGb
     def get_dates(doc)
       date = doc.at("//div[contains(text(), '发布日期')]/following-sibling::div"\
                     " | //dt[contains(text(), '发布日期')]/following-sibling::dd")
-      [{ type: "published", on: date.text.delete("\r\n\t\t") }]
+      [{ type: "published", on: date.text.strip }]
     end
   end
 end
